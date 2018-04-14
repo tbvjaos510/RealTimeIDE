@@ -4,7 +4,6 @@ var app = express();
 app.get('/',function(req,res){
     res.send('Hello');
 });
-
 app.get('/dgsw',function(req,res){
     res.send('서상희 병신');
 });
@@ -14,7 +13,7 @@ app.get('/ang',function(req,res){
     <head>
     <script>alert('1');</script>
     </head>
-    </html>`)
+    </html>`);
 });
 
 app.listen('3000',function(){
