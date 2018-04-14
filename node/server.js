@@ -9,6 +9,10 @@ app.get('/dgsw',function(req,res){
     res.send('서상희 병신');
 });
 
+app.get('/sang',function(){
+    res.send('남형진 병신');
+});
+
 app.get('/ang',function(req,res){
     res.send(`<html>
     <head>
