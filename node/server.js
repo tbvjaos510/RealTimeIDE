@@ -10,7 +10,7 @@ app.get('/dgsw',function(req,res){
 });
 
 app.get('/sang',function(req, res){
-    res.send('남형진 병신');
+    res.send('남형진 병신 남형진 바보');
 });
 
 app.get('/ang',function(req,res){
