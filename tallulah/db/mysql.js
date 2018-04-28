@@ -19,5 +19,20 @@ Ta_mysql.test = function(callback){
     });
 
 };
+Ta_mysql.login = function(id, pw, callback){
+    connection.query("select password, name, user_ident from t_users where email_id = ?",[id], function(err, results){
+        if (err) callback({success : false, message : "알 수 없는 오류"});
+
+        if (results[0] == undefined){
+            callback({success : false, message : "아이디가 틀렸습니다."});
+        }
+        if (results[0].password === pw){
+            callback({success : true, message : "로그인 성공", name:results[0].name, ident:results[0].ident});
+        }
+        else{
+            callback({success : false, message : "비밀번호가 틀렸습니다."});
+        }
+    });
+};
 
 module.exports = Ta_mysql;
