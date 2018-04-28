@@ -134,11 +134,9 @@
         $(".pop").show();
       })
     });
-    function doLogin(){ 
+    function doLogin(){
       $.ajax({
-        url:"login/auth",
-        data:{id: $("[name='id']").val() , password:$("[name=password']").val() },
-        method:"POST",
+        url:"test.html",
         success:function(res){
           console.log(res);
         }
