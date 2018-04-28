@@ -28,7 +28,7 @@ router.post('/sign',function(req,res){
       res.send(results);
     })
   } else {
-    res.send({success : false, message:"피라미터가 입력되지 않았습니다."})
+    res.send({success : false, message:"피라미터가 입력되지 않았습니다."});
   }
 });
 
