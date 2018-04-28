@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tbvjaos510/DGSW-tallulah#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mysql": "^2.15.0"
   }
 }
