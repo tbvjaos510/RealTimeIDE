@@ -12,16 +12,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/auth',function(req,res){
+    console.log(req.body);
   if (req.body.id != undefined && req.body.password != undefined){
     mysql.login(req.body.id, req.body.password, function(results){
-      if(results){
         res.send(results);
-      }else {
-        res.send(results);
-      }
-    })    
+    });
   }else {
-    res.send(results);
+    res.send({success : false, message:"피라미터가 입력되지 않았습니다."});
   }
 });
 module.exports = router;
