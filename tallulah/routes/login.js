@@ -17,8 +17,19 @@ router.post('/auth',function(req,res){
     mysql.login(req.body.id, req.body.password, function(results){
         res.send(results);
     });
-  }else {
+  } else {
     res.send({success : false, message:"피라미터가 입력되지 않았습니다."});
   }
 });
+
+router.post('/sign',function(req,res){
+  if(req.body.id != undefined && req.body.password != undefined && req.body.name != undefined){
+    mysql.signup(req.body.id, req.body.password, req.body.name, function(results){
+      res.send(results);
+    })
+  } else {
+    res.send({success : false, message:"피라미터가 입력되지 않았습니다."})
+  }
+});
+
 module.exports = router;
