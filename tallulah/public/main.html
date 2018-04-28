@@ -5,7 +5,7 @@
   <title>main</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="jquery/jquery.js"></script>
+  <script src="js/jquery/jquery.js"></script>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <style type="text/css">
     html,
@@ -137,7 +137,7 @@
     function doLogin(){ 
       $.ajax({
         url:"login/auth",
-        data:{id: $("[name='id']").val() , password:$("[name=password']").val() },
+        data:{id: $("[name='id']").val() , password:$("[name='password']").val() },
         method:"POST",
         success:function(res){
           console.log(res);
@@ -186,9 +186,9 @@
   <section class="section">
     <div class="pop" style="display:none;">
       <center style="margin-top: 30px;"><b>Username</b></center>
-      <center style="margin-top:10px"><input type="text" id="text" name="id"></center>
+      <center style="margin-top:10px"><input type="text" name="id"></center>
       <center style="margin-top: 50px;"><b>Password</b></center>
-      <center style="margin-top:10px"><input type="password" id="text" name="password"></center>
+      <center style="margin-top:10px"><input type="password" name="password"></center>
       <center style="margin-top:30px;"><input type="submit" value="Sign In" class="button" onclick="doLogin()"></center>
     </div>
   </section>
