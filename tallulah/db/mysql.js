@@ -11,7 +11,7 @@ Ta_mysql.connect = function(){
     connection.connect();
 };
 Ta_mysql.test = function(callback){
-
+   
     connection.query("select * from city", function(err, results){
         if (err) throw err;
         
