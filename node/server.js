@@ -20,6 +20,10 @@ app.get('/ang',function(req,res){
     </html>`);
 });
 
+app.post('/login',function(req,res){
+
+});
+
 app.listen('3000',function(){
     console.log('Connected 3000 port!');
 });
