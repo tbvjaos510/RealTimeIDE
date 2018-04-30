@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('../db/mysql');
+var mysql = require('../db/auth');
 
 mysql.connect();
 
