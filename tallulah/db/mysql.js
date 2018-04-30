@@ -1,7 +1,4 @@
 var mysql = require('mysql');
-/**
-  @type {TallulahDB}
- */
 var Ta_mysql = {};
 
 var connection = mysql.createConnection({
