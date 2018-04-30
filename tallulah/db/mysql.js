@@ -1,5 +1,11 @@
 var mysql = require('mysql');
+
+
+/**
+  @type {TallulahDB}
+ */
 var Ta_mysql = {};
+
 var connection = mysql.createConnection({
     host : '114.108.167.90',
     port : '3306',
@@ -7,6 +13,9 @@ var connection = mysql.createConnection({
     password : 'dnrhddltks',
     database : 'dgsw_sms',
 });
+/**
+ * @description mysql서버에 연결합니다.
+ */
 Ta_mysql.connect = function(){
     connection.connect();
 };
@@ -71,10 +80,13 @@ Ta_mysql.login = function(id, pw, callback){
  * @description mysql User table에 유저 정보를 추가합니다.
  */
 Ta_mysql.signup = function(id, pw, name, callback){
-    Ta.mysql.login(id, pw, function(results){
+    Ta_mysql.login(id, pw, function(results){
         if (results.status == 2){
-            connection.query("insert into t_users (email_id, password, name) values ('?', '?', '?')", [id, pw, name], function(err, results){
-                if (err) callback({status : 2, success : false, message : "알 수 없는 오류"});
+            connection.query("insert into t_users (email_id, password, name) values (?, ?, ?)", [id, pw, name], function(err, results){
+                if (err) {
+                    callback({status : 2, success : false, message : "알 수 없는 오류"});
+                    console.log(err.message);
+                }
                 else{
                     callback({status : 3, success : true, messsage:"성공"});
                 }
