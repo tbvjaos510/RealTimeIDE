@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
   connection.query('select * from city', function (err, results) {
     if (err) throw err;
 
-    callback(results);
+    return callback(results);
   });
 
 };
@@ -40,14 +40,14 @@ var connection = mysql.createConnection({
  * @returns {null}
  */ auth.login = function (id, pw, callback) {
   connection.query('select password, name, user_ident from t_users where email_id = ?', [id], function (err, results) {
-    if (err) callback({ status: 1, success: false, message: '알 수 없는 오류' });
+    if (err) return callback({ status: 1, success: false, message: '알 수 없는 오류' });
 
     if (results[0] == null) {
-      callback({ status: 2, success: false, message: '아이디가 틀렸습니다.' });
+      return callback({ status: 2, success: false, message: '아이디가 틀렸습니다.' });
     } else if (results[0].password === pw) {
-      callback({ status: 4, success: true, message: '로그인 성공', name: results[0].name, ident: results[0].user_ident });
+      return callback({ status: 4, success: true, message: '로그인 성공', name: results[0].name, ident: results[0].user_ident });
     } else {
-      callback({ status: 3, success: false, message: '비밀번호가 틀렸습니다.' });
+      return callback({ status: 3, success: false, message: '비밀번호가 틀렸습니다.' });
     }
   });
 };
@@ -61,7 +61,6 @@ var connection = mysql.createConnection({
  */
 
 /**
- * @description
  * mysql User table에 유저 정보를 추가합니다.
  * @param {String} id
  * @param {String} pw
@@ -83,12 +82,13 @@ auth.signup = function (id, pw, name, callback) {
 
 
     } else if (results.status === 4 || results.status === 3) {
-      callback({ status: 1, success: false, message: '해당 아이디가 존재합니다.' });
+      return callback({ status: 1, success: false, message: '해당 아이디가 존재합니다.' });
     } else {
-      callback({ status: 2, success: false, message: '알 수 없는 오류' });
+      return callback({ status: 2, success: false, message: '알 수 없는 오류' });
     }
   }
   );
 };
+
 
 module.exports = auth;
