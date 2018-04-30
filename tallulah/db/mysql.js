@@ -19,6 +19,25 @@ Ta_mysql.test = function(callback){
     });
 
 };
+
+/**
+ * @typedef loginCallback
+ * @type {object} 
+ * @property {number} status 결과 상태 (1 : DB오류, 2 : 아이디가 틀림, 3. 비밀번호가 틀림, 4. 성공)
+ * @property {boolean} success 성공 여부
+ * @property {String} message 오류(성공) 설명
+ * @property {String} name (성공시) 사용자 이름
+ * @property {String} ident (성공시) 사용자 고유번호 (String 값이므로 변환)
+ */
+
+/**
+ * @param {String} id
+ * @param {String} pw
+ * @param {String} name
+ * @param {(data:loginCallback)=>void} callback
+ * @returns {null}
+ * @description mysql User table에 유저 정보를 추가합니다.
+ */
 Ta_mysql.login = function(id, pw, callback){
     connection.query("select password, name, user_ident from t_users where email_id = ?",[id], function(err, results){
         if (err) callback({status : 1, success : false, message : "알 수 없는 오류"});
@@ -27,13 +46,30 @@ Ta_mysql.login = function(id, pw, callback){
             callback({status : 2, success : false, message : "아이디가 틀렸습니다."});
         }
         else if (results[0].password === pw){
-            callback({status : 3, success : true, message : "로그인 성공", name:results[0].name, ident:results[0].user_ident});
+            callback({status : 4, success : true, message : "로그인 성공", name:results[0].name, ident:results[0].user_ident});
         }
         else{
-            callback({status : 4, success : false, message : "비밀번호가 틀렸습니다."});
+            callback({status : 3, success : false, message : "비밀번호가 틀렸습니다."});
         }
     });
 };
+
+/**
+ * @typedef signupCallback
+ * @type {object} 
+ * @property {number} status 결과 상태 (1 : 아이디 중복, 2 : DB 오류, 3. 성공)
+ * @property {boolean} success 성공 여부
+ * @property {String} message 오류(성공) 설명 
+ */
+
+/**
+ * @param {String} id
+ * @param {String} pw
+ * @param {String} name
+ * @param {(data:signupCallback)=>void} callback
+ * @returns {null}
+ * @description mysql User table에 유저 정보를 추가합니다.
+ */
 Ta_mysql.signup = function(id, pw, name, callback){
     Ta.mysql.login(id, pw, function(results){
         if (results.status == 2){
@@ -52,7 +88,7 @@ Ta_mysql.signup = function(id, pw, name, callback){
             callback({status : 2, success : false, message : "알 수 없는 오류"});
         }
     });
-}
+};
 
 
 module.exports = Ta_mysql;
