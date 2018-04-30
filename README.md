@@ -6,4 +6,12 @@
 * node.js (server)
 
 ## 참가자
-[정재봉(맨토)](https://github.com/woogong), [배준재](https://github.com/bjj3036), [서상희](https://github.com/tbvjaos510), [최성혁](https://github.com/vhrleo0904), [민경빈](https://github.com/mango906), [남형진](https://github.com/gudwlsg1)
+[정재봉(멘토)](https://github.com/woogong), [배준재](https://github.com/bjj3036), [서상희](https://github.com/tbvjaos510), [최성혁](https://github.com/vhrleo0904), [민경빈](https://github.com/mango906), [남형진](https://github.com/gudwlsg1)
+
+### 역할
+**상희**, **형진** - Server(node)
+
+**경빈**, **준재**, **성혁** - Front(html, javascript, css)
+<p align="center">
+ <img src="http://img.insight.co.kr/static/2018/01/29/700/ff811f33s2psph9093g7.jpg"></img>
+</p>
