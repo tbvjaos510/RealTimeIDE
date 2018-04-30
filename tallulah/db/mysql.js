@@ -1,6 +1,4 @@
 var mysql = require('mysql');
-
-
 /**
   @type {TallulahDB}
  */
@@ -14,7 +12,7 @@ var connection = mysql.createConnection({
     database : 'dgsw_sms',
 });
 /**
- * @description mysql서버에 연결합니다.
+ * mysql서버에 연결합니다.
  */
 Ta_mysql.connect = function(){
     connection.connect();
@@ -40,12 +38,12 @@ Ta_mysql.test = function(callback){
  */
 
 /**
+ * id와 password를 비교합니다.
  * @param {String} id
  * @param {String} pw
  * @param {String} name
  * @param {(data:loginCallback)=>void} callback
  * @returns {null}
- * @description mysql User table에 유저 정보를 추가합니다.
  */
 Ta_mysql.login = function(id, pw, callback){
     connection.query("select password, name, user_ident from t_users where email_id = ?",[id], function(err, results){
@@ -72,12 +70,12 @@ Ta_mysql.login = function(id, pw, callback){
  */
 
 /**
+ * mysql User table에 유저 정보를 추가합니다.
  * @param {String} id
  * @param {String} pw
  * @param {String} name
  * @param {(data:signupCallback)=>void} callback
  * @returns {null}
- * @description mysql User table에 유저 정보를 추가합니다.
  */
 Ta_mysql.signup = function(id, pw, name, callback){
     Ta_mysql.login(id, pw, function(results){

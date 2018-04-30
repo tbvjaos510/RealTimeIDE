@@ -17,6 +17,7 @@ router.post('/auth',function(req,res){
     mysql.login(req.body.id, req.body.password, function(results){
         res.send(results);
     });
+  
   } else {
     res.send({success : false, message:"피라미터가 입력되지 않았습니다."});
   }
