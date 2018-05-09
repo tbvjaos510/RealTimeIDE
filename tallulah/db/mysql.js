@@ -11,6 +11,5 @@ var options = {
 /*var connection = mysql.createConnection(options);
 connection.connect();*/
 module.exports = {
-    connection : null,
     options : options,
 };

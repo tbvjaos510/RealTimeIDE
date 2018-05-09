@@ -5,12 +5,18 @@ var bodyparser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+var mysql = require('mysql');
 var MySQLStore = require('express-mysql-session')(session);
-var mysql = require('./db/mysql');
-var connection = mysql.createConnection(mysql.options);
-connection.connect();
+var mysqls = require('./db/mysql');
+var store = new MySQLStore(mysqls.options);
+var passportconfig = require('./secure/passport');
+var passport =require('passport');
 
-mysql.connection = connection;
+global.connection = mysql.createConnection(mysqls.options);
+global.connection.connect(function(err){
+  if (err) throw err;
+  console.log("MySQL Connect");
+});
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
@@ -29,10 +35,14 @@ app.use(session({
   rolling:true
 }));
 app.use(logger('dev'));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+passportconfig();
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -50,7 +60,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 module.exports = app;

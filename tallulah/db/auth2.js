@@ -1,4 +1,4 @@
-var connction  = require('../db/mysql').connection;
+
 var bkfd2Password = require('pbkdf2-password');
 var hasher = bkfd2Password();
 var auth = {};
@@ -22,7 +22,7 @@ var auth = {};
  * @param {(data:loginCallback)=>void} callback
  * @returns {null}
  */ auth.login = function (id, pw, callback) {
-  connection.query('select password, name, user_ident from t_users where email_id = ?', [id], function (err, results) {
+  connection.query('select password, name, user_ident, hashs from t_users where email_id = ?', [id], function (err, results) {
     if (err) return callback({ status: 1, success: false, message: '알 수 없는 오류' });
 
     if (results[0] == null) {
@@ -32,8 +32,9 @@ var auth = {};
     } else {
       return callback({ status: 3, success: false, message: '비밀번호가 틀렸습니다.' });
     }*/
-
-    return hasher({password:results[0].password, salt:results[0].salt}, function(err, pass, salt, hash){
+   // console.log("---login---\n%s\n%s\n%s", pw, results[0].password, results[0].hashs);
+    return hasher({password:pw, salt:results[0].hashs}, function(err, pass, salt, hash){
+   // console.log("---hasher---\n%s\n%s\n%s", pass, salt, hash);
         if (hash === results[0].password){
             return callback({ status: 4, success: true, message: '로그인 성공', name: results[0].name, ident: results[0].user_ident });
         }
@@ -75,7 +76,7 @@ auth.signup = function (id, pw, name, callback) {
 
 */
      return hasher({password:pw}, function(err, pass, salt, hash){
-        connection.query('insert into t_users (email_id, password, name, hashs) values (?, ?, ?, ?)', [id, pass, name, hash], function (err, results) {
+        connection.query('insert into t_users (email_id, password, name, hashs) values (?, ?, ?, ?)', [id, hash, name, salt], function (err, results) {
             if (err) {
               callback({ status: 2, success: false, message: '알 수 없는 오류' });
               console.log(err.message);
