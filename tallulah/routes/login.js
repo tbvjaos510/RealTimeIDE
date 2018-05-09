@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('../db/auth');
+var mysql = require('../db/auth2');
 
-mysql.connect();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,7 +9,6 @@ router.get('/', function(req, res, next) {
       res.send(results);
   });
 });
-
 router.post('/auth',function(req,res){
     console.log(req.body);
   if (req.body.id != undefined && req.body.password != undefined){
