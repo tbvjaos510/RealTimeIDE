@@ -1,25 +1,8 @@
-var mysql = require('mysql');
+
+var bkfd2Password = require('pbkdf2-password');
+var hasher = bkfd2Password();
 var auth = {};
 
-var connection = mysql.createConnection({
-  host: '114.108.167.90',
-  port: '3306',
-  user: 'dgsw',
-  password: 'dnrhddltks',
-  database: 'dgsw_sms'
-});
-/**
- * mysql서버에 연결합니다.
- */ auth.connect = function () {
-  connection.connect();
-}; auth.test = function (callback) {
-  connection.query('select * from city', function (err, results) {
-    if (err) throw err;
-
-    return callback(results);
-  });
-
-};
 
 /**
  * @typedef loginCallback
@@ -30,7 +13,6 @@ var connection = mysql.createConnection({
  * @property {String} name (성공시) 사용자 이름
  * @property {String} ident (성공시) 사용자 고유번호 (String 값이므로 변환)
  */
-
 /**
  * id와 password를 비교합니다.
  * @param {String} id
@@ -39,16 +21,22 @@ var connection = mysql.createConnection({
  * @param {(data:loginCallback)=>void} callback
  * @returns {null}
  */ auth.login = function (id, pw, callback) {
-  connection.query('select password, name, user_ident from t_users where email_id = ?', [id], function (err, results) {
+  connection.query('select password, name, user_ident, hashs from t_users where email_id = ?', [id], function (err, results) {
     if (err) return callback({ status: 1, success: false, message: '알 수 없는 오류' });
 
     if (results[0] == null) {
       return callback({ status: 2, success: false, message: '아이디가 틀렸습니다.' });
-    } else if (results[0].password === pw) {
-      return callback({ status: 4, success: true, message: '로그인 성공', name: results[0].name, ident: results[0].user_ident });
-    } else {
-      return callback({ status: 3, success: false, message: '비밀번호가 틀렸습니다.' });
-    }
+    } 
+    return hasher({password:pw, salt:results[0].hashs}, function(err, pass, salt, hash){
+   
+        if (hash === results[0].password){
+            return callback({ status: 4, success: true, message: '로그인 성공', name: results[0].name, ident: results[0].user_ident });
+        }
+        else{
+            return callback({ status: 3, success: false, message: '비밀번호가 틀렸습니다.' });
+        }
+    });
+
   });
 };
 
@@ -71,17 +59,18 @@ var connection = mysql.createConnection({
 auth.signup = function (id, pw, name, callback) {
   auth.login(id, pw, function (results) {
     if (results.status == 2) {
-      connection.query('insert into t_users (email_id, password, name) values (?, ?, ?)', [id, pw, name], function (err, results) {
-        if (err) {
-          callback({ status: 2, success: false, message: '알 수 없는 오류' });
-          console.log(err.message);
-        } else {
-          callback({ status: 3, success: true, messsage: '성공' });
-        }
+     return hasher({password:pw}, function(err, pass, salt, hash){
+        connection.query('insert into t_users (email_id, password, name, hashs) values (?, ?, ?, ?)', [id, hash, name, salt], function (err, results) {
+            if (err) {
+              callback({ status: 2, success: false, message: '알 수 없는 오류' });
+              console.log(err.message);
+            } else {
+              callback({ status: 3, success: true, messsage: '성공' });
+            }
+          });
       });
-
-
-    } else if (results.status === 4 || results.status === 3) {
+    } 
+    else if (results.status === 4 || results.status === 3) {
       return callback({ status: 1, success: false, message: '해당 아이디가 존재합니다.' });
     } else {
       return callback({ status: 2, success: false, message: '알 수 없는 오류' });
