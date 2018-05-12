@@ -81,4 +81,24 @@ project.create = function (name, owner, description, callback) {
 };
 
 
+/**
+ * 
+ * @param {number} id 프로젝트 고유번호 
+ * @param {number} owner 사용자 고유번호
+ * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
+ */
+project.delete = function (id, owner,callback) {
+    connection.query('select * from t_project where project_ident = ?', [id], function(err,data){
+        if (err) {
+            console.log(err.message);
+            return callback({status : 1, success : false, message:'DB 오류'});
+        }
+        if (data[0] == null){
+            return callback({status : 2,success : false, message:'해당 프로젝트는 존재하지 않습니다.'});
+        }
+        
+    });  
+        
+};
+
 module.exports = project;
