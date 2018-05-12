@@ -12,8 +12,9 @@ var store = new MySQLStore(mysqls.options);
 var passportconfig = require('./secure/passport');
 var passport =require('passport');
 
+//global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
 global.connection = mysql.createConnection(mysqls.options);
-global.connection.connect(function(err){
+global.connection.connect(function(err){  //db 연결
   if (err) throw err;
   console.log("MySQL Connect");
 });
@@ -26,12 +27,12 @@ app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-app.use(session({
-  secret : 'asdl*&%^JKasdfs#$%^*dDqewtyu[jbv',
+app.use(session({ //세션정보를 저장 
+  secret : 'asdl*&%^JKasdfs#$%^*dDqewtyu[jbv',  //secret - 세션을 암호화하는 salt이다. 주기적으로 변경하자.
   resave:true,
   saveUninitialized : true,
   cookie : {maxAge : 3600000, httpOnly:true},
-  store : store,
+  store : store,  //저장하는곳은 mysql이다. 정확한 위치는 (dgsw_sms/sessions)에 저장됨.
   rolling:true
 }));
 app.use(logger('dev'));
@@ -42,11 +43,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//passport.js를 사용함.
 passportconfig();
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login', loginRouter);
+app.use('/login', loginRouter); //링크 /login에 routes/login.js 라우터를 등록한다.
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
