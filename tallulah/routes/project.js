@@ -34,6 +34,15 @@ router.post('/delete', function (req, res) {
   }
 });
 
+router.post('/get', function (req, res) {
+  if (req.isAuthenticated()) {
+    project.select(req.session.passport.user.ident, function (data) {
+      res.send(data);
+    });
+  }
+  else
+    return res.send({ status: 0, success: false, message: '로그인 되지 않았습니다.' });
+});
 
 
 module.exports = router;

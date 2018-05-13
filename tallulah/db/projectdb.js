@@ -117,4 +117,29 @@ project.delete = function (id, owner,callback) {
         
 };
 
+
+/**
+ * 
+ * @param {number} uid 사용자 고유번호 
+ * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
+ */
+project.select = function(uid, callback){
+    connection.query('select t_project.* from t_project join t_user_project where t_user_project.user_ident = ? group by project_ident', [uid], function(err, results){
+        if (err){
+            console.log(err.message);
+            return callback({status : 1, success : false, message : 'DB 오류'});
+        }
+        return callback({status : 2, success : true, message : '읽기 성공', count : results.length, data : results});
+    });
+};
+
+
+
+
+
+
+
+
+
+
 module.exports = project;
