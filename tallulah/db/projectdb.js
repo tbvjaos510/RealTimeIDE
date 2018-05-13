@@ -47,15 +47,15 @@ project.insert = function (user, project, callback) {
 project.create = function (name, owner, description, callback) {
     connection.query('insert into t_project (project_name, project_owner, project_des) values (?,?,?)', [name, owner, description], function(err, result){
         if (err){
-            if (err.code == 1062)
+            if (err.errno == 1062)
                 return callback({status : 2, success : false, message : '이미 존재하는 프로젝트 이름입니다.'});
             else{
-                console.log(err.message);
+                console.log(err);
                 return callback({status : 1, success : false, message : 'DB 오류'});
             }    
         }
         else{
-            connection.query('select project_ident from t_user_project where project_name = ?', [name], function(err, results){
+            connection.query('select project_ident from t_project where project_name = ?', [name], function(err, results){
                 if (err) {
                     console.log(err.message);
                     return callback({status : 1, success : false, message : 'DB 오류'});
@@ -65,11 +65,12 @@ project.create = function (name, owner, description, callback) {
                     return callback({status : 2, success : false, message : '알 수 없는 오류'});
                 }
                 else{
-                    project.insert(owner, projects[0].project_ident, function(data){
-                        if (data.status == true){
-                            return callback({status : 3, success : true, message : '프로젝트 생성 성공', ident : projects[0].project_ident});
+                    project.insert(owner, results[0].project_ident, function(data){
+                        if (data.success == true){
+                            return callback({status : 3, success : true, message : '프로젝트 생성 성공', ident : results[0].project_ident});
                         }
                         else{
+                            console.log(data);
                             return callback({status : 2, success : false, message : '알 수 없는 오류'}); 
                         }
                     });
@@ -88,15 +89,30 @@ project.create = function (name, owner, description, callback) {
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
 project.delete = function (id, owner,callback) {
-    connection.query('select * from t_project where project_ident = ?', [id], function(err,data){
+    connection.query('select * from t_project where project_ident = ?', [id], function(err,results){
         if (err) {
             console.log(err.message);
             return callback({status : 1, success : false, message:'DB 오류'});
         }
-        if (data[0] == null){
+        if (results[0] == null){
             return callback({status : 2,success : false, message:'해당 프로젝트는 존재하지 않습니다.'});
         }
-        
+        if (results[0].project_owner != owner){
+            return callback({status : 3, success : false, message:'삭제할 권한이 없습니다.'});
+        }
+        connection.query('delete from t_project where project_ident = ? and project_owner = ?', [id, owner], function(err, results){
+            if (err){    
+                console.log(err.message);
+                return callback({status : 1, success : false, message : 'DB 오류'});
+            }
+            connection.query('delete from t_user_project where project_ident = ?', [id], function(err, results){
+                if (err){
+                    console.log(err.message);
+                    return callback({status : 1, success : false, message : 'DB 오류'});
+                }
+                return callback({status : 4, success:true, message : '프로젝트 삭제 성공'});
+            });
+        });
     });  
         
 };
