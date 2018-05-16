@@ -31,7 +31,7 @@ function insertWidget(e) {
                 this.domNode = document.createElement('div');
                 this.domNode.innerHTML = e.name;
                 this.domNode.style.background = e.color;
-                this.domNode.style.opacity = 0.8;
+                this.domNode.style.opacity = 0.7;
             }
             return this.domNode;
         },
@@ -75,7 +75,22 @@ require(['vs/editor/editor.main'], function () {
         fontFamily:"Nanum Gothic Coding",
         theme: "vs",
     });
-
+    var socket = io('/main');
+    socket.on('connected', function(data){
+        users[data.name] = data.color;
+        insertCSS(data.name, data.color);
+        insertWidget(data);
+        decorations[data.name] = [];
+    });
+    socket.on('userdata', function(data){
+    
+        for(var i of data){
+            users[i.name] = i.color;
+            insertCSS(i.name, i.color);
+            insertWidget(i);
+            decorations[i.name] = [];
+        }
+    });
 
     function changeSeleciton(e) {
         var selectionArray = [];

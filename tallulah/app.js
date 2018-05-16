@@ -36,7 +36,7 @@ app.use(session({ //세션정보를 저장
   store : store,  //저장하는곳은 mysql이다. 정확한 위치는 (dgsw_sms/sessions)에 저장됨.
   rolling:true
 }));
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json()); 
