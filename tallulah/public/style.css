@@ -5,6 +5,9 @@
     *{
         font-family: font;
     }
+    span{
+      font-family: 'Nanum Gothic Coding' !important;
+    }
     html,
     body {
       margin: 0;

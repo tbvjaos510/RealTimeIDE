@@ -12,8 +12,8 @@ var store = new MySQLStore(mysqls.options);
 var passportconfig = require('./secure/passport');
 var passport =require('passport');
 
+var app = express();
 //global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
-
 global.connection = mysql.createConnection(mysqls.options);
 connection.connect(function(err){  //db 연결
   if (err) throw err;
@@ -23,7 +23,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var projectRouter = require('./routes/project');
-var app = express();
 // view engine setup
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -44,10 +43,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 //passport.js를 사용함.
 passportconfig();
-
+//socket.io를 사용함.
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter); //링크 /login에 routes/login.js 라우터를 등록한다.
