@@ -39,7 +39,6 @@ var auth = {};
 
   });
 };
-
 /**
  * @typedef signupCallback
  * @type {object}

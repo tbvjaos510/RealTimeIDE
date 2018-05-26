@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('tallulah:server');
 var http = require('http');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -21,6 +20,12 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+/**
+ * Socket.io Settings
+ */
+
+var io = require('socket.io')(server);
+require('../socket/onlinecode')(io);
 /**
  * Listen on provided port, on all network interfaces.
  */
