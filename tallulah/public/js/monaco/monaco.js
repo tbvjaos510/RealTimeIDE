@@ -3,7 +3,8 @@ var issocket = false;
 var users = {};
 var contentWidgets = {};
 var decorations = {};
-
+var iswrite = false;
+var isking = false;
 function insertCSS(id, color) {
     var style = document.createElement('style');
     style.type = 'text/css';
@@ -50,15 +51,15 @@ require.config({
 });
 
 window.MonacoEnvironment = {
-    getWorkerUrl: function(workerId, label) {
-      return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+    getWorkerUrl: function (workerId, label) {
+        return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
         self.MonacoEnvironment = {
           baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min'
         };
         importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/base/worker/workerMain.js');`
       )}`;
     }
-  };
+};
 
 require(['vs/editor/editor.main'], function () {
     var jsCode = [
@@ -72,26 +73,36 @@ require(['vs/editor/editor.main'], function () {
         value: jsCode,
         language: "javascript",
         fontSize: 15,
-        fontFamily:"Nanum Gothic Coding",
+        fontFamily: "Nanum Gothic Coding",
         theme: "vs",
     });
     var socket = io('/main');
-    socket.on('connected', function(data){
+    socket.on('connected', function (data) {
         users[data.name] = data.color;
         insertCSS(data.name, data.color);
         insertWidget(data);
         decorations[data.name] = [];
+        if (isking === true){
+            console.log('senddata');
+            socket.emit("filedata", editor.getValue());
+        }
     });
-    socket.on('userdata', function(data){
-    
-        for(var i of data){
+    socket.on('userdata', function (data) {
+        if (data.length == 1)
+            isking = true;
+        for (var i of data) {
             users[i.name] = i.color;
             insertCSS(i.name, i.color);
             insertWidget(i);
             decorations[i.name] = [];
-        }
+        } 
     });
-
+    socket.on('resetdata', function(data){
+        editor.setValue(data);
+    });
+    socket.on('youking', function(data){
+        isking = true;
+    });
     function changeSeleciton(e) {
         var selectionArray = [];
         if (e.selection.startColumn == e.selection.endColumn && e.selection.startLineNumber == e.selection.endLineNumber) {
@@ -142,6 +153,7 @@ require(['vs/editor/editor.main'], function () {
         //    console.log(selectionArray);
         decorations[e.user] = editor.deltaDecorations(decorations[e.user], selectionArray);
     }
+
     function changeWidgetPosition(e) {
         contentWidgets[e.user].position.lineNumber = e.selection.endLineNumber;
         contentWidgets[e.user].position.column = e.selection.endColumn;
@@ -154,18 +166,19 @@ require(['vs/editor/editor.main'], function () {
         editor.getModel().applyEdits(e.changes);
 
     }
-    
+
     editor.onDidChangeModelContent(function (e) {
         if (issocket == false) {
-      //      console.log(e);
-            socket.emit('key', e);
+            //      console.log(e);
+            if (iswrite)
+                socket.emit('key', e);
 
         } else
             issocket = false;
 
     });
     $(window).resize(
-        function (){
+        function () {
             editor.layout();
         }
     );
@@ -175,8 +188,9 @@ require(['vs/editor/editor.main'], function () {
         //    console.log(e.position.toString());
     });*/
     editor.onDidChangeCursorSelection(function (e) {
-       // console.log(e);
-        socket.emit('selection', e);
+        // console.log(e);
+        if (iswrite)
+            socket.emit('selection', e);
     });
     socket.on('selection', function (data) {
         // data = data.match(/\[(\d{1,10}),(\d{1,10}) -> (\d{1,10}),(\d{1,10})\]/);
@@ -190,7 +204,7 @@ require(['vs/editor/editor.main'], function () {
         editor.deltaDecorations(decorations[data], []);
         delete decorations[data];
         delete contentWidgets[data];
-        
+
 
     });
     socket.on('disconnect', function (data) {
@@ -200,10 +214,9 @@ require(['vs/editor/editor.main'], function () {
 
     socket.on('key', function (data) {
         issocket = true;
-    //    console.log(data);
+        //    console.log(data);
         changeText(data);
     });
 
 
 });
-

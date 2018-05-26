@@ -24,7 +24,9 @@ function addRouter (io){
         };
         
         socket.user = users[socket.id].name;
-        
+        if (io.sockets.length == 1){
+            users[socket.id].isking = true;
+        }
         socket.emit('userdata', Object.values(users));
         socket.broadcast.emit('connected', users[socket.id]);
 
@@ -32,8 +34,10 @@ function addRouter (io){
             data.user = socket.user;
             
             socket.broadcast.emit('selection', data);
-        });
-        
+        }); 
+        socket.on('filedata', function(data){
+            socket.broadcast.emit('resetdata', data);
+        });      
         socket.on('disconnect', function (data) {
             console.log('[Socket.IO] ['+ io.namespace +'] : disConnect ' + socket.id);
             socket.broadcast.emit("exit", users[socket.id].name);
