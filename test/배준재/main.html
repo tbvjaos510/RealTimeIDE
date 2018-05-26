@@ -7,10 +7,19 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+<<<<<<< HEAD
         var server = io('/main');
         server.emit('setname','quest');
         function sendChat() {
             server.emit('data', document.getElementById('name').value + ': ' + document.getElementById('input').value + '\n');
+=======
+        var io = io();
+
+        function sendChat() {
+            io.emit('data', document.getElementById('name').value + ': ' + document.getElementById('input').value +
+                '\n');
+            alert(document.getElementById('name').value + ': ' + getElementById('input').value + '\n');
+>>>>>>> 3d763371dc424685bb24dc74a5cbbfa127c050e3
         }
         // function selRoom() {
         //     server.disconnect();
@@ -36,8 +45,12 @@
     <textarea id="chat" cols="30" rows="10"></textarea>
     <div id="back"></div>
     <script>
+<<<<<<< HEAD
         server.on('data', function (data) {
             console.log(data);
+=======
+        io.on('data', function (data) {
+>>>>>>> 3d763371dc424685bb24dc74a5cbbfa127c050e3
             document.getElementById("chat").innerHTML = data + document.getElementById("chat").innerHTML;
         });
         // io.on('data',function(data){
