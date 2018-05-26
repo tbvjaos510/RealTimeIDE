@@ -8,11 +8,13 @@
     <script>
         var io=io();
         function sendChat(){
-            io.emit('data',document.getElementById('input').value);
+            io.emit('data',document.getElementById('name').value+': '+document.getElementById('input').value+'\n');
+            alert(document.getElementById('name').value+': '+getElementById('input').value+'\n');
         }
     </script>
 </head>
 <body>
+    <input type="text" id="name">
     <input type="text" id="input">
     <input type="button" value="보내기" onclick="sendChat()">
     <br>
