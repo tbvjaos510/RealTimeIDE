@@ -5,10 +5,16 @@
 
 module.exports = function(io){
     io.on('connection', function(socket){
-        console.log('Socket Connected : ' + socket.id);
+        socket.inroom = "Room1";
+        socket.on('room', function(data){
+            socket.leave(socket.inroom);
+            console.log('inroom '+data);
+            socket.inroom = data;
+            socket.join(data);
+        });
         socket.on('data', function(data){
-            console.log('data : '+ data);
-            io.emit('data', data);
+            console.log('Socket ID:'+this.id+' data'+data);
+            io.to(socket.inroom).emit('data', data);
         });
     });
 };
