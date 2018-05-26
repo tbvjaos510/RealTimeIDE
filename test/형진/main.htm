@@ -10,11 +10,12 @@
     <script>
         var io = io();
         function sendChat(){
-            io.emit('data',document.getElementById('input').value);
+            io.emit('data',document.getElementById('name').value + " : " + document.getElementById('input').value);
         }
     </script>
 </head>
 <body>
+    <input type="text" id="name">
     <input type="text" id="input">
     <input type="button" value="보내기" onclick="sendChat();"><br>
 
@@ -22,7 +23,7 @@
 
     <script>
         io.on('data',function(data){
-            document.getElementById('chat').innerText += data;
+            document.getElementById('chat').innerHTML += (data + '\n');
         });
     </script>
 </body>
