@@ -10,8 +10,18 @@ app.get('/', function (req, res) {
 app.get('/socket',function(req,res){
     res.sendFile(__dirname+'/main.html');
 });
+app.get('/socket/room1',function(req,res){
+    res.sendFile(__dirname+'/room1.html');
+});
+app.get('/socket/room2',function(req,res){
+    res.sendFile(__dirname+'/room2.html');
+});
+app.get('/socket/room3',function(req,res){
+    res.sendFile(__dirname+'/room3.html');
+});
 
 require('./socket/mainsock')(io);
+require('./socket/controlSoc')(io);
 
 app.listen(3000, function () {
     console.log('Server start on 3000');
