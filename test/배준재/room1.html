@@ -7,7 +7,7 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var server = io('/main');
+        var server = io('/room1');
         server.emit('setname','quest');
         function sendChat() {
             server.emit('data', document.getElementById('name').value + ': ' + document.getElementById('input').value + '\n');
