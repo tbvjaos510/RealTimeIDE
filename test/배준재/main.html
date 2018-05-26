@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var io=io();
-        function sendChat(){
-            io.emit('data',document.getElementById('name').value+': '+document.getElementById('input').value+'\n');
-            alert(document.getElementById('name').value+': '+getElementById('input').value+'\n');
+        var io = io();
+
+        function sendChat() {
+            io.emit('data', document.getElementById('name').value + ': ' + document.getElementById('input').value +
+                '\n');
+            alert(document.getElementById('name').value + ': ' + getElementById('input').value + '\n');
         }
     </script>
 </head>
+
 <body>
     <input type="text" id="name">
     <input type="text" id="input">
@@ -20,9 +24,10 @@
     <br>
     <textarea id="chat" cols="30" rows="10"></textarea>
     <script>
-        io.on('data',function(data){
-            document.getElementById("chat").innerHTML=data+document.getElementById("chat").innerHTML;
+        io.on('data', function (data) {
+            document.getElementById("chat").innerHTML = data + document.getElementById("chat").innerHTML;
         });
     </script>
 </body>
+
 </html>
