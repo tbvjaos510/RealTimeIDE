@@ -62,28 +62,47 @@ window.MonacoEnvironment = {
 };
 
 require(['vs/editor/editor.main'], function () {
-    var jsCode = [
-        'function hello() {',
-        '   alert(\'Hello world!\');',
-        '}'
-    ].join('\n');
+    var jsCode = `<!DOCTYPE HTML>
+    <!-- 
+        Comments are overrated
+    -->
+    <html>
+    <head>
+        <title>HTML Sample</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <style type="text/css">
+            h1 {
+                color: #CCA3A3;
+            }
+        </style>
+        <script type="text/javascript">
+            window.alert("I am a sample...");
+        </script>
+    </head>
+    <body>
+        <h1>Heading No.1</h1>
+        <input disabled type="button" value="Click me" />
+    </body>
+    </html>`;
 
 
     var editor = monaco.editor.create(document.getElementById("monacoeditor"), {
         value: jsCode,
-        language: "javascript",
+        language: "html",
         fontSize: 15,
         fontFamily: "Nanum Gothic Coding",
-        theme: "vs",
+        theme: "vs-dark",
     });
     var socket = io('/main');
     socket.on('connected', function (data) {
         users[data.name] = data.color;
+        
         insertCSS(data.name, data.color);
         insertWidget(data);
         decorations[data.name] = [];
         if (isking === true){
             console.log('senddata');
+            iswrite = true;
             socket.emit("filedata", editor.getValue());
         }
     });
@@ -98,10 +117,13 @@ require(['vs/editor/editor.main'], function () {
         } 
     });
     socket.on('resetdata', function(data){
+        
         editor.setValue(data);
+            iswrite = true;
     });
     socket.on('youking', function(data){
         isking = true;
+        iswrite = true;
     });
     function changeSeleciton(e) {
         var selectionArray = [];
@@ -168,6 +190,7 @@ require(['vs/editor/editor.main'], function () {
     }
 
     editor.onDidChangeModelContent(function (e) {
+
         if (issocket == false) {
             //      console.log(e);
             if (iswrite)
@@ -188,6 +211,7 @@ require(['vs/editor/editor.main'], function () {
         //    console.log(e.position.toString());
     });*/
     editor.onDidChangeCursorSelection(function (e) {
+        console.log(iswrite);
         // console.log(e);
         if (iswrite)
             socket.emit('selection', e);
@@ -195,7 +219,7 @@ require(['vs/editor/editor.main'], function () {
     socket.on('selection', function (data) {
         // data = data.match(/\[(\d{1,10}),(\d{1,10}) -> (\d{1,10}),(\d{1,10})\]/);
         // editor.setSelection(new monaco.Range(parseInt(data[1]), parseInt(data[2]), parseInt(data[3]), parseInt(data[4])));
-        //   console.log(data);
+    //   console.log(data);
         changeSeleciton(data);
         changeWidgetPosition(data);
     });
@@ -214,7 +238,7 @@ require(['vs/editor/editor.main'], function () {
 
     socket.on('key', function (data) {
         issocket = true;
-        //    console.log(data);
+        console.log(data);
         changeText(data);
     });
 

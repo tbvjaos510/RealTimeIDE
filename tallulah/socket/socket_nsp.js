@@ -22,7 +22,7 @@ function addRouter (io){
             connect : false,
             rooms : "",
         };
-        
+         
         socket.user = users[socket.id].name;
         if (io.sockets.length == 1){
             users[socket.id].isking = true;
@@ -32,7 +32,6 @@ function addRouter (io){
 
         socket.on('selection', function (data) {
             data.user = socket.user;
-            
             socket.broadcast.emit('selection', data);
         }); 
         socket.on('filedata', function(data){
