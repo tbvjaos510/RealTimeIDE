@@ -6,6 +6,8 @@
 module.exports=function(io){
     io.on('connection',function(socket){
         socket.inroom = 'room1';
+        socket.join(socket.inroom);
+        
         socket.on('room', function(data){
             socket.leave(socket.inroom);
             console.log('inroom ' + data);
