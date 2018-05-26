@@ -10,11 +10,20 @@
     <script>
         var io = io();
         function sendChat(){
-            io.emit('data',document.getElementById('name').value + " : " + document.getElementById('input').value);
+            io.emit('data',document.getElementById('name').value + " : " + document.getElementById('input').value); 
+        }
+        function selchange(){
+            document.getElementById('chat').innerHTML = "";
+            io.emit('room',document.getElementById('selroom').value);
         }
     </script>
 </head>
 <body>
+    <select id="selroom">
+        <option>room1</option>
+        <option>room2</option>
+        <option>room3</option>
+    </select>
     <input type="text" id="name">
     <input type="text" id="input">
     <input type="button" value="보내기" onclick="sendChat();"><br>
@@ -25,6 +34,7 @@
         io.on('data',function(data){
             var text = document.getElementById('chat').value;
             document.getElementById('chat').innerHTML = (data + '\n')+text;
+            //document.getElementById('chat').innerHTML = "<img src =  "+ data + ">"
         });
     </script>
 </body>
