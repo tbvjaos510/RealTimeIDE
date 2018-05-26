@@ -23,7 +23,8 @@
 
     <script>
         io.on('data',function(data){
-            document.getElementById('chat').innerHTML += (data + '\n');
+            var text = document.getElementById('chat').value;
+            document.getElementById('chat').innerHTML = (data + '\n')+text;
         });
     </script>
 </body>
