@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Document</title>
+    <script>
+        var io = io();
+        function sendLog(){
+            console.log('ChangeRoom');
+            document.getElementById('EnterLog').innerHTML="";
+            io.emit('changeRoom', document.getElementById('roomNum').value);
+            io.emit('join','join');
+        }
+    </script>
+</head>
+<body>
+    <input type="number" id="roomNum" value="1"><br>
+    <textarea id="EnterLog" cols="30" rows="10"></textarea>
+    <input type="button" onclick="sendLog()" value="들어가기">
+    <script>
+        io.on('join',function(data){
+            document.getElementById('EnterLog').innerHTML+=data;
+        });
+    </script>
+</body>
+</html>
