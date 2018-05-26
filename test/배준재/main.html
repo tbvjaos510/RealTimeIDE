@@ -21,7 +21,7 @@
     <textarea id="chat" cols="30" rows="10"></textarea>
     <script>
         io.on('data',function(data){
-            document.getElementById("chat").innerHTML+=data;
+            document.getElementById("chat").innerHTML=data+document.getElementById("chat").innerHTML;
         });
     </script>
 </body>
