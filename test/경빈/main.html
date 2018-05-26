@@ -11,9 +11,18 @@
         function sendChat(){
             io.emit('data', document.getElementById("name").value + " : " + document.getElementById("input").value+'\n');
         }
+        function selchange(){
+            document.getElementById('chat').innerHTML = "";
+            io.emit('room', document.getElementById("selroom").value);
+        }
     </script>
 </head>
 <body>
+    <select id="selroom" onchange="selchange()">
+        <option>Room1</option>
+        <option>Room2</option>
+        <option>Room3</option>
+    </select>
     <input type="text" id="name">
     <input type="text" id="input">
     <input type="button" value="보내기" onclick="sendChat()">
