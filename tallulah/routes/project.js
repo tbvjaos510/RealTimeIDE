@@ -39,7 +39,7 @@ router.post('/update',function(req,res){
     if(!req.body.ident){
       return res.send({status : -1, success : false, message : "인자값이 전달되지 않았습니다."});
     }
-    project.update(req.session.passport.user.ident, req.body.ident, function(data){
+    project.update(req.session.passport.user.ident, req.body.ident, req.body.name, req.body.desc, function(data){
       return res.send(data);
     })
   }else{
