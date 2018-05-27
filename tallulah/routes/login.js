@@ -38,9 +38,14 @@ router.post('/sign', function (req, res) {
   }
 });
 
-router.get('/logout', function (req, res) { //logout 실제 경로는 /login/logout이다.
+router.post('/logout', function (req, res) { //logout 실제 경로는 /login/logout이다.
+  if (req.isAuthenticated()){
   req.logout(); //req.session에 저장되어 있는 세션 정보를 없앤 뒤에 로그아웃 한다.
-  res.redirect('/');
+    res.send({success : true, message : "로그아웃 성공"});
+  }
+  else{
+    res.send({success : false, message : "로그인 되어 있지 않습니다."});
+  }
 });
 
 
