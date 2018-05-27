@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>main</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var server = io();
+        server.on("message", function(message) {
+            alert('새로운 사용자가 접속함');
+        });
+    </script>
+</head>
+<body>
+    <input type="text">
+    <script>
+        
+    </script>
+</body>
+</html>
