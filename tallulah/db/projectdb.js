@@ -144,7 +144,7 @@ project.select = function(uid, callback){
  */
 
 project.update = function(uid,pid,name,desc,cb){
-    connection.query("select user_ident,project_ident from t_user_project where t_user_project.grade = 2 and t_user_project.user_idnet = ? and t_user_project.project_ident = ?",[uid,pid],function(err,results){
+    connection.query("select user_ident, project_ident from t_user_project where grade = 2 and user_ident = ? and project_ident = ?",[uid,pid],function(err,results){
         if(err){
             return callback({status : 1, success : false, message : "DB 오류"});
         }else if(results === null){
