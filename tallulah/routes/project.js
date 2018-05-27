@@ -34,6 +34,19 @@ router.post('/delete', function (req, res) {
   }
 });
 
+router.post('/update',function(req,res){
+  if(req.isAuthenticated()){
+    if(!req.body.ident){
+      return res.send({status : -1, success : false, message : "인자값이 전달되지 않았습니다."});
+    }
+    project.update(req.session.passport.user.ident, req.body.ident, function(data){
+      return res.send(data);
+    })
+  }else{
+    return res.send({status : -1, success : false, message : "로그인이 되지 않았습니다."});
+  }
+});
+
 router.post('/get', function (req, res) {
   if (req.isAuthenticated()) {
     project.select(req.session.passport.user.ident, function (data) {
