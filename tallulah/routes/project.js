@@ -36,7 +36,7 @@ router.post('/delete', function (req, res) {
 
 router.post('/update',function(req,res){
   if(req.isAuthenticated()){
-    if(!req.body.ident){
+    if(!req.body.ident || !req.body.name || !req.body.desc){
       return res.send({status : -1, success : false, message : "인자값이 전달되지 않았습니다."});
     }
     project.update(req.session.passport.user.ident, req.body.ident, req.body.name, req.body.desc,function(data){

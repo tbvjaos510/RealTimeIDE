@@ -148,14 +148,14 @@ project.update = function(uid,pid,name,desc,callback){
         if(err){
             console.log(err);
             return callback({status : 1, success : false, message : "DB 오류"});
-        }else if(results === null){
-            return callback({status : 2, success : false, message : "권환이 없는데 어쩌라고" });
+        }else if(results[0] == null){
+            return callback({status : 3, success : false, message : "권한이 없음" });
         }
         connection.query("update t_project set project_name = ?, project_des = ? where project_ident = ? and project_owner = ?",[name,desc,pid,uid],function(err,results){
             if(err){
                 return callback({status : 1, success : false, message : "DB 오류"});
             }
-            return callback({status : 2, success : true, message : "수정성공"});
+            return callback({status : 3, success : true, message : "수정성공"});
         })
     })
 }

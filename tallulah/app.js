@@ -23,6 +23,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var projectRouter = require('./routes/project');
+var directoryRouter = require('./routes/directory');
 // view engine setup
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -49,7 +50,8 @@ passportconfig();
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter); //링크 /login에 routes/login.js 라우터를 등록한다.
-app.use('/project', projectRouter); 
+app.use('/project', projectRouter);
+app.use('/directory',directoryRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
