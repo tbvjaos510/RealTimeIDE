@@ -13,9 +13,10 @@ var project = {};
  * 프로젝트에 가입합니다.
  * @param {number} user 사용자 고유 번호 
  * @param {number} project 프로젝트 고유 번호
+ * @param {number} grade 프로젝트 등급
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
-project.insert = function (user, project, callback) {
+project.insert = function (user, project, grade,callback) {
     connection.query('select * from t_user_project where user_ident = ? and project_ident = ?', [user, project], function (err, results) {
 
         if (err) {
@@ -23,7 +24,7 @@ project.insert = function (user, project, callback) {
             return callback({ status: 1, success: false, message: 'DB 오류' });
         }
         if (results[0] == null) {
-            connection.query('insert into t_user_project values (?, ?)', [user, project], function (err, results) {
+            connection.query('insert into t_user_project values (?, ?, ?)', [user, project, grade], function (err, results) {
                 if (err) {
                     console.log(err.message);
                     return callback({ status: 1, success: false, message: 'DB 오류' });
@@ -65,7 +66,7 @@ project.create = function (name, owner, description, callback) {
                     return callback({status : 2, success : false, message : '알 수 없는 오류'});
                 }
                 else{
-                    project.insert(owner, results[0].project_ident, function(data){
+                    project.insert(owner, results[0].project_ident,2, function(data){
                         if (data.success == true){
                             return callback({status : 3, success : true, message : '프로젝트 생성 성공', ident : results[0].project_ident});
                         }
