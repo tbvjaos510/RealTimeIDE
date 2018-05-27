@@ -6,3 +6,5 @@ file.update = function(ident, data, cb){
         return cb({success:true, status : 2, message : '성공'});
     });
 };
+
+module.exports = file;
