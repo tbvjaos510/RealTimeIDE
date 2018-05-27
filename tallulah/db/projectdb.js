@@ -143,13 +143,8 @@ project.select = function(uid, callback){
  * @param {String} desc 수정할 프로젝트 설명
  */
 
-<<<<<<< HEAD
 project.update = function(uid,pid,name,desc,callback){
     connection.query("select user_ident,project_ident from t_user_project where t_user_project.grade = 2 and t_user_project.user_idnet = ? and t_user_project.project_ident = ?",[uid,pid],function(err,results){
-=======
-project.update = function(uid,pid,name,desc,cb){
-    connection.query("select user_ident, project_ident from t_user_project where grade = 2 and user_ident = ? and project_ident = ?",[uid,pid],function(err,results){
->>>>>>> 47a843d2f5040a3c491aa6a596fa3ba8111e3dde
         if(err){
             console.log(err);
             return callback({status : 1, success : false, message : "DB 오류"});
