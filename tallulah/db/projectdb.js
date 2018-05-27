@@ -138,14 +138,15 @@ project.select = function(uid, callback){
 /**
  * @param {number} uid 사용자 고유번호
  * @param {number} pid 프로젝트 고유번호
- * @param {(data:p_insert_callback)=>void} cb 결과 콜백함수
+ * @param {(data:p_insert_callback)=>void} callback 결과 콜백함수
  * @param {String} name 수정할 프로젝트 이름
  * @param {String} desc 수정할 프로젝트 설명
  */
 
-project.update = function(uid,pid,name,desc,cb){
+project.update = function(uid,pid,name,desc,callback){
     connection.query("select user_ident,project_ident from t_user_project where t_user_project.grade = 2 and t_user_project.user_idnet = ? and t_user_project.project_ident = ?",[uid,pid],function(err,results){
         if(err){
+            console.log(err);
             return callback({status : 1, success : false, message : "DB 오류"});
         }else if(results === null){
             return callback({status : 2, success : false, message : "권환이 없는데 어쩌라고" });
