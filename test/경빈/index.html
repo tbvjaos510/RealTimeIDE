@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+            socket.on("Connect", function(data){
+                document.getElementById("text").innerHTML += "야생의 포켓몬이 등장하였다.\n";
+        });
+        function message(){
+            socket.emit('data', document.getElementById("input").value);
+            
+        }
+        socket.on("data", function(data){
+            document.getElementById("text").innerHTML += "야생의 포켓몬 : "+ data + "\n";
+        })
+    </script>
+</head>
+<body>
+    <input type="text" id="input">
+    <input type="button" value="전송" onclick="message()">
+    <br>
+    <textarea id="text" cols="50" rows="10"></textarea>
+</body>
+</html>
