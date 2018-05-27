@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Popup</title>
+
+<link rel="stylesheet" href="popup.css">
+<link rel="stylesheet" href="menu.css">
+
+<script src="jquery-1.11.3.js"></script>
+<script src="popup.js"></script>
+<script src="menu.js"></script>
+
+<script>
+	
+	var popup;
+	
+	$(document).ready(function() {
+	
+		
+		$("#btn_success").on("click", function() {
+			if (popup)
+			{
+				popup.close();
+			}
+		});
+		
+		makeMenu();
+		
+		
+	});
+	
+	
+	
+	
+	function openPopup()
+	{
+		popup = new Popup("#popup_1", "팝업 연습");
+		popup.open();
+	}
+	
+	
+	function makeMenu()
+	{
+		
+		var menuOptions = [
+			{name: 'File', id: 'file', subMenu: [
+				{name: 'New', id: 'file-new'},
+				{name: 'Open', id: 'file_open'},
+				{name: 'Save', id: 'file-save'},
+			]},
+			{name: 'Edit', id: 'edit', subMenu: [
+				{name: 'Find', id: 'edit-find'},
+				{name: 'Search', id: 'edit-search'},
+			]},
+			{name: 'Help', id: 'help', subMenu: []},
+		];
+				
+		$("#menu_layer").makeMenu(menuOptions, function(id) {
+			console.log(id);
+		});
+
+	}
+	
+</script>
+
+</head>
+<body>
+
+<div id="menu_layer">
+	<!-- <div class="menu">
+		<ul class="top_menu">
+			<li class="top_node">File
+				<div class="sub_menu">
+					<ul>
+						<li class="sub_menu_node">New</li>
+						<li class="sub_menu_node">Save</li>
+						<li class="sub_menu_node">Open</li>
+					</ul>
+				</div>
+			</li>
+			<li class="top_node">Edit</li>
+			<li class="top_node">Help</li>
+		</ul>
+	</div> -->
+</div>
+
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+
+
+
+<input type="button" value="popup" onclick="openPopup()">
+
+<div id="popup_1" style="display: none;">
+	<input type="button" value="성공" id="btn_success"/>
+</div>
+
+
+<div class="popup">
+	<div class="head">
+		<div class="title">팝업 타이틀</div>
+		<div class="buttons"><span class="btn_close">X</span></div>
+	</div>
+	<div class="content">
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+
+.menu {
+	background-color: #00F;
+}
+
+
+.menu .top_menu .top_node {
+	display: inline-block;
+	color: #FFF;
+	padding: 0 10px 0 10px;
+	border-right: 1px solid #888;
+}
+
+.menu .top_menu .top_node:hover {
+	background-color: #008;
+}
+
+.menu .sub_menu {
+	display: none; 
+	position: absolute; 
+	color: #000; 
+	border: 1px solid #000; 
+	background-color: #FFF;
+}
+
+.menu .sub_menu .sub_menu_node {
+	list-style-type: none;
+}
