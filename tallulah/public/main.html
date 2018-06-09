@@ -8,7 +8,8 @@
   <script src="js/jquery/jquery.js"></script>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/loader.js"></script>
-  <script src="js/popup.js"></script>
+  <script src="js/front/popup.js"></script>
+  <script src="js/front/AddMenu.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
   <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -16,66 +17,6 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link href="style.css" rel="stylesheet">
   <script>
-    $(document).ready(function(){ 
-    
-      
-      
-      
-      
-
-      $(".button2").click(function(){
-      var idchk = $("input[name=user_id]").val();
-      var pwchk = $("input[name=user_password]").val();
-      var namechk = $("input[name=user_name]").val();
-        if(idchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } 
-          else{
-            alert("회원가입 성공!");
-            regishide();
-        }
-      });
-      
-      $(".button").click(function(){
-      var idchk = $("input[name=id]").val();
-      var pwchk = $("input[name=password]").val();
-        if(idchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } 
-          else{
-            alert("로그인 성공!");
-            loginhide();
-        }
-      });
-
-      document.execCommand("insertOrderedList");
-    });
     function doLogin(){ 
       $.ajax({
         url:"login/auth",
@@ -88,6 +29,15 @@
         }
       })
     }
+    var menu=[{name: 'Project',click: function(){console.log('아 슬프다');}, subMenu:[
+                  {name: '프로젝트 생성', click: function(){ console.log('SUCCESS');}},
+                  {name: '종료'}]},
+              {name: 'Help',subMenu:[
+                  {name: 'link 1'}]},
+              {name:'Test'}];
+    $(function(){
+      $('.menu_bar').addMenu(menu);
+    });
 
     function doSign(){ 
       $.ajax({
@@ -110,22 +60,6 @@
   <div class="container"></div>
   <header class="header">
     <ul class="menu_bar">
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">프로젝트(P)</a>
-        <div class="dropdown-content">
-          <a href="#">프로젝트 생성</a>
-          <a href="#">종료</a>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">팀(T)</a>
-        <div class="dropdown-content">
-          <a href="#">프로젝트 생성</a>
-          <a href="#">디렉토리 생성</a>
-          <a href="#">파일 생성</a>
-          <a href="#">열기</a>
-        </div>
-      </li>
       <li class="rightHead dropdown" id="signup" onclick="openSignPopup()">
         <a href="#">Sign Up</a>
       </li>
@@ -139,7 +73,7 @@
   <nav class="nav">
     <div class="tab_package">
       
-    </div><div class="tab_team">
+    </div><div class="tab_team">  
       
     </div>
   </nav>

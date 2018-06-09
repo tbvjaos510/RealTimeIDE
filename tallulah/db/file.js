@@ -10,8 +10,8 @@ var file = {};
 
 /**
  * 
- * @param {number} ident 
- * @param {String} data 
+ * @param {number} ident 폴더 고유 번호
+ * @param {String} data 수정내용
  * @param {(data:file_callback)=>void} cb 
  */
 file.update = function(ident, data, cb){

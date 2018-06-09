@@ -98,4 +98,18 @@ directory.update = function(dirName,uid,pid,callback){ //파일 이름 수정
     })
 } 
 
+/**
+ * @param {number} pid 프로젝트 식별자
+ * @param {(data:directory_callback=>void)} callback 콜백함수
+ */
+
+directory.get = function(pid,callback){
+    connection.query("select dir_ident, dir_name, dir_paraent, project_ident from t_directory where project_ident = ?",[pid],function(err,results){
+        if(err){
+            return callback({status : 1, success : false, message : "DB 에러"});
+        }
+        return callback(results);
+    })
+}
+
  module.exports = directory;
