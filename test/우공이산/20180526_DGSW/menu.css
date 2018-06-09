@@ -1,6 +1,7 @@
 
 .menu {
 	background-color: #00F;
+	list-style-type: none;
 }
 
 
@@ -21,6 +22,24 @@
 	color: #000; 
 	border: 1px solid #000; 
 	background-color: #FFF;
+}
+
+.sub_menu {
+	margin-left: -10px;
+}
+
+.sub_menu ul {
+	padding: 0px;
+	margin: 0px;
+}
+
+.sub_menu_node {
+	border-top: 1px solid black;
+	padding: 5px;
+}
+
+.sub_menu_node:hover {
+	background: #ccc;
 }
 
 .menu .sub_menu .sub_menu_node {
