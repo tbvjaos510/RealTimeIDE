@@ -38,7 +38,19 @@ file.create = function(ident ,name, cb){
         return cb({success:true, status : 3, message : '파일 생성 성공'});
     });
 }
-
-
+/**
+ * 
+ * @param {number} ident 상위 고유번호
+ * @param {(data:file_callback)=>void} cb 콜백 함수
+ */
+file.get = function(ident, cb){
+    connection.query('select file_ident, dir_ident, file_name from t_file where dir_ident = ?', [ident], function(err, result){
+        if (err){
+            console.log(err);
+            return cb({success:false, status:1, message:'DB 오류'});
+        }
+        return cb({success:true, status:3, message:'값 불러오기 성공', data:result});
+    });
+};
 
 module.exports = file;
