@@ -78,8 +78,6 @@ Menu.prototype.makeTopMenu = function(menuNode)
 
 Menu.prototype.makeSubMenu = function(layer, menuNode)
 {
-	console.log(menuNode);
-	
 	var li = $("<li />");
 	li.addClass("sub_menu_node");
 	li.html(menuNode.name);
