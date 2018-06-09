@@ -27,8 +27,16 @@ file.updateContent = function(ident, data, cb){
  * @param {(data:file_callback=>void)} callback 콜백함수 
  */
 
- file.updateFilname = function(ident,data,callback){
-     connection.query("")
+ file.updateFilename = function(ident,updateFilename,callback){
+     connection.query("update t_file set file_name = ? where file_ident = ?",[updateFilename,ident],function(err,results){
+         if(err) {
+            if(err.errno == 1062){
+                return callback({status : 2, success : true , message : "중복된 파일 이름이 있습니다."});
+            }
+            return callback({success : false, status : 1, message : 'DB 오류'});
+         }
+           return callback({success:true, status : 3, message : '성공'});
+     })
  }
 
 /**
