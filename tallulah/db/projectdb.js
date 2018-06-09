@@ -17,26 +17,16 @@ var project = {};
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
 project.insert = function (user, project, grade,callback) {
-    connection.query('select * from t_user_project where user_ident = ? and project_ident = ?', [user, project], function (err, results) {
-
-        if (err) {
-            console.log(err.message);
-            return callback({ status: 1, success: false, message: 'DB 오류' });
-        }
-        if (results[0] == null) {
             connection.query('insert into t_user_project values (?, ?, ?)', [user, project, grade], function (err, results) {
                 if (err) {
-                    console.log(err.message);
+                    if(err.errno == 1062){
+                        return callback({ status: 2, success: false, message: '이미 가입되어 있습니다.' });
+                    }
                     return callback({ status: 1, success: false, message: 'DB 오류' });
                 }
                 return callback({status : 3, success : true, message : '성공적으로 가입되었습니다.'});
             });
         }
-        else {
-            return callback({ status: 2, success: false, message: '이미 가입되어 있습니다.' });
-        }
-    });
-};
 
 /**
  * 

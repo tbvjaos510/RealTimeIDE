@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var directory = require('../db/directory')
 
-router.get('/', function(req, res){
-    res.send("aaa");
+router.post('/', function(req, res){
+    return res.send('1');
 });
 
 router.post('/create',function(req,res){
@@ -24,10 +24,10 @@ router.post('/create',function(req,res){
 })
 router.post('/delete',function(req,res){
     if(req.isAuthenticated()){
-        if(!req.body.ident || !req.body.user || !req.body.dirName){
+        if(!req.body.ident){
             return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
-        directory.delete(req.body.ident, req.body.user, req.body.dirName, function(data){
+        directory.delete(req.body.ident, function(data){
             return res.send(data);
         })
     }else{
@@ -37,11 +37,11 @@ router.post('/delete',function(req,res){
 
 router.post('/update',function(req,res){
     if(req.isAuthenticated()){
-        if(!req.body.ident || !req.body.user || !req.body.dirName){
-            console.log(1);
+        if(!req.body.ident || !req.body.dirName){
             return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
-        directory.update(req.body.dirName,req.body.user,req.body.ident,function(data){
+        console.log(1);
+        directory.update(req.body.dirName,req.body.ident,function(data){
             return res.send(data);
         })
     }else{

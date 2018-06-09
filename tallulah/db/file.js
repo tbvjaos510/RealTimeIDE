@@ -10,16 +10,34 @@ var file = {};
 
 /**
  * 
- * @param {number} ident 폴더 고유 번호
+ * @param {number} ident 파일 고유 번호
  * @param {String} data 수정내용
  * @param {(data:file_callback)=>void} cb 
  */
-file.update = function(ident, data, cb){
+file.updateContent = function(ident, data, cb){
     connection.query("update t_file set file_content = ? where file_ident = ?", [data, ident], function(err, results){
         if (err) return cb({success : false, status : 1, message : 'DB 오류'});
         return cb({success:true, status : 3, message : '성공'});
     });
 };
+
+/**
+ * @param {number} ident 파일 고유번호
+ * @param {String} updateFilename 업데이트할 파일 이름
+ * @param {(data:file_callback=>void)} callback 콜백함수 
+ */
+
+ file.updateFilename = function(ident,updateFilename,callback){
+     connection.query("update t_file set file_name = ? where file_ident = ?",[updateFilename,ident],function(err,results){
+         if(err) {
+            if(err.errno == 1062){
+                return callback({status : 2, success : true , message : "중복된 파일 이름이 있습니다."});
+            }
+            return callback({success : false, status : 1, message : 'DB 오류'});
+         }
+           return callback({success:true, status : 3, message : '성공'});
+     })
+ }
 
 /**
  * @param {number} ident 상위 폴더의 고유번호 
@@ -52,5 +70,20 @@ file.get = function(ident, cb){
         return cb({success:true, status:3, message:'값 불러오기 성공', data:result});
     });
 };
+
+/**
+ * @param {number} ident 파일식별자
+ * @param {(data:file_callback=>void)} callback 콜백함수
+ */
+
+file.delete = function(ident,callback){
+    connection.query('delete from t_file where file_ident = ?',[ident],function(err,results){
+        if (err){
+            console.log(err);
+            return callback({success:false, status:1, message:'DB 오류'});
+        }
+        return callback({status : 3, success : true, message : '삭제 성공'});
+    })
+}
 
 module.exports = file;
