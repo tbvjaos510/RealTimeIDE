@@ -79,7 +79,7 @@
     function doLogin(){ 
       $.ajax({
         url:"login/auth",
-        data:{id: $("[name='id']").val() , password:$("[name='password']").val() },
+        data:{id: $("input[placeholder='ID']").val() , password:$("input[placeholder='PASSWORD']").val() },
         method:"POST",
         success:function(res){
           console.log(res);
@@ -141,7 +141,7 @@
    <div id="popup_login" style="display: none;">
      <input type="text" placeholder="ID">
      <input type="password" placeholder="PASSWORD">
-     <input type="button" value="LOGIN">
+     <input type="button" value="LOGIN" onclick="doLogin()">
    </div>
 
    <div id="popup_register" style="display: none;">
