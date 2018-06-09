@@ -12,17 +12,18 @@ var directory = {};
 /**
  * @param {number} dirName 디렉토리 이름
  * @param {number} pid 프로젝트 아이디
+ * @param {number} did 디렉토리 아이디 
  * @param {(data:directory_callback=>void)} callback 콜백함수 
  */
 
-directory.create = function(dirName,pid,callback){ //파일 생성
-    connection.query("select * from t_directory where dir_name=? and project_ident = ?",[dirName,pid],function(err,results){
+directory.create = function(dirName,pid,did,callback){ //파일 생성
+    connection.query("select * from t_directory where dir_name=? and project_ident = ? and dir_paraent = ?",[dirName,pid,did],function(err,results){ 
         if(err){
             console.log(err);
             return callback({status : 1, success : false, message : "DB 오류"});
         }
         if(results[0] == null){
-            connection.query("insert into t_directory(dir_name,project_ident) values(?,?);",[dirName,pid],function(err,results){
+            connection.query("insert into t_directory(dir_name,dir_paraent,project_ident) values(?,?,?);",[dirName,did,pid],function(err,results){
                 if(err){
                     return callback({status : 1, success : false, message : "DB 오류"});
                 }
