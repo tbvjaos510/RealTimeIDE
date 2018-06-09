@@ -81,7 +81,7 @@ body {
 
 .dropdown a:hover,
 .dropdown:hover .dropbtn {
-  background-color: red;
+  background-color: #007acc;
   cursor: pointer;
 }
 
