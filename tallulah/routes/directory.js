@@ -49,4 +49,15 @@ router.post('/update',function(req,res){
       }
 })
 
+router.post('/get',function(req,res){
+    if(req.isAuthenticated()){
+        if(!req.body.ident){
+            return res.send({statue : 1, success : false, message : "인자값이 전달 되지 않았습니다."});
+        }
+        directory.get(req.body.ident, function(data){
+            return res.send(data);
+        })
+    }
+})
+
 module.exports = router;
