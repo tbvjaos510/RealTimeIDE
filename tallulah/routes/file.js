@@ -19,12 +19,12 @@ router.post('/create',function(req,res){
     }
 })
 
-router.post('/update',function(req,res){
+router.post('/updateContent',function(req,res){
     if(req.isAuthenticated()){
         if(!req.body.ident || !req.body.content){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.update(req.body.ident,req.body.content,function(date){
+        file.updateContent(req.body.ident,req.body.content,function(date){
             return res.send(date);
         })
     }else{

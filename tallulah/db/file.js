@@ -10,16 +10,26 @@ var file = {};
 
 /**
  * 
- * @param {number} ident 폴더 고유 번호
+ * @param {number} ident 파일 고유 번호
  * @param {String} data 수정내용
  * @param {(data:file_callback)=>void} cb 
  */
-file.update = function(ident, data, cb){
+file.updateContent = function(ident, data, cb){
     connection.query("update t_file set file_content = ? where file_ident = ?", [data, ident], function(err, results){
         if (err) return cb({success : false, status : 1, message : 'DB 오류'});
         return cb({success:true, status : 3, message : '성공'});
     });
 };
+
+/**
+ * @param {number} ident 파일 고유번호
+ * @param {String} updateFilename 업데이트할 파일 이름
+ * @param {(data:file_callback=>void)} callback 콜백함수 
+ */
+
+ file.updateFilname = function(ident,data,callback){
+     connection.query("")
+ }
 
 /**
  * @param {number} ident 상위 폴더의 고유번호 

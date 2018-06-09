@@ -24,10 +24,10 @@ router.post('/create',function(req,res){
 })
 router.post('/delete',function(req,res){
     if(req.isAuthenticated()){
-        if(!req.body.ident || !req.body.user || !req.body.dirName){
+        if(!req.body.dirName){
             return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
-        directory.delete(req.body.ident, req.body.user, req.body.dirName, function(data){
+        directory.delete(req.body.dirName, function(data){
             return res.send(data);
         })
     }else{
@@ -37,11 +37,11 @@ router.post('/delete',function(req,res){
 
 router.post('/update',function(req,res){
     if(req.isAuthenticated()){
-        if(!req.body.ident || !req.body.user || !req.body.dirName){
+        if(!req.body.ident || !req.body.dirName){
             console.log(1);
             return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
-        directory.update(req.body.dirName,req.body.user,req.body.ident,function(data){
+        directory.update(req.body.dirName,req.body.ident,function(data){
             return res.send(data);
         })
     }else{

@@ -36,19 +36,11 @@ directory.create = function(dirName,pid,did,callback){ //파일 생성
  }
 
 /**
- * @param {number} pid 프로젝트 식별자
  * @param {(data:directory_callback=>void)} callback 콜백함수
- * @param {number} uid 유저 식별자
  * @param {String} name 폴더 이름
  */
 
-directory.delete = function(pid,uid,name,callback){ //파일 삭제
-    connection.query("select grade from t_user_project where grade = 2 and user_ident = ? and project_ident = ?",[uid,pid],function(err,results){
-        if(err){
-            return callback({status : 1, success : false, message : "DB 에러"});
-        }else if(results[0] == null){
-            return callback({status : 2, success : false, message : "권한 없음"});
-        }
+directory.delete = function(name,callback){ //파일 삭제
         connection.query("select * from t_directory where dir_name = ?",[name],function(err,results){
                     if(err){
                         return callback({status : 1, success : false, message : "DB 에러"});
@@ -62,28 +54,20 @@ directory.delete = function(pid,uid,name,callback){ //파일 삭제
                         return callback({status : 3, success : true, message : "삭제 성공"});
                 })
         }) 
-    })
 }
 
 /**
  * @param {String} dirName 수정할 디렉토리 이름
- * @param {number} uid 유저 식별자
- * @param {number} pid 프로젝트 식별자
+ * @param {number} dirIdent 파일 디렉토리 이름
  * @param {(data:directory_callback=>void)} callback 콜백함수
  */
 
-directory.update = function(dirName,uid,pid,callback){ //파일 이름 수정
-    connection.query("select grade from t_user_project where grade = 2 and user_ident = ? and project_ident = ?",[uid,pid],function(err,results){
-        if(err){
-            return callback({status : 1, success : false, message : "DB 에러"});
-        }else if(results[0] == null){
-            return callback({status : 2, success : false, message : "권한 없음"});
-        }
+directory.update = function(dirName,dirIdent,callback){ //파일 이름 수정
         connection.query("select * from t_directory where dir_name = ?",[dirName],function(err,results){
             if(err){
                 return callback({status : 1, success : false, message : "DB 에러"});
             }else if(results[0] == null){
-                connection.query('update t_directory set dir_name = ? where project_ident = ?',[dirName,pid],function(err,results){
+                connection.query('update t_directory set dir_name = ? where dir_ident = ?',[dirName,dirIdent],function(err,results){
                     if(err){
                         return callback({status : 1, success : false, message : "DB 에러"});
                     }
@@ -95,7 +79,6 @@ directory.update = function(dirName,uid,pid,callback){ //파일 이름 수정
             }
             return callback({statue : 2, success : false, message : "같은 폴더 이름 존재"});
         })
-    })
 } 
 
 /**
