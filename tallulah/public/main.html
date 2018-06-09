@@ -16,8 +16,26 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link href="style.css" rel="stylesheet">
   <script>
+<<<<<<< HEAD
     $(document).ready(function(){ 
     
+=======
+    $(document).ready(function(){
+
+
+      $("#signin").click(function(){
+          loginshow();
+      });
+      $("#signup").click(function(){
+          regisshow();
+      });
+      $(".close").click(function(){
+          loginhide();
+      });
+      $(".close2").click(function(){
+          regishide();
+      });
+>>>>>>> 2ba4b1b1c8c03cb4faf3ab2f13a85f97c9b1d0a5
       
       
       
@@ -73,6 +91,8 @@
             loginhide();
         }
       });
+
+      document.execCommand("insertOrderedList");
     });
     function doLogin(){ 
       $.ajax({
@@ -91,7 +111,7 @@
 <body>
   <div class="container"></div>
   <header class="header">
-    <ul>
+    <ul class="menu_bar">
       <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">프로젝트(P)</a>
         <div class="dropdown-content">
@@ -133,6 +153,7 @@
     </div></center>
     <div style="width:70%; height:inherits; background-color:skyblue;"id="monacoeditor"></div> -->
    
+<<<<<<< HEAD
    <div style="background:#2E2E2E; width: 100%;height: 9%"></div>
    <div class="monacoeditor" id="monacoeditor" style="height:90%; width:100%"></div> 
    
@@ -153,6 +174,25 @@
     <div class="popup">
       <div class="head">
         <i class="fas fa-times-circle" id="btn_close" style="float: right;"></i>
+=======
+    <div style="background:skyblue; width: 100%;height: 9%"></div>
+    <div class="monacoeditor" id="monacoeditor" style="height:90%; width:100%"></div>
+    <!-- <div contenteditable="true" style="background: gray; width: 100%; height: 100%;"></div> -->
+    <div class="pop" style="display:none; background:#3AAFA9; position: absolute; z-index: 0;">
+      <img src="images/x.png" class="close" width="20px;" height="20px" style="cursor: pointer; float: right; margin:10px;"/>
+      <center style="margin-top:30%;"><input type="text" tabindex="1" name="id" placeholder="Username" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none;"></center>
+      <center style="margin-top:10px;"><input type="password" tabindex="2" name="password" placeholder="Password" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none;"> </center>
+      <center style="margin-top:30px;"><input type="submit" tabindex="3" class="button" value="LOGIN" onclick="doLogin()"></center>
+      <center><p style="color:#ffffff; font-weight:bold;">Not a member?</p><a href="#" style="color:#ffffff; text-decoration: none;">Sign up now.</a></center>
+    </div>
+    <div class="pop2" style="display:none; background:#3AAFA9; position: absolute; z-index: 0;">
+        <img src="images/x.png" class="close2" width="20px;" height="20px" style="cursor: pointer; float: right; margin:10px;"/>  
+        <center style="margin-top:25%;"><input type="text" tabindex="1" name="user_id" placeholder="Username" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none;"></center>
+        <center style="margin-top:10px;"><input type="password" tabindex="2" name="user_password" placeholder="Password" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none;"> </center>
+        <center style="margin-top:10px;"><input type="password" tabindex="3" name="user_passwordcf" placeholder="Password Confirm" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none;"></center>
+        <center style="margin-top:10px;"><input type="text" tabindex="4" name="user_name" placeholder="Name" size="20" style="font-size: 20px; padding:5px; color:#3AAFA9; outline: none; cursor: pointer;" ></center>
+        <center style="margin-top:30px;"><input type="submit" tabindex="5" class="button2" value="SIGN UP" ></center>
+>>>>>>> 2ba4b1b1c8c03cb4faf3ab2f13a85f97c9b1d0a5
       </div>
       <div class="content"></div>
     </div>
