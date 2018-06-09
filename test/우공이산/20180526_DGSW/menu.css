@@ -10,10 +10,12 @@
 	color: #FFF;
 	padding: 0 10px 0 10px;
 	border-right: 1px solid #888;
+	font-size: 20px;
 }
 
 .menu .top_menu .top_node:hover {
 	background-color: #008;
+	cursor: default;
 }
 
 .menu .sub_menu {
@@ -21,6 +23,7 @@
 	position: absolute; 
 	color: #000; 
 	border: 1px solid #000; 
+	border-bottom: 0px;
 	background-color: #FFF;
 }
 
@@ -31,10 +34,11 @@
 .sub_menu ul {
 	padding: 0px;
 	margin: 0px;
+	background: rgb(92, 182, 255);
 }
 
 .sub_menu_node {
-	border-top: 1px solid black;
+	border-bottom: 1px solid black;
 	padding: 5px;
 }
 
