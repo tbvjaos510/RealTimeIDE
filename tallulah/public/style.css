@@ -209,3 +209,16 @@ position: relative;
   margin-top: 5%;
   color: #fff;
 }
+
+::placeholder {
+  color: White;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: White;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: White;
+}
