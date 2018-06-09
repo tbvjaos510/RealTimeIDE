@@ -47,6 +47,7 @@
 				{name: 'New', id: 'file-new'},
 				{name: 'Open', id: 'file_open'},
 				{name: 'Save', id: 'file-save'},
+				{name: 'Login', id: 'file-login'},
 			]},
 			{name: 'Edit', id: 'edit', subMenu: [
 				{name: 'Find', id: 'edit-find'},
@@ -57,6 +58,11 @@
 				
 		$("#menu_layer").makeMenu(menuOptions, function(id) {
 			console.log(id);
+
+			if (id == "file-login")
+			{
+				openPopup();
+			}
 		});
 
 	}

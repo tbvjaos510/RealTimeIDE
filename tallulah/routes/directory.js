@@ -11,7 +11,7 @@ router.post('/create',function(req,res){
         if(!req.body.dirName || !req.body.ident){
             return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
-        directory.create(req.body.dirName, req.body.ident,function(data){ 
+        directory.create(req.body.dirName, req.body.ident,req.body.dirident,function(data){ 
             console.log(data);
 
             return res.send(data);
