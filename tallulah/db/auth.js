@@ -64,7 +64,7 @@ auth.signup = function (id, pw, name, callback) {
               callback({ status: 2, success: false, message: '알 수 없는 오류' });
               console.log(err.message);
             } else {
-              callback({ status: 3, success: true, messsage: '성공' });
+              callback({ status: 3, success: true, message: '성공' });
             }
           });
       });
