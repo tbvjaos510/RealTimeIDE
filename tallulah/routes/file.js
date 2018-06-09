@@ -50,7 +50,7 @@ router.post('/delete',function(req,res){
         if(!req.body.ident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.delete(ident,function(data){
+        file.delete(req.body.ident,function(data){
             return res.send(data);
         })
     }else{
