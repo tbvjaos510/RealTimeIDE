@@ -17,60 +17,10 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link href="style.css" rel="stylesheet">
   <script>
-    $(document).ready(function(){ 
-      $(".button2").click(function(){
-      var idchk = $("input[name=user_id]").val();
-      var pwchk = $("input[name=user_password]").val();
-      var namechk = $("input[name=user_name]").val();
-        if(idchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(namechk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } 
-          else{
-            alert("회원가입 성공!");
-            regishide();
-        }
-      });
-      
-      $(".button").click(function(){
-      var idchk = $("input[name=id]").val();
-      var pwchk = $("input[name=password]").val();
-        if(idchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(idchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\'") !=-1){
-          alert("\' 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\"") != -1){
-          alert("\" 이 문자는 사용할수 없습니다.");
-        } else if(pwchk.indexOf("\\") != -1){
-          alert("\\ 이 문자는 사용할수 없습니다.");
-        } 
-          else{
-            alert("로그인 성공!");
-            loginhide();
-        }
-      });
-
+    $(document).ready(function(){
       document.execCommand("insertOrderedList");
     });
+    
     function doLogin(){ 
       $.ajax({
         url:"login/auth",
