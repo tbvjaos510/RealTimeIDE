@@ -4,24 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Document</title>
     <script>
-        var io = io();
-        function sendLog(){
-            console.log('ChangeRoom');
-            document.getElementById('EnterLog').innerHTML="";
-            io.emit('changeRoom', document.getElementById('roomNum').value);
-            io.emit('join','join');
+        var name;
+        var io=io();
+        function nameChange(){
+            io.emit('join',document.getElementById('name').value);
+            name=document.getElementById('name').value;
+        }
+        function sendChat(){
+            var line=document.getElementById('sendContent').value;
+            if(line!="")
+                io.emit('data',name+": "+document.getElementById('sendContent').value+'\n');
+            document.getElementById('sendContent').value="";
         }
     </script>
 </head>
 <body>
-    <input type="number" id="roomNum" value="1"><br>
-    <textarea id="EnterLog" cols="30" rows="10"></textarea>
-    <input type="button" onclick="sendLog()" value="들어가기">
+    <input type="text" id="name" placeholder="이름">
+    <input type="button" id="nameChange" value="이름 변경" onclick="nameChange()">
+    <input type="text" id="sendContent" placeholder="보낼 내용">
+    <input type="button" id="send" value="보내기" onclick="sendChat()"><br>
+    <textarea id="chat" cols="70" rows="10"></textarea>
     <script>
         io.on('join',function(data){
-            document.getElementById('EnterLog').innerHTML+=data;
+            document.getElementById('chat').innerHTML+=data;
+        });
+        io.on('data',function(data){
+            document.getElementById('chat').innerHTML+=data;
         });
     </script>
 </body>
