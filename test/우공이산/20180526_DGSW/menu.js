@@ -35,7 +35,7 @@ Menu.prototype.make = function()
 	
 Menu.prototype.makeTopMenu = function(menuNode)
 {
-	console.log(menuNode);
+	//console.log(menuNode);
 	
 	var li = $("<li />");
 	li.addClass("top_node");
@@ -86,5 +86,14 @@ Menu.prototype.makeSubMenu = function(layer, menuNode)
 	
 	layer.find("ul").append(li);
 
+	var this1 = this;
+	li.on("click", function(event) {
+		if (this1.callback)
+		{
+			this1.callback(menuNode.id);
+
+			event.stopPropagation();
+		}
+	});
 }
 
