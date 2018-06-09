@@ -79,14 +79,30 @@
     function doLogin(){ 
       $.ajax({
         url:"login/auth",
-        data:{id: $("input[placeholder='ID']").val() , password:$("input[placeholder='PASSWORD']").val() },
+        data:{id: $("input[name='id']").val() , password:$("input[name='password']").val() },
         method:"POST",
         success:function(res){
           console.log(res);
+          console.log(this.data);
           alert(res.message);
         }
       })
     }
+
+    function doSign(){ 
+      $.ajax({
+        url:"login/sign",
+        data:{id: $("input[name='signid']").val() , password:$("input[name='signpw']").val(), name:$("input[name='signname']").val() },
+        method:"POST",
+        success:function(res){
+          console.log(res);
+          console.log(this.data);
+          alert(res.message);
+        }
+      })
+    }
+
+    
   </script>
 </head>
 
@@ -139,16 +155,16 @@
    <div class="monacoeditor" id="monacoeditor" style="height:90%; width:100%"></div> 
    
    <div id="popup_login" style="display: none;">
-     <input type="text" placeholder="ID">
-     <input type="password" placeholder="PASSWORD">
+     <input type="text" name="id" placeholder="ID">
+     <input type="password" name="password" placeholder="PASSWORD">
      <input type="button" value="LOGIN" onclick="doLogin()">
    </div>
 
    <div id="popup_register" style="display: none;">
-      <input type="text" placeholder="ID">
-      <input type="password" placeholder="PASSWORD">
-      <input type="text" placeholder="NAME">
-      <input type="button" value="SIGN">
+      <input type="text" name="signid" placeholder="ID">
+      <input type="password" name="signpw"  placeholder="PASSWORD">
+      <input type="text" name="signname" placeholder="NAME">
+      <input type="button" value="SIGN" onclick="doSign()">
    </div>
 
    
