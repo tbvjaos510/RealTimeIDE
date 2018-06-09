@@ -38,7 +38,13 @@
 		popup.open();
 	}
 	
-	
+	function openLoginPopup()
+	{
+		console.log("afal");
+		popup = new Popup("#popup_login", "로그인");
+		popup.open();
+	}
+
 	function makeMenu()
 	{
 		
@@ -92,9 +98,16 @@
 
 
 <input type="button" value="popup" onclick="openPopup()">
+<input type="button" value="로그인" onclick="openLoginPopup()">
 
 <div id="popup_1" style="display: none;">
 	<input type="button" value="성공" id="btn_success"/>
+</div>
+
+<div id="popup_login" style="display: none;">
+	<input type="text" value="ID" id="btn_success1"/>
+	<input type="text" value="Password" id="btn_success2"/>
+	<input type="button" value="성공" id="btn_success3"/>
 </div>
 
 

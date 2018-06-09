@@ -3,7 +3,8 @@ function Popup(selector, title)
 {
 	this.selector = selector;
 	this.title = title;
-	
+	console.log("const");
+
 	var this1 = this;
 	$(".popup .buttons .btn_close").on("click", function() {
 		this1.close();
