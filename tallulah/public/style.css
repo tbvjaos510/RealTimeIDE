@@ -148,27 +148,6 @@ li.dropdown {
   border-radius: 5%;
 }
 
-.button {
-  color: white;
-  background-color: #ffffff;
-  color: #79bd9a;
-  font-weight: bold;
-  padding: 15px;
-  width: 80%;
-  border: none;
-  cursor: pointer;
-}
-
-.button2 {
-  color: white;
-  background-color: #ffffff;
-  color: #79bd9a;
-  font-weight: bold;
-  padding: 15px;
-  width: 80%;
-  border: none;
-  cursor: pointer;
-}
 
 .popup{
   position: absolute;
