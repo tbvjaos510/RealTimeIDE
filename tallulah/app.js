@@ -24,6 +24,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var projectRouter = require('./routes/project');
 var directoryRouter = require('./routes/directory');
+var fileRouter = require('./routes/file');
 // view engine setup
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -52,6 +53,7 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter); //링크 /login에 routes/login.js 라우터를 등록한다.
 app.use('/project', projectRouter);
 app.use('/directory',directoryRouter);
+app.use('/file',fileRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
