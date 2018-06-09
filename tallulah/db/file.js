@@ -71,4 +71,19 @@ file.get = function(ident, cb){
     });
 };
 
+/**
+ * @param {number} ident 파일식별자
+ * @param {(data:file_callback=>void)} callback 콜백함수
+ */
+
+file.delete = function(ident,callback){
+    connection.query('delete from t_file where file_ident = ?',[ident],function(err,results){
+        if (err){
+            console.log(err);
+            return callback({success:false, status:1, message:'DB 오류'});
+        }
+        return callback({status : 3, success : true, message : '삭제 성공'});
+    })
+}
+
 module.exports = file;
