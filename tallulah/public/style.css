@@ -81,7 +81,7 @@
       background-color: rgb(40, 72, 255);
     }
 
-    li.dropdown {
+    li.dropdown, li.rightHead {
       display: inline-block;
     }
 
