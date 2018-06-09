@@ -38,7 +38,7 @@ file.create = function(ident ,name, cb){
         return cb({success:true, status : 3, message : '파일 생성 성공'});
     });
 }
-/**
+/** 
  * 
  * @param {number} ident 상위 고유번호
  * @param {(data:file_callback)=>void} cb 콜백 함수
