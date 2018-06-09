@@ -20,37 +20,26 @@ directory.create = function (dirName, pid, did, callback) { //파일 생성
     if (!did) { // 부모폴더의 번호가 null일 때
         did = 0;
     }
-    connection.query("select * from t_directory where dir_name=? and project_ident = ? and dir_paraent = ?", [dirName, pid, did], function (err, results) {
+    connection.query("insert into t_directory(dir_name,dir_paraent,project_ident) values(?,?,?)", [dirName, did, pid], function (err, results) {
         if (err) {
-            console.log(err);
+            if (err.errno == 1062) {
+                return callback({
+                    status: 2,
+                    success: false,
+                    message: "중복된 폴더가 존재합니다."
+                })
+            }
             return callback({
                 status: 1,
                 success: false,
                 message: "DB 오류"
             });
         }
-        if (results[0] == null) {
-            connection.query("insert into t_directory(dir_name,dir_paraent,project_ident) values(?,?,?);", [dirName, did, pid], function (err, results) {
-                if (err) {
-                    return callback({
-                        status: 1,
-                        success: false,
-                        message: "DB 오류"
-                    });
-                }
-                return callback({
-                    status: 3,
-                    success: true,
-                    message: "성공"
-                });
-            })
-        } else {
-            return callback({
-                status: 2,
-                success: false,
-                message: "이미 생성됨."
-            });
-        }
+        return callback({
+            status: 3,
+            success: true,
+            message: "성공"
+        });
     })
 }
 
@@ -100,7 +89,7 @@ directory.delete = function (ident, callback) { //파일 삭제
 directory.update = function (dirName, dirIdent, callback) { //파일 이름 수정
     connection.query('update t_directory set dir_name = ? where dir_ident = ?', [dirName, dirIdent], function (err, results) {
         if (err) {
-            if (err.errno == 1062){
+            if (err.errno == 1062) {
                 return callback({
                     status: 2,
                     success: false,
