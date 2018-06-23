@@ -66,8 +66,20 @@ router.post('/get',function(req,res){
         if(!req.body.pident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        console.log(1);
         file.get(req.body.pident,req.body.ident, function(date){
+            return res.send(date);
+        })
+    }else{
+        return res.send({status : -1, success : false, message : "로그인이 되지 않았습니다."});
+    }
+})
+
+router.post('/getFile',function(req,res){
+    if(req.isAuthenticated()){
+        if(!req.body.fident){
+            return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
+        }
+        file.getFile(req.body.fident, function(date){
             return res.send(date);
         })
     }else{
