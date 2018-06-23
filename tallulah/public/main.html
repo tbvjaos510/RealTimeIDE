@@ -11,13 +11,16 @@
   <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="tree/themes/default/style.min.css">
 
   <!--script-->
   <script src="js/jquery/jquery.js"></script>
+  <script src="tree/jstree.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/loader.js"></script>
   <script src="js/front/popup.js"></script>
   <script src="js/front/AddMenu.js"></script>
   <script src="js/front/AddTab.js"></script>
+  <script src="tree/tree_api.js"></script>
   
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <!-- <script src="js/monaco/monaco.js"></script> -->
@@ -40,7 +43,6 @@
           tab.add(title, "#tab_content_2");
         }
 
-        
       });
     });
     
@@ -57,7 +59,7 @@
       })
     }
     var menu=[{name: 'Project',click: function(){console.log('아 슬프다');}, subMenu:[
-                  {name: '프로젝트 생성', click: function(){ console.log('SUCCESS');}},
+                  {name: '프로젝트 생성', click: openProjectPopup},
                   {name: '종료'}]},
               {name: 'Help',subMenu:[
                   {name: 'link 1'}]},
@@ -102,19 +104,11 @@
   </header>
 
   <nav class="nav">
-    <div class="tab_package">
-      
-    </div>
-    <!-- <div class="tab_team">  
-      <input type="button" value="최성혁" name="btn_tab_1" class="btn_tab">
-      <input type="button" value="서상희" name="btn_tab_2" class="btn_tab">
-      <div id="tab_content_1" style="display: none;">
-        최성혁
+      <div id="tree">
+        <ul>
+          <li>123</li>
+        </ul>
       </div>
-      <div id="tab_content_2" style="display: none;">
-        서상희
-      </div>
-    </div> -->
   </nav>
 
   <section class="section">
@@ -131,14 +125,19 @@
       <div id="popup_login" style="display: none;">
         <input type="text" name="id" placeholder="ID">
         <input type="password" name="password" placeholder="PASSWORD">
-        <input type="button" class="sign" value="LOGIN" onclick="doLogin()">
+        <input type="button" class="button" value="LOGIN" onclick="doLogin()">
       </div>
 
       <div id="popup_register" style="display: none;">
           <input type="text" name="signid" placeholder="ID">
           <input type="password" name="signpw"  placeholder="PASSWORD">
           <input type="text" name="signname" placeholder="NAME">
-          <input type="button" class="sign" value="SIGN" onclick="doSign()">
+          <input type="button" class="button" value="SIGN" onclick="doSign()">
+      </div>
+
+      <div id="popup_project" style="display: none;">
+        <input type="text" name="project" placeholder="MAKE PROJECT">
+        <input type="button" name="project-button" value="MAKE" class="button">
       </div>
 
       
