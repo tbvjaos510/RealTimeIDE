@@ -48,6 +48,7 @@ router.post('/update',function(req,res){
 });
 
 router.post('/get', function (req, res) {
+  console.log(req.session.passport.user.ident);
   if (req.isAuthenticated()) {
     project.select(req.session.passport.user.ident, function (data) {
       res.send(data);

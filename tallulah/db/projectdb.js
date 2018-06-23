@@ -116,7 +116,7 @@ project.delete = function (id, owner,callback) {
  * 
  */
 project.select = function(uid, callback){
-    connection.query('select t_project.*, t_user_project.grade from t_project join t_user_project  and t_user_project.project_ident = t_project.project_ident where t_user_project.user_ident = ? group by project_ident', [uid], function(err, results){
+    connection.query('select t_project.*, t_user_project.grade from t_project join t_user_project on t_user_project.project_ident = t_project.project_ident where t_user_project.user_ident = ? group by project_ident', [uid], function(err, results){
         if (err){
             console.log(err.message);
             return callback({status : 1, success : false, message : 'DB 오류'});

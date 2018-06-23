@@ -3,11 +3,13 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/',function(req,res){
-    return res.send('1');
+    console.log(req.body.test);
+    return res.send('123');
 })
 
 router.post('/create',function(req,res){
     if(req.isAuthenticated()){
+        console.log(req.body.ident+", " + req.body.name);
         if(!req.body.ident || !req.body.name){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
@@ -59,6 +61,7 @@ router.post('/delete',function(req,res){
 })
 
 router.post('/get',function(req,res){
+    console.log(req.body.ident);
     if(req.isAuthenticated()){
         if(!req.body.ident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
