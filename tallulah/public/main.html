@@ -17,7 +17,7 @@
   <!-- <script src="js/monaco/monaco.js"></script> -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link href="style.css" rel="stylesheet">
-  <script>
+  <script>  
     $(document).ready(function(){ 
       document.execCommand("insertOrderedList");
       makeTab();
@@ -50,22 +50,8 @@
         }
       })
     }
-
-    function doCreateProject(){
-      $.ajax({
-        url:"project/create",
-        data:{name: $("input[name='projectName']").val() , desc:$("input[name='projectDesc']").val() },
-        method:"POST",
-        success:function(res){
-          console.log(res);
-          console.log(this.data);
-          alert(res.message);
-        }
-      })
-    }
-
-    var menu=[{name: 'Project', subMenu:[
-                  {name: '프로젝트 생성', click: openCreateProjectPopup},
+    var menu=[{name: 'Project',click: function(){console.log('아 슬프다');}, subMenu:[
+                  {name: '프로젝트 생성', click: function(){ console.log('SUCCESS');}},
                   {name: '종료'}]},
               {name: 'Help',subMenu:[
                   {name: 'link 1'}]},
@@ -147,12 +133,6 @@
           <input type="password" name="signpw"  placeholder="PASSWORD">
           <input type="text" name="signname" placeholder="NAME">
           <input type="button" class="sign" value="SIGN" onclick="doSign()">
-      </div>
-
-      <div id="popup_createProject" style="display: none;">
-          <input type="text" name="projectName" placeholder="ProjectName">
-          <input type="text" name="projectDesc" placeholder="ProjectDesc">
-          <input type="button" class="sign" value="SIGN" onclick="doCreateProject()">
       </div>
 
       
