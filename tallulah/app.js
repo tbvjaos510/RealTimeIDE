@@ -34,7 +34,7 @@ app.use(session({ //세션정보를 저장
   secret : 'asdl*&%^JKasdfs#$%^*dDqewtyu[jbv',  //secret - 세션을 암호화하는 salt이다. 주기적으로 변경하자.
   resave:true,
   saveUninitialized : true,
-  cookie : {maxAge : 3600000, httpOnly:true},
+  cookie : {maxAge : 1000*60*60, httpOnly:true},
   store : store,  //저장하는곳은 mysql이다. 정확한 위치는 (dgsw_sms/sessions)에 저장됨.
   rolling:true
 }));
