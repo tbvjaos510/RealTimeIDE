@@ -160,14 +160,6 @@ li.dropdown {
   
 }
 
-.tab_title_area {
-  width: 100%;
-  height: 30px;
-  background-color: #00F;
-  border: 1px solid #FF0;
-
-}
-
 .tab_title_area .tab_title_item
 {
   display: inline-block;
