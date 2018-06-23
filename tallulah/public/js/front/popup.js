@@ -43,6 +43,11 @@ function openSignPopup(){
     popup.open();
 }
 
+function openCreateProjectPopup(){
+    popup = new Popup("#popup_createProject");
+    popup.open();
+}
+
 Popup.prototype.close = function(){
     this.cover.hide();
     $(this.selector).hide();
