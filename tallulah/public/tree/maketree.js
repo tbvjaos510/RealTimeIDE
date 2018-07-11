@@ -5,6 +5,8 @@ function makeProject(){
     var ul = $("<ul />");
     var li = $("<li />");
     li.html(projectname);
+    li.addClass('context-menu-one btn btn-neutral');
+    li.addClass(projectname)
     if(projectname!=""){
         $("#tree").append(li);
     }
