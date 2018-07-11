@@ -11,24 +11,28 @@
   <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link href="style.css" rel="stylesheet">
-  <link rel="stylesheet" href="tree/themes/default/style.min.css">
+  <!-- <link rel="stylesheet" href="tree/themes/default/style.min.css"> -->
 
   <!--script-->
   <script src="js/jquery/jquery.js"></script>
-  <script src="tree/jstree.js"></script>
+  <!-- <script src="tree/jstree.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/loader.js"></script>
   <script src="js/front/popup.js"></script>
   <script src="js/front/AddMenu.js"></script>
   <script src="js/front/AddTab.js"></script>
-  <script src="tree/tree_api.js"></script>
+  <!-- <script src="tree/tree_api.js"></script> -->
+  <script src="tree/maketree.js"></script>
+  <script src="js/front/click.js"></script>
+
   
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <!-- <script src="js/monaco/monaco.js"></script> -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-  
+
   <script>  
     $(document).ready(function(){ 
-      document.execCommand("insertOrderedList");
+
+      
       makeTab();
 		
       $(".btn_tab").on("click", function(event) {
@@ -44,7 +48,12 @@
         }
 
       });
+
+     
+
     });
+
+    
     
     function doLogin(){ 
       $.ajax({
@@ -60,7 +69,7 @@
     }
     var menu=[{name: 'Project',click: function(){console.log('아 슬프다');}, subMenu:[
                   {name: '프로젝트 생성', click: openProjectPopup},
-                  {name: '종료'}]},
+                  {name: '디렉토리 생성', click: openDirectoryPopup}]},
               {name: 'Help',subMenu:[
                   {name: 'link 1'}]},
               {name:'Test'}];
@@ -105,9 +114,7 @@
 
   <nav class="nav">
       <div id="tree">
-        <ul>
-          <li>123</li>
-        </ul>
+          <li>1</li>
       </div>
   </nav>
 
@@ -123,21 +130,26 @@
       <div class="monacoeditor" id="monacoeditor" style="height:90%; width:100%"></div> 
       
       <div id="popup_login" style="display: none;">
-        <input type="text" name="id" placeholder="ID">
-        <input type="password" name="password" placeholder="PASSWORD">
-        <input type="button" class="button" value="LOGIN" onclick="doLogin()">
+        <input type="text" name="id" placeholder="ID" />
+        <input type="password" name="password" placeholder="PASSWORD" />
+        <input type="button" class="button" value="LOGIN" onclick="doLogin()" />
       </div>
 
       <div id="popup_register" style="display: none;">
-          <input type="text" name="signid" placeholder="ID">
-          <input type="password" name="signpw"  placeholder="PASSWORD">
-          <input type="text" name="signname" placeholder="NAME">
-          <input type="button" class="button" value="SIGN" onclick="doSign()">
+          <input type="text" name="signid" placeholder="ID" />
+          <input type="password" name="signpw"  placeholder="PASSWORD" />
+          <input type="text" name="signname" placeholder="NAME" />
+          <input type="button" class="button" value="SIGN" onclick="doSign()" />
       </div>
 
       <div id="popup_project" style="display: none;">
-        <input type="text" name="project" placeholder="MAKE PROJECT">
-        <input type="button" name="project-button" value="MAKE" class="button">
+        <input type="text" name="project" placeholder="MAKE PROJECT" />
+        <input type="button" name="project-button" value="MAKE" class="button" onclick="makeProject()" />
+      </div>
+
+      <div id="popup_directory" style="display: none;">
+        <input type="text" name="directory" placeholder="MAKE DIRECTORY" />
+        <input type="button" name="directory-button" value="MAKE" class="button" onclick="makeDirectory()" />
       </div>
 
       

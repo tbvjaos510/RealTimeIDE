@@ -3,8 +3,16 @@ function Popup(selector){
     var this1 = this;
 
     $(".popup #btn_close").on("click", function(){
+        $("input[type='text']").val("");
+        $("input[type='password']").val("");
         this1.close();
     }); 
+
+    $("input[type='button']").on("click", function(){
+        $("input[type='text']").val("");
+        $("input[type='password']").val("");
+        this1.close();
+    })
 }
 
 
@@ -45,6 +53,11 @@ function openSignPopup(){
 
 function openProjectPopup(){
     popup = new Popup("#popup_project");
+    popup.open();
+}
+
+function openDirectoryPopup(){
+    popup = new Popup("#popup_directory");
     popup.open();
 }
 
