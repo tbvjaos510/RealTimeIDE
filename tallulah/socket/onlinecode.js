@@ -6,5 +6,4 @@ var srouter = require('./socket_nsp');
  */
 module.exports = function (io) {
     srouter(io, '/main');
-    
 };
