@@ -9,11 +9,11 @@ router.post('/',function(req,res){
 
 router.post('/create',function(req,res){
     if(req.isAuthenticated()){
-        console.log(req.body.ident+", " + req.body.name);
-        if(!req.body.ident || !req.body.name){
+        console.log(req.body.pident + ", " + req.body.ident+", " + req.body.name);
+        if(!req.body.pident || !req.body.name){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.create(req.body.ident,req.body.name,function(data){
+        file.create(req.body.pident,req.body.ident,req.body.name,function(data){
             return res.send(data);
         })
     }else{
@@ -63,10 +63,23 @@ router.post('/delete',function(req,res){
 router.post('/get',function(req,res){
     console.log(req.body.ident);
     if(req.isAuthenticated()){
-        if(!req.body.ident){
+        if(!req.body.pident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.get(req.body.ident, function(date){
+        file.get(req.body.pident,req.body.ident, function(date){
+            return res.send(date);
+        })
+    }else{
+        return res.send({status : -1, success : false, message : "로그인이 되지 않았습니다."});
+    }
+})
+
+router.post('/getFile',function(req,res){
+    if(req.isAuthenticated()){
+        if(!req.body.fident){
+            return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
+        }
+        file.getFile(req.body.fident, function(date){
             return res.send(date);
         })
     }else{
