@@ -20,7 +20,7 @@ directory.create = function (dirName, pid, did, callback) { //파일 생성
     if (!did) { // 부모폴더의 번호가 null일 때
         did = 0;
     }
-    connection.query("insert into t_directory(dir_name,dir_paraent,project_ident) values(?,?,?)", [dirName, did, pid], function (err, results) {
+    connection.query("insert into t_directory(dir_name,dir_parent,project_ident) values(?,?,?)", [dirName, did, pid], function (err, results) {
         if (err) {
             if (err.errno == 1062) {
                 return callback({
