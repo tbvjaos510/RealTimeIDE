@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="tree.css">
+      <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="demo.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+body { overflow-x: hidden; color:#fff; background-color:#009688;}
+</style>
+  <title>jQuery Orange Tree Plugin Demo</title>
+  </head>
+  <body>
+  <div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/other/Lightweight-File-Folder-Tree-Plugin-with-jQuery-Orange-Tree.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+  <h1 style="margin:150px auto 30px auto;">jQuery Orange Tree Plugin Demo</h1>
+      <div id="container">
+
+      </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="orange-tree.js"></script>
+
+      <script>
+      var tree = new orangeTree("#container");
+
+      tree.addBranch({
+        folder: true,
+        title: "folder1"
+      });
+      tree.addBranch({
+        path: "1",
+		title: "File 1"
+      });
+      tree.addBranch({
+        path: "1",
+        folder: true,
+		title: "Folder 2"
+      });
+      tree.addBranch({
+        path: "1/3",
+		title: "File 2"
+      });
+	  tree.addBranch({
+        folder: true,
+        title: "folder2"
+      });
+      </script>
+      <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>
