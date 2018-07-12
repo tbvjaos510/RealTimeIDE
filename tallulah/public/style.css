@@ -181,7 +181,7 @@ li.dropdown {
 
 }
 
-input[placeholder="ID"]{
+input[placeholder="ID (e-mail)"]{
   position: relative;
   left:50%;
   transform: translateX(-50%);
