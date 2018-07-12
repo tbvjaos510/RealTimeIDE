@@ -61,12 +61,24 @@ router.post('/delete',function(req,res){
 })
 
 router.post('/get',function(req,res){
-    console.log(req.body.ident);
     if(req.isAuthenticated()){
         if(!req.body.pident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
         file.get(req.body.pident,req.body.ident, function(date){
+            return res.send(date);
+        })
+    }else{
+        return res.send({status : -1, success : false, message : "로그인이 되지 않았습니다."});
+    }
+})
+
+router.post('/getofdir',function(req,res){
+    if(req.isAuthenticated()){
+        if(!req.body.dident){
+            return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
+        }
+        file.getOfdir(req.body.dident, function(date){
             return res.send(date);
         })
     }else{
