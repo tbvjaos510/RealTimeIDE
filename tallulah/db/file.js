@@ -94,6 +94,20 @@ file.getFile = function(ident,callback){
     })
 }
 
+/**
+ * @param {number} dident 폴더 고유번호
+ * @param {(data:file_callback=>void)} callback 콜백함수
+ */
+
+file.getOfdir = function(dident,callback){
+    connection.query("select file_ident, dir_ident, file_name, file_content,project_ident from t_file where dir_ident = ?",[dident],function(err,results){
+        if (err){
+            console.log(err);
+            return callback({success:false, status:1, message:'DB 오류'});
+        }
+        return callback({success:true, status:3, message:'값 불러오기 성공', data:results});
+    })
+}
 
 /**
  * @param {number} ident 파일식별자

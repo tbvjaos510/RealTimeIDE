@@ -1,0 +1,15 @@
+
+.tree,
+.tree ul {
+  list-style-type: none;
+  -webkit-padding-start: 10px !important;
+}
+
+.tree li {
+  font-size: 13px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  overflow-wrap: break-word;
+}
+
+.tree li>span:first-child { margin-right: 10px; }
