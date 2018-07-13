@@ -267,9 +267,6 @@ input[placeholder="MAKE DIRECTORY"]{
   cursor: pointer;  
 }
 
-#tree>li:hover{
-  background-color:#EEEBEB;
-}
 
 ::placeholder {
   color: White;
@@ -282,4 +279,12 @@ input[placeholder="MAKE DIRECTORY"]{
 
 ::-ms-input-placeholder { /* Microsoft Edge */
  color: White;
+}
+
+#tree>div{
+  padding: 30px;
+}
+
+#tree>div>li:hover{
+  background-color: red;
 }

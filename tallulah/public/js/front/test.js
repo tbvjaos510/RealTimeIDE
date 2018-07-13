@@ -1,12 +1,26 @@
 $(function() {
     $.contextMenu({
         selector: '.context-menu-one', 
-        callback: function(key) {
-            var value = prompt();
+        callback: function(key, options) {
             var _this = $(this);
             var li = $("<li />");
-            if(value!=null && value != ''){
-                var className = _this.attr('class');
+            if(key=="Directory"){
+                var val = prompt();
+                var ul = $("<ul />");
+                var li = $("<li />");
+                li.html(val);
+                var _this = $(this).attr('id');
+                var name = "#" + _this;
+                $(this).append(ul);
+                $(this).children().append(li);
+            } else if(key == "File"){
+                var val = prompt();
+                var li = $("<li />");
+                li.html(val);
+                $(li).css('padding-left', '25px');
+                var _this = $(this).attr('id');
+                var name = "#" + _this;
+                $(this).append(li);
             }
 
         },
