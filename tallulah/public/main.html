@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  
+
 <head>
   <title>main</title>
   <meta charset="utf-8">
@@ -9,15 +9,15 @@
   <!--stylesheet-->
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
   <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
   <link href="style.css" rel="stylesheet">
   <!-- <link rel="stylesheet" href="tree/themes/default/style.min.css"> -->
 
   <!--script-->
   <script src="js/front/test-jquery.js"></script>
-  <script src="js/front/orange-tree.js"></script>
   <script src="js/jquery/jquery.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.ui.position.js"></script>
   <!-- <script src="tree/jstree.js"></script> -->
@@ -30,45 +30,145 @@
   <script src="js/front/click.js"></script>
   <!--test-->
 
-  <script src="js/front/test.js"></script>
+  <!-- <script src="js/front/test.js"></script> -->
 
-  
+  <!-- js, css for createTreeView -->
+  <script src="js/front/orange-tree.js"></script>
+  <script src="js/front/createTree.js"></script>
+  <link rel="stylesheet" href="stylesheets/tree.css">
+  <!-- end -->
+
+  <script src="js/front/settingContextMenu.js"></script>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/monaco/monaco.js"></script>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-  <script>  
-    $(document).ready(function(){ 
+  <script>
+    var tree;
+    var dirData = [
+      {
+        "dir_ident": 3,
+        "dir_name": "test",
+        "dir_parent": 1,
+        "project_ident": 4
+      },
+      {
+        "dir_ident": 1,
+        "dir_name": "테스",
+        "dir_parent": null,
+        "project_ident": 4
+      },
+      {
+        "dir_ident": 13,
+        "dir_name": "테스",
+        "dir_parent": 1,
+        "project_ident": 4
+      },
+      {
+        "dir_ident": 5,
+        "dir_name": "테스",
+        "dir_parent": 3,
+        "project_ident": 4
+      }
+    ]
+    var fileData = [
+      {
+        "file_ident": 6,
+        "dir_ident": 1,
+        "file_name": "test",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 7,
+        "dir_ident": 1,
+        "file_name": "배준재",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 16,
+        "dir_ident": 0,
+        "file_name": "",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 17,
+        "dir_ident": 0,
+        "file_name": "test1",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 18,
+        "dir_ident": 0,
+        "file_name": "test2",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 19,
+        "dir_ident": 2,
+        "file_name": "test2",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 20,
+        "dir_ident": 9,
+        "file_name": "test2",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 22,
+        "dir_ident": 0,
+        "file_name": "test3",
+        "file_content": null,
+        "project_ident": 8
+      },
+      {
+        "file_ident": 24,
+        "dir_ident": 1,
+        "file_name": "test3",
+        "file_content": null,
+        "project_ident": 8
+      }
+    ];
+    $(document).ready(function () {
 
-      
+      tree = new makeTree("#nav");
+      tree.addDir(dirData);
+      tree.addFile(fileData);
+
       makeTab();
-		
-      $(".btn_tab").on("click", function(event) {
+
+      $(".btn_tab").on("click", function (event) {
         var title = $(event.target).val();
 
-        if ($(event.target).prop("name") == "btn_tab_1")
-        {
+        if ($(event.target).prop("name") == "btn_tab_1") {
           tab.add(title, "#tab_content_1");
         }
-        else if ($(event.target).prop("name") == "btn_tab_2")
-        {
+        else if ($(event.target).prop("name") == "btn_tab_2") {
           tab.add(title, "#tab_content_2");
         }
 
       });
 
-     
+
 
     });
 
-    
-    
-    function doLogin(){ 
+
+
+    function doLogin() {
       $.ajax({
-        url:"login/auth",
-        data:{id: $("input[name='id']").val() , password:$("input[name='password']").val() },
-        method:"POST",
-        success:function(res){
+        url: "login/auth",
+        data: { id: $("input[name='id']").val(), password: $("input[name='password']").val() },
+        method: "POST",
+        success: function (res) {
           console.log(res);
           console.log(this.data);
           alert(res.message);
@@ -81,16 +181,16 @@
               {name: 'Help',subMenu:[
                   {name: 'link 1'}]},
               {name:'Test'}];
-    $(function(){
+    $(function () {
       $('.menu_bar').addMenu(menu);
     });
 
-    function doSign(){ 
+    function doSign() {
       $.ajax({
-        url:"login/sign",
-        data:{id: $("input[name='signid']").val() , password:$("input[name='signpw']").val(), name:$("input[name='signname']").val() },
-        method:"POST",
-        success:function(res){
+        url: "login/sign",
+        data: { id: $("input[name='signid']").val(), password: $("input[name='signpw']").val(), name: $("input[name='signname']").val() },
+        method: "POST",
+        success: function (res) {
           console.log(res);
           console.log(this.data);
           alert(res.message);
@@ -102,7 +202,7 @@
     function makeTab() {
       tab = new Tab("#tab_layer");
     }
-    
+
   </script>
 </head>
 
@@ -117,7 +217,7 @@
         <a href="#">Sign In</a>
       </li>
     </ul>
-     
+
   </header>
 
   <nav class="nav">
@@ -130,11 +230,11 @@
       <textarea style="background: #f2f2f2; border:none; margin-top:3%; outline: none; font-size: 20px; resize: none;" cols="110" rows="16" ></textarea>
     </div></center>-->
     <!-- <div style="width:70%; height:inherits; background-color:skyblue;"id="monacoeditor"></div> -->
-    
+
     <div id="tab_layer" style="background:#2E2E2E; width: 100%; height: 9%; margin-top: -16px;"></div>
     <div id="content_layer" style="height: 91%;">
-      <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div> 
-      
+      <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div>
+
       <div id="popup_login" style="display: none;">
         <input type="email" name="id" placeholder="ID (e-mail)" />
         <input type="password" name="password" placeholder="PASSWORD" />
@@ -142,10 +242,10 @@
       </div>
 
       <div id="popup_register" style="display: none;">
-          <input type="email" name="signid" placeholder="ID (e-mail)" />
-          <input type="password" name="signpw"  placeholder="PASSWORD" />
-          <input type="text" name="signname" placeholder="NAME" />
-          <input type="button" class="button" value="SIGN" onclick="doSign()" />
+        <input type="email" name="signid" placeholder="ID (e-mail)" />
+        <input type="password" name="signpw" placeholder="PASSWORD" />
+        <input type="text" name="signname" placeholder="NAME" />
+        <input type="button" class="button" value="SIGN" onclick="doSign()" />
       </div>
 
       <div id="popup_project" style="display: none;">
@@ -158,7 +258,7 @@
         <input type="button" name="directory-button" value="MAKE" class="button" onclick="makeDirectory()" />
       </div>
 
-      
+
       <div class="popup">
         <div class="head">
           <i class="fas fa-times-circle" id="btn_close" style="float: right; cursor: pointer;"></i>
@@ -169,6 +269,7 @@
 
   </section>
   <footer class="footer"></footer>
-  
+
 </body>
+
 </html>
