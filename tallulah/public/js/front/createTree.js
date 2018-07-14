@@ -4,28 +4,32 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
+makeTree.prototype.addPj = function(projectData, descData){
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[name='project-desc']").val();
+    this.tree.addBranch({
+        title: projectData,
+        folder: true
+    });
+}
 
 makeTree.prototype.addProject = function (projectData, descData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
     if(!(projectData==null || projectData=='' || descData==null || descData=='')){
-        console.log(projectData);
-        this.tree.addBranch({
-            folder:true,
-            title: projectData
+        $.ajax({
+            url:"project/create",
+            data:{name : projectData, desc : descData},
+            method: "POST",
+            success: function (result) {
+                console.log(result);
+                alert(result);
+            }
         });
         
     }
-    $.ajax({
-        url:"project/create",
-        data:{name : projectData, desc : descData},
-        method: "POST",
-        success: function (res) {
-            console.log(res);
-            console.log(this.data);
-            alert(res.message);
-        }
-    });
+    
+   
 };
 
 
