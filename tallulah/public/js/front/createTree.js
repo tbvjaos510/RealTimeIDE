@@ -65,7 +65,7 @@ makeTree.prototype.addFile = function (fileData) {
     console.log(fileData);
     for (var i = 0; i < fileData.length; i++) {
         var file = fileData[i];
-        if (file.dir_ident == 0) {
+        if (!file.dir_ident) {
             this.tree.addBranch({
                 title: file.file_name
             });

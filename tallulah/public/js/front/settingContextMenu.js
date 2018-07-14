@@ -82,11 +82,19 @@ $(function () {
                     $(this).children('.tree-title').html(name);
                 }
             } else if (key == "delete"){
+                $.ajax({
+                    url: "directory/delete",
+                    method: "POST",
+                    data: {ident: $(this).attr("dir_ident")},
+                    success: function(result){
+                        alert(result.message);
+                    }
+                });
                 $(this).remove();
             }
         },
         items: {
-            "add": { name: "Add", icon: "add" },
+            "add": { name: "AddFile", icon: "add" },
             "addDir": { name: "AddDir", icon: "add" },
             "rename": { name: "rename", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" }
@@ -102,6 +110,14 @@ $(function () {
                     $(this).children('.tree-title').html(name);
                 }
             } else if(key == 'delete'){
+                $.ajax({
+                    url: "file/delete",
+                    method: "POST",
+                    data: {ident: $(this).attr("file_ident")},
+                    success: function(result){
+                        alert(result.message);
+                    }
+                });
                 $(this).remove();
             }
         },
@@ -111,6 +127,17 @@ $(function () {
         }
     });
     
+
+    //빈곳에서 우클릭
+    // $.contextMenu({
+    //     selector: '.nav',
+    //     callback: function(key, options){
+
+    //     },
+    //     items: {
+    //         ""
+    //     }
+    // });
 
     $.contextMenu({
         selector: '.nav',
