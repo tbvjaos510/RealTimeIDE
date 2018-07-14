@@ -11,13 +11,25 @@ var mysqls = require('./db/mysql');
 var store = new MySQLStore(mysqls.options);
 var passportconfig = require('./secure/passport');
 var passport =require('passport');
+var srouter = require('./socket/socket_nsp');
 
 var app = express();
 //global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
+
 global.connection = mysql.createConnection(mysqls.options);
 connection.connect(function(err){  //db 연결
   if (err) throw err;
   console.log("MySQL Connect");
+  connection.query("select file_ident from t_file", function(err, result){
+    if (err){
+      console.log(err);
+    } else {
+      for(var i of result){
+        srouter(io, "room" + i.file_ident);
+        console.log("add Router room" + i.file_ident);
+      }
+    }
+  });
 });
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

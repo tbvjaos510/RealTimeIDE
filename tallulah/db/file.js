@@ -97,7 +97,10 @@ file.getFile = function(ident,callback){
             console.log(err);
             return callback({success:false, status:1, message:'DB 오류'});
         }
-        return callback({success:true, status:3, message:'값 불러오기 성공', data:result});
+        if (result[0])
+        return callback({success:true, status:3, message:'값 불러오기 성공', data:result[0]});
+        else
+            return callback({success : false, message : '해당 파일이 존재하지 않습니다.', status : 2});
     })
 }
 
