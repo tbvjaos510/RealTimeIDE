@@ -6,10 +6,10 @@
 function addRouter (io){
     var nameid = 0;
     var colors = [
-        'gold',
-        'lightskyblue',
-        'palegreen',
-        'salmon'
+        '#DDFFAA',
+        '#95E0C8',
+        '#E18060',
+        '#FFCBA4'
     ];
 
     var users = {};
@@ -46,7 +46,9 @@ function addRouter (io){
             data.user = data.user;
             socket.broadcast.emit('key', data);
         });
-
+        socket.on("error", function(error){
+            console.log(error);
+        });
     });
 };
 

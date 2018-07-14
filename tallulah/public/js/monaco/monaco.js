@@ -8,7 +8,7 @@ var isking = false;
 function insertCSS(id, color) {
     var style = document.createElement('style');
     style.type = 'text/css';
-    style.innerHTML += '.' + id + ' { background-color:' + color + '; }\n';
+    style.innerHTML += '.' + id + ' { background-color:' + color + ';}\n';
     style.innerHTML += `
     .${id}one {
         background: ${color};
@@ -32,7 +32,7 @@ function insertWidget(e) {
                 this.domNode = document.createElement('div');
                 this.domNode.innerHTML = e.name;
                 this.domNode.style.background = e.color;
-                this.domNode.style.opacity = 0.7;
+                this.domNode.style.opacity = 0.8;
             }
             return this.domNode;
         },
