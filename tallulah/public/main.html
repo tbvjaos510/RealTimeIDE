@@ -51,7 +51,15 @@
     $(document).ready(function () {
 
       tree = new makeTree("#tree");
-      
+      $.ajax({
+        url: "/project/get",
+        data: {
+          pident: project_ident
+        },
+        success: function(result){
+          
+        }
+      });
 
       makeTab();
 
