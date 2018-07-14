@@ -97,7 +97,7 @@ orangeTree.prototype.addBranch = function(obj){
   else{
     if(folder === true){
       click = function(){
-        $(this).parent().find("ul").slideToggle();
+        $(this).parent().find("> ul").slideToggle();
 
         if($(this).parent().find("> .tree-icon").attr("data-open") === "true"){
           $(this).parent().find("> .tree-icon").html(folder_closed);
