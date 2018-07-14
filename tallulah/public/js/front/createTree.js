@@ -90,7 +90,8 @@ makeTree.prototype.addFile = function (fileData) {
         if (!file.dir_ident) {
             this.tree.addBranch({
                 title: file.file_name,
-                path: $("li[project_ident=" + file.project_ident + "]").attr("data-id")
+                path: $("li[project_ident=" + file.project_ident + "]").attr("data-id"),
+                click: changeFile
             });
         } else {
             this.tree.addBranch({

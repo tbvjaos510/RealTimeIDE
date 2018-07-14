@@ -19,7 +19,8 @@ function insertCSS(id, color) {
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-function changeFile(fid) {
+function changeFile() {
+    var fid=$(this).attr("file_ident");
     $.ajax({
         method: "POST",
         url: "file/getFile",
