@@ -15,6 +15,8 @@ function Popup(selector){
     })
     $(document).keyup(function(e) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $("input[type='text']").val("");
+            $("input[type='password']").val("");
             this1.close();
         }
     });
