@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!--stylesheet-->
+  <!--stylesheet--> 
 
   <script src="/socket.io/socket.io.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
@@ -17,22 +17,17 @@
   <!-- <link rel="stylesheet" href="tree/themes/default/style.min.css"> -->
 
   <!--script-->
-  <script src="js/front/test-jquery.js"></script>
   <script src="js/jquery/jquery.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.ui.position.js"></script>
-  <!-- <script src="tree/jstree.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/loader.js"></script>
   <script src="js/front/popup.js"></script>
   <script src="js/front/AddMenu.js"></script>
   <script src="js/front/AddTab.js"></script>
-  <!-- <script src="tree/tree_api.js"></script> -->
   <script src="js/front/maketree.js"></script>
   <script src="js/front/click.js"></script>
-  <!--test-->
 
-  <!-- <script src="js/front/test.js"></script> -->
 
   <!-- js, css for createTreeView -->
   <script src="js/front/orange-tree.js"></script>
@@ -45,103 +40,19 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <script>
+    let project_ident=1;
     var tree;
-    var dirData = [
-      {
-        "dir_ident": 3,
-        "dir_name": "test",
-        "dir_parent": 1,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 1,
-        "dir_name": "테스",
-        "dir_parent": null,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 13,
-        "dir_name": "테스",
-        "dir_parent": 1,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 5,
-        "dir_name": "테스",
-        "dir_parent": 3,
-        "project_ident": 4
-      }
-    ]
-    var fileData = [
-      {
-        "file_ident": 6,
-        "dir_ident": 1,
-        "file_name": "test",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 7,
-        "dir_ident": 1,
-        "file_name": "배준재",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 16,
-        "dir_ident": 0,
-        "file_name": "",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 17,
-        "dir_ident": 0,
-        "file_name": "test1",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 18,
-        "dir_ident": 0,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 19,
-        "dir_ident": 2,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 20,
-        "dir_ident": 9,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 22,
-        "dir_ident": 0,
-        "file_name": "test3",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 24,
-        "dir_ident": 1,
-        "file_name": "test3",
-        "file_content": null,
-        "project_ident": 8
-      }
-    ];
     $(document).ready(function () {
-
       tree = new makeTree("#tree");
-      tree.addDir(dirData);
-      tree.addFile(fileData);
+      $.ajax({
+        url: "/project/get",
+        data: {
+          pident: project_ident
+        },
+        success: function(result){
+          
+        }
+      });
 
       makeTab();
 
@@ -250,7 +161,8 @@
 
       <div id="popup_project" style="display: none;">
         <input type="text" name="project" placeholder="MAKE PROJECT" />
-        <input type="button" name="project-button" value="MAKE" class="button" onclick="makeProject()" />
+        <input type="text" name="project-desc" placeholder="Description" />
+        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()"/>
       </div>
 
       <div id="popup_directory" style="display: none;">

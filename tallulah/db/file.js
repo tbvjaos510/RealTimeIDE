@@ -57,7 +57,14 @@ file.create = function(pident,ident ,name, cb){
             console.log(err);
             return cb({success : false, status : 1, message : 'DB 오류'});
         }
-        return cb({success:true, status : 3, message : '파일 생성 성공'});
+        connection.query("select * from t_file where file_name = ? and dir_ident = ?",[name,ident],function(err,result){
+            if (err) {
+                console.log(err);
+                return cb({success : false, status : 1, message : 'DB 오류'});
+            }
+            return cb({success : true, status : 3, message : '성공', file : result});  
+        })
+
     });
 }
 /** 
@@ -69,7 +76,7 @@ file.create = function(pident,ident ,name, cb){
 
 // file에 dirident가 다를 때 오류 발생
 
-file.get = function(pident, ident, cb){
+file.get = function(pident, cb){
     connection.query('select file_ident, dir_ident, file_name, file_content,project_ident from t_file where project_ident = ?', [pident], function(err, result){
         if (err){
             console.log(err);

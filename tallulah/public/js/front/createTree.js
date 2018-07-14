@@ -2,8 +2,29 @@ function makeTree(selector) {
     this.selector = selector;
     this.treeCount = 0;
     this.tree = new orangeTree(selector);
-    
 }
+
+makeTree.prototype.addProject = function(projectData, descData){
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[type='desc']").val();
+    this.tree.addBranch({
+        folder:true,
+        title: projectData
+    });
+    this.treeCount++;
+
+    $.ajax({
+        url:"project/create",
+        data:{name : projectData, desc : descData},
+        method: "POST",
+        success: function (res) {
+            console.log(res);
+            console.log(this.data);
+            alert(res.message);
+        }
+    })
+}
+
 
 makeTree.prototype.addDir = function (dirData) {
     for (var i = 0; i < dirData.length; i++) {
@@ -26,6 +47,7 @@ makeTree.prototype.addDir = function (dirData) {
     }
 };
 
+
 makeTree.prototype.addFile = function (fileData) {
     for (var i = 0; i < fileData.length; i++) {
         var file = fileData[i];
@@ -43,3 +65,13 @@ makeTree.prototype.addFile = function (fileData) {
         $("li[data-id=" + this.treeCount + "]").attr("file_ident", file.file_ident);
     }
 };
+
+makeTree.prototype.delete = function(){
+    
+    for (var i = 0; i< fileData.length; i++){
+        var file = fileData[i];
+        if(file.dir_ident == 0){
+
+        }
+    }
+}
