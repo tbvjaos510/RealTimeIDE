@@ -46,103 +46,12 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <script>
+    let project_ident=1;
     var tree;
-    var dirData = [
-      {
-        "dir_ident": 3,
-        "dir_name": "test",
-        "dir_parent": 1,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 1,
-        "dir_name": "테스",
-        "dir_parent": null,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 13,
-        "dir_name": "테스",
-        "dir_parent": 1,
-        "project_ident": 4
-      },
-      {
-        "dir_ident": 5,
-        "dir_name": "테스",
-        "dir_parent": 3,
-        "project_ident": 4
-      }
-    ]
-    var fileData = [
-      {
-        "file_ident": 6,
-        "dir_ident": 1,
-        "file_name": "test",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 7,
-        "dir_ident": 1,
-        "file_name": "배준재",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 16,
-        "dir_ident": 0,
-        "file_name": "",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 17,
-        "dir_ident": 0,
-        "file_name": "test1",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 18,
-        "dir_ident": 0,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 19,
-        "dir_ident": 2,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 20,
-        "dir_ident": 9,
-        "file_name": "test2",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 22,
-        "dir_ident": 0,
-        "file_name": "test3",
-        "file_content": null,
-        "project_ident": 8
-      },
-      {
-        "file_ident": 24,
-        "dir_ident": 1,
-        "file_name": "test3",
-        "file_content": null,
-        "project_ident": 8
-      }
-    ];
     $(document).ready(function () {
 
       tree = new makeTree("#tree");
-      tree.addDir(dirData);
-      tree.addFile(fileData);
+      
 
       makeTab();
 

@@ -64,7 +64,7 @@ router.post('/get',function(req,res){
         if(!req.body.pident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.get(req.body.pident,req.body.ident, function(date){
+        file.get(req.body.pident,function(date){
             return res.send(date);
         })
     }else{

@@ -76,7 +76,7 @@ file.create = function(pident,ident ,name, cb){
 
 // file에 dirident가 다를 때 오류 발생
 
-file.get = function(pident, ident, cb){
+file.get = function(pident, cb){
     connection.query('select file_ident, dir_ident, file_name, file_content,project_ident from t_file where project_ident = ?', [pident], function(err, result){
         if (err){
             console.log(err);
