@@ -41,19 +41,21 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <script>
-    let project_ident=1;
+    let project_ident=4;
     var tree;
     $(document).ready(function () {
       tree = new makeTree("#tree");
       $.ajax({
-        url: "/project/get",
+        url: "directory/get",
         data: {
-          pident: project_ident
+          ident: project_ident
         },
+        type: "POST",
         success: function(result){
-          
+          console.log(result);
         }
       });
+
 
       makeTab();
 
