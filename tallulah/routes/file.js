@@ -9,7 +9,6 @@ router.post('/',function(req,res){
 
 router.post('/create',function(req,res){
     if(req.isAuthenticated()){
-        console.log(req.body.pident + ", " + req.body.ident+", " + req.body.name);
         if(!req.body.pident || !req.body.name){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
