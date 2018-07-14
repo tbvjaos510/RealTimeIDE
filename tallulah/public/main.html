@@ -42,6 +42,9 @@
   <script>
     let project_ident=4;
     var tree;
+    var project = new Array();
+    var dir = new Array();
+    var file = new Array();
     $(document).ready(function () {
       tree = new makeTree("#tree");
       $.ajax({
