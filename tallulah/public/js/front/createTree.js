@@ -37,6 +37,7 @@ makeTree.prototype.addDir = function (dirData) {
     console.log(dirData);
     for (var i = 0; i < dirData.length; i++) {
         var dir = dirData[i];
+        var this1;
         console.log(dir.dir_parent);
         if (!dir.dir_parent) {//부모가 null, 최상위 파일
             this.tree.addBranch({
@@ -51,7 +52,9 @@ makeTree.prototype.addDir = function (dirData) {
             });
         }
         this.treeCount++;
-        $("li[data-id=" + this.treeCount + "]").attr("dir_ident", dir.dir_ident);
+        this1=$("li[data-id=" + this.treeCount + "]");
+        this1.attr("dir_ident", dir.dir_ident);
+        this1.trigger("click");
     }
 };
 
