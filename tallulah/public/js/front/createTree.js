@@ -48,7 +48,7 @@ makeTree.prototype.makeDefault = function () {
         });
         this.treeCount++;
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
-        addEntity(project.project_ident );
+        this.addEntity(project.project_ident);
     }
 }
 
@@ -104,9 +104,10 @@ makeTree.prototype.delete = function () {
 
         }
     }
-}
+};
 
-function addEntity(project_ident){
+makeTree.prototype.addEntity=function(project_ident){
+    var this1=this;
     $.ajax({
         url: "directory/get",
         data: {
@@ -114,7 +115,7 @@ function addEntity(project_ident){
         },
         method: "POST",
         success: function (result) {
-            tree.addDir(result);
+            this1.addDir(result);
         }
     }).then(function () {
         $.ajax({
@@ -124,7 +125,7 @@ function addEntity(project_ident){
             },
             method: "POST",
             success: function (result) {
-                tree.addFile(result.data);
+                this1.addFile(result.data);
             }
         });
     });
