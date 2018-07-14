@@ -24,7 +24,7 @@ var server = http.createServer(app);
  * Socket.io Settings
  */
 
-var io = require('socket.io')(server);
+global.io = require('socket.io')(server);
 require('../socket/onlinecode')(io);
 /**
  * Listen on provided port, on all network interfaces.

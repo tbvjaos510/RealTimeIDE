@@ -4,6 +4,14 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
+makeTree.prototype.addPj = function(projectData, descData){
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[name='project-desc']").val();
+    this.tree.addBranch({
+        title: projectData,
+        folder: true
+    });
+}
 
 makeTree.prototype.addProject = function (projectData, descData) {
     var projectData = $("input[name='project']").val();
