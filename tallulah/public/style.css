@@ -58,6 +58,7 @@ body {
   height: 18.5%;
   clear: both;
   background: #2E2E2E;
+  display: inline-block;
 }
 
 .header ul {
@@ -287,6 +288,7 @@ input[placeholder="Description"]{
   opacity: 1; /* Firefox */
 }
 
+
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
  color: White;
 }
@@ -306,4 +308,53 @@ input[placeholder="Description"]{
 .tree-title:hover{
   cursor:pointer;
   background: lightgray;
+}
+
+.chat{
+  position: absolute;
+  resize: none;
+  
+  outline: none;
+  padding: 5px;
+}
+
+.chat{
+  outline: none;
+  margin-left: 60%;
+  margin-top: 40px;
+  width: 300px;
+  height: 35px;
+}
+
+.chat::input-placeholder{
+  color: #000;
+}
+
+.submit-chat{
+  color: #fff;
+  border: none;
+  background-color: #30f2c6;
+  outline: none;
+  border-radius: 3px;
+  position: relative;
+  margin-top: 40px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  margin-left: 85%;
+}
+
+
+.chat-view{
+  margin-left: 200px;
+  position: absolute;
+  height: 130px;
+  width: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
 }
