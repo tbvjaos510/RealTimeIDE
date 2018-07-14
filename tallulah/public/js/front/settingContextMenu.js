@@ -112,15 +112,16 @@ $(function () {
     });
     
 
-    //빈곳에서 우클릭
-    // $.contextMenu({
-    //     selector: '.nav',
-    //     callback: function(key, options){
-
-    //     },
-    //     items: {
-    //         ""
-    //     }
-    // });
+    $.contextMenu({
+        selector: '.nav',
+        callback: function (key, options) {
+            if(key == 'create Project'){
+                tree._addProject();
+            } 
+        },
+        items: {
+            "create Project": {name: "create Project", icon:"product-hunt"},
+        }
+    });
 
 });

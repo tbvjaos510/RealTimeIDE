@@ -6,7 +6,7 @@ function makeTree(selector) {
 
 makeTree.prototype.addProject = function(projectData, descData){
     var projectData = $("input[name='project']").val();
-    var descData = $("input[type='desc']").val();
+    var descData = $("input[type='project-desc']").val();
     this.tree.addBranch({
         folder:true,
         title: projectData
@@ -24,6 +24,18 @@ makeTree.prototype.addProject = function(projectData, descData){
         }
     })
 }
+
+makeTree.prototype._addProject = function(projectData){
+    var projectData = prompt("프로젝트 이름");
+    if(!(projectData!=null && projectData=='')){
+        this.tree.addBranch({
+            folder:true,
+            title:projectData
+        });
+    }
+    this.treeCount++;
+}
+
 
 
 makeTree.prototype.addDir = function (dirData) {
