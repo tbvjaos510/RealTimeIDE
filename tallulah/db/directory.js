@@ -18,7 +18,7 @@ var directory = {};
 
 directory.create = function (dirName, pid, did, callback) { //파일 생성
     if (!did) { // 부모폴더의 번호가 null일 때
-        did = 0;
+        did = null;
     }
     connection.query("insert into t_directory(dir_name,dir_parent,project_ident) values(?,?,?)", [dirName, did, pid], function (err, results) {
         if (err) {
@@ -35,11 +35,19 @@ directory.create = function (dirName, pid, did, callback) { //파일 생성
                 message: "DB 오류"
             });
         }
-        return callback({
-            status: 3,
-            success: true,
-            message: "성공"
-        });
+        connection.query("select * from t_directory where dir_name = ? and dir_parent = ? ",[dirNmae,did],function(err,results){
+            if (err) {
+                return callback({
+                    status: 1,
+                    success: false,
+                    message: "DB 오류"
+                });
+            }
+            return callback({status: 3,
+                success: true,
+                message: "생성 성공",
+                data : results})
+        })
     })
 }
 

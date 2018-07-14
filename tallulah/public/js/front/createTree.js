@@ -30,6 +30,7 @@ makeTree.prototype.addProject = function (projectData, descData) {
 
 
 makeTree.prototype.addDir = function (dirData) {
+    console.log(dirData);
     for (var i = 0; i < dirData.length; i++) {
         var dir = dirData[i];
         console.log(dir.dir_parent);
@@ -52,9 +53,10 @@ makeTree.prototype.addDir = function (dirData) {
 
 
 makeTree.prototype.addFile = function (fileData) {
+    console.log(fileData);
     for (var i = 0; i < fileData.length; i++) {
         var file = fileData[i];
-        if (file.dir_ident == 0) {
+        if (!file.dir_ident) {
             this.tree.addBranch({
                 title: file.file_name
             });
@@ -67,6 +69,7 @@ makeTree.prototype.addFile = function (fileData) {
         this.treeCount++;
         $("li[data-id=" + this.treeCount + "]").attr("file_ident", file.file_ident);
     }
+    
 };
 
 makeTree.prototype.delete = function(){

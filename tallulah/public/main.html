@@ -40,7 +40,7 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <script>
-    let project_ident=4;
+    let project_ident=7;
     var tree;
     var project = new Array();
     var dir = new Array();
@@ -52,13 +52,24 @@
         data: {
           ident: project_ident
         },
-        type: "POST",
+        method: "POST",
         success: function(result){
-          console.log(result);
+          tree.addDir(result);
+        }
+      }).then(function (){
+        $.ajax({
+        url: "file/get",
+        data: {
+          ident: project_ident
+        },
+        method: "POST",
+        success: function(result){
+          tree.addFile(result.data);
         }
       });
 
-
+      });
+      
       makeTab();
 
       $(".btn_tab").on("click", function (event) {
