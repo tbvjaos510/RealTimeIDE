@@ -61,10 +61,10 @@ router.post('/delete',function(req,res){
 
 router.post('/get',function(req,res){
     if(req.isAuthenticated()){
-        if(!req.body.pident){
+        if(!req.body.ident){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
-        file.get(req.body.pident,function(date){
+        file.get(req.body.ident,function(date){
             return res.send(date);
         })
     }else{

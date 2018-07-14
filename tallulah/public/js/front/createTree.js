@@ -4,38 +4,47 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
-makeTree.prototype.addProject = function(projectData, descData){
+makeTree.prototype.addPj = function(projectData, descData){
     var projectData = $("input[name='project']").val();
-    var descData = $("input[type='desc']").val();
+    var descData = $("input[name='project-desc']").val();
     this.tree.addBranch({
-        folder:true,
-        title: projectData
+        title: projectData,
+        folder: true
     });
-    this.treeCount++;
-
-    $.ajax({
-        url:"project/create",
-        data:{name : projectData, desc : descData},
-        method: "POST",
-        success: function (res) {
-            console.log(res);
-            console.log(this.data);
-            alert(res.message);
-        }
-    })
 }
+
+makeTree.prototype.addProject = function (projectData, descData) {
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[name='project-desc']").val();
+    if(!(projectData==null || projectData=='' || descData==null || descData=='')){
+        $.ajax({
+            url:"project/create",
+            data:{name : projectData, desc : descData},
+            method: "POST",
+            success: function (result) {
+                console.log(result);
+                alert(result);
+            }
+        });
+        
+    }
+    
+   
+};
 
 
 makeTree.prototype.addDir = function (dirData) {
+    console.log(dirData);
     for (var i = 0; i < dirData.length; i++) {
         var dir = dirData[i];
+        var this1;
         console.log(dir.dir_parent);
         if (!dir.dir_parent) {//부모가 null, 최상위 파일
             this.tree.addBranch({
                 folder: true,
                 title: dir.dir_name
             });
-        } else {
+        } else{
             this.tree.addBranch({
                 folder: true,
                 title: dir.dir_name,
@@ -43,15 +52,18 @@ makeTree.prototype.addDir = function (dirData) {
             });
         }
         this.treeCount++;
-        $("li[data-id=" + this.treeCount + "]").attr("dir_ident", dir.dir_ident);
+        this1=$("li[data-id=" + this.treeCount + "]");
+        this1.attr("dir_ident", dir.dir_ident);
+        this1.trigger("click");
     }
 };
 
 
 makeTree.prototype.addFile = function (fileData) {
+    console.log(fileData);
     for (var i = 0; i < fileData.length; i++) {
         var file = fileData[i];
-        if (file.dir_ident == 0) {
+        if (!file.dir_ident) {
             this.tree.addBranch({
                 title: file.file_name
             });
@@ -64,6 +76,7 @@ makeTree.prototype.addFile = function (fileData) {
         this.treeCount++;
         $("li[data-id=" + this.treeCount + "]").attr("file_ident", file.file_ident);
     }
+    
 };
 
 makeTree.prototype.delete = function(){

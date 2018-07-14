@@ -4,15 +4,25 @@ function Popup(selector){
 
     $(".popup #btn_close").on("click", function(){
         $("input[type='text']").val("");
+        $("input[type='email']").val("");
         $("input[type='password']").val("");
         this1.close();
     }); 
 
     $("input[type='button']").on("click", function(){
         $("input[type='text']").val("");
+        $("input[type='email']").val("");
         $("input[type='password']").val("");
         this1.close();
     })
+    $(document).keydown(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $("input[type='text']").val("");
+            $("input[type='email']").val("");
+            $("input[type='password']").val("");
+            this1.close();
+        }
+    });
 }
 
 

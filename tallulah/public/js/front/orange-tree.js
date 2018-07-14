@@ -38,10 +38,10 @@ orangeTree.prototype.addBranch = function(obj){
   }
   icon = obj.icon || icon;
   //OPEN
-  var open = obj.open || true;
+  var open = obj.open || false;
   var display = "block";
   if(open === false){
-    display = none;
+    display = "none";
   }
 
   if(open === true && folder === true){

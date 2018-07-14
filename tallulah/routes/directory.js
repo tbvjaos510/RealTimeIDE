@@ -57,7 +57,9 @@ router.post('/get',function(req,res){
         directory.get(req.body.ident, function(data){
             return res.send(data);
         })
-    }
+    } else{
+        return res.send({status : -1, success : false, message : "로그인이 되지 않았습니다."});
+      }
 })
 
 module.exports = router;

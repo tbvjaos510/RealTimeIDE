@@ -301,3 +301,7 @@ input[placeholder="Description"]{
 #tree>div>li:hover{
   background-color: red;
 }
+
+.tree-title:hover{
+  background: lightgray;
+}
