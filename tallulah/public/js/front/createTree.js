@@ -4,15 +4,18 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
-makeTree.prototype.addProject = function(projectData, descData){
-    var projectData = $("input[name='project']").val();
-    var descData = $("input[type='project-desc']").val();
-    this.tree.addBranch({
-        folder:true,
-        title: projectData
-    });
-    this.treeCount++;
 
+makeTree.prototype.addProject = function (projectData, descData) {
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[name='project-desc']").val();
+    if(!(projectData==null || projectData=='' || descData==null || descData=='')){
+        console.log(projectData);
+        this.tree.addBranch({
+            folder:true,
+            title: projectData
+        });
+        
+    }
     $.ajax({
         url:"project/create",
         data:{name : projectData, desc : descData},
@@ -22,20 +25,8 @@ makeTree.prototype.addProject = function(projectData, descData){
             console.log(this.data);
             alert(res.message);
         }
-    })
-}
-
-makeTree.prototype._addProject = function(projectData){
-    var projectData = prompt("프로젝트 이름");
-    if(!(projectData!=null && projectData=='')){
-        this.tree.addBranch({
-            folder:true,
-            title:projectData
-        });
-    }
-    this.treeCount++;
-}
-
+    });
+};
 
 
 makeTree.prototype.addDir = function (dirData) {
@@ -49,7 +40,7 @@ makeTree.prototype.addDir = function (dirData) {
                 folder: true,
                 title: dir.dir_name
             });
-        } else {
+        } else{
             this.tree.addBranch({
                 folder: true,
                 title: dir.dir_name,
