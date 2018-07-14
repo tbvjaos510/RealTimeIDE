@@ -2,6 +2,7 @@ var issocket = false;
 var users = {};
 var contentWidgets = {};
 var decorations = {};
+var fileid = 0;
 var iswrite = false;
 var isking = false;
 var editor;
@@ -20,6 +21,7 @@ function insertCSS(id, color) {
 }
 
 function changeFile(fid) {
+    
     $.ajax({
         method: "POST",
         url: "file/getFile",
@@ -37,6 +39,7 @@ function changeFile(fid) {
                 decorations = [];
                 contentWidgets = [];
                 editor.setValue(data.data.file_content);
+                fileid = fid;
             }
         }
     })

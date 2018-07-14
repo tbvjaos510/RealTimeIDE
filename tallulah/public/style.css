@@ -303,5 +303,6 @@ input[placeholder="Description"]{
 }
 
 .tree-title:hover{
+  cursor:pointer;
   background: lightgray;
 }
