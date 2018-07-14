@@ -1,10 +1,13 @@
-var decorations = [];
 var issocket = false;
 var users = {};
 var contentWidgets = {};
 var decorations = {};
+var fileid = 0;
 var iswrite = false;
 var isking = false;
+var editor;
+var socket;
+
 function insertCSS(id, color) {
     var style = document.createElement('style');
     style.type = 'text/css';
@@ -15,6 +18,36 @@ function insertCSS(id, color) {
         width:2px !important;
     }`;
     document.getElementsByTagName('head')[0].appendChild(style);
+}
+
+<<<<<<< HEAD
+function changeFile(fid) {
+    
+=======
+function changeFile() {
+    var fid=$(this).attr("file_ident");
+>>>>>>> b72c0e7a4f9433583ee7d1f4339c8e9b3110c7b5
+    $.ajax({
+        method: "POST",
+        url: "file/getFile",
+        data: {
+            fident: fid
+        },
+        success: function (data) {
+            console.log(data);
+            if (data.success == true) {
+                socket.disconnect();
+                socket = io('/room' + fid);
+                //데이터 초기화
+                issocket = iswrite = isking = false;
+                users = {};
+                decorations = [];
+                contentWidgets = [];
+                editor.setValue(data.data.file_content);
+                fileid = fid;
+            }
+        }
+    })
 }
 
 function insertWidget(e) {
@@ -32,6 +65,7 @@ function insertWidget(e) {
                 this.domNode = document.createElement('div');
                 this.domNode.innerHTML = e.name;
                 this.domNode.style.background = e.color;
+                this.domNode.style.color = 'black';
                 this.domNode.style.opacity = 0.8;
             }
             return this.domNode;
@@ -85,22 +119,21 @@ require(['vs/editor/editor.main'], function () {
     </body>
     </html>`;
 
-
-    var editor = monaco.editor.create(document.getElementById("monacoeditor"), {
+    socket = io('/main')
+    editor = monaco.editor.create(document.getElementById("monacoeditor"), {
         value: jsCode,
         language: "html",
         fontSize: 15,
         fontFamily: "Nanum Gothic Coding",
         theme: "vs-dark",
     });
-    var socket = io('/main');
     socket.on('connected', function (data) {
         users[data.name] = data.color;
-        
+
         insertCSS(data.name, data.color);
         insertWidget(data);
         decorations[data.name] = [];
-        if (isking === true){
+        if (isking === true) {
             console.log('senddata');
             iswrite = true;
             socket.emit("filedata", editor.getValue());
@@ -114,17 +147,18 @@ require(['vs/editor/editor.main'], function () {
             insertCSS(i.name, i.color);
             insertWidget(i);
             decorations[i.name] = [];
-        } 
+        }
     });
-    socket.on('resetdata', function(data){
-        
+    socket.on('resetdata', function (data) {
+
         editor.setValue(data);
-            iswrite = true;
+        iswrite = true;
     });
-    socket.on('youking', function(data){
+    socket.on('youking', function (data) {
         isking = true;
         iswrite = true;
     });
+
     function changeSeleciton(e) {
         var selectionArray = [];
         if (e.selection.startColumn == e.selection.endColumn && e.selection.startLineNumber == e.selection.endLineNumber) {
@@ -219,7 +253,7 @@ require(['vs/editor/editor.main'], function () {
     socket.on('selection', function (data) {
         // data = data.match(/\[(\d{1,10}),(\d{1,10}) -> (\d{1,10}),(\d{1,10})\]/);
         // editor.setSelection(new monaco.Range(parseInt(data[1]), parseInt(data[2]), parseInt(data[3]), parseInt(data[4])));
-    //   console.log(data);
+        //   console.log(data);
         changeSeleciton(data);
         changeWidgetPosition(data);
     });
@@ -231,9 +265,9 @@ require(['vs/editor/editor.main'], function () {
 
 
     });
-    socket.on('disconnect', function (data) {
-        location.reload();
-    });
+    // socket.on('disconnect', function (data) {
+    //     location.reload();
+    // });
 
 
     socket.on('key', function (data) {

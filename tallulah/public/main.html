@@ -35,6 +35,10 @@
   <link rel="stylesheet" href="stylesheets/tree.css">
   <!-- end -->
 
+  <!-- js for ajax -->
+  <script src="js/ajax/getData.js"></script>
+  <!--  -->
+
   <script src="js/front/settingContextMenu.js"></script>
 
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -47,28 +51,29 @@
     var file = new Array();
     $(document).ready(function () {
       tree = new makeTree("#tree");
-      $.ajax({
-        url: "directory/get",
-        data: {
-          ident: project_ident
-        },
-        method: "POST",
-        success: function(result){
-          tree.addDir(result);
-        }
-      }).then(function (){
-        $.ajax({
-        url: "file/get",
-        data: {
-          ident: project_ident
-        },
-        method: "POST",
-        success: function(result){
-          tree.addFile(result.data);
-        }
-      });
+      tree.makeDefault();
+      // $.ajax({
+      //   url: "directory/get",
+      //   data: {
+      //     ident: project_ident
+      //   },
+      //   method: "POST",
+      //   success: function(result){
+      //     tree.addDir(result);
+      //   }
+      // }).then(function (){
+      //   $.ajax({
+      //   url: "file/get",
+      //   data: {
+      //     ident: project_ident
+      //   },
+      //   method: "POST",
+      //   success: function(result){
+      //     tree.addFile(result.data);
+      //   }
+      // });
 
-      });
+      // });
       
       makeTab();
 
