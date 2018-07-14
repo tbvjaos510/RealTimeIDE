@@ -41,6 +41,7 @@ body {
   height: 75%;
   float: left;
   background: #ffffff;
+  overflow: auto;
 }
 
 .section {

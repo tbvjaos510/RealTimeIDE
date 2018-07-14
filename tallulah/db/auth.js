@@ -22,8 +22,10 @@ var auth = {};
  * @returns {null}
  */ auth.login = function (id, pw, callback) {
   connection.query('select password, name, user_ident, hashs from t_users where email_id = ?', [id], function (err, results) {
-    if (err) return callback({ status: 1, success: false, message: '알 수 없는 오류' });
-
+    if (err) {
+      console.log(err);
+      return callback({ status: 1, success: false, message: '알 수 없는 오류' });
+    }
     if (results[0] == null) {
       return callback({ status: 2, success: false, message: '아이디가 틀렸습니다.' });
     } 
