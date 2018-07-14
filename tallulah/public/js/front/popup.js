@@ -13,6 +13,11 @@ function Popup(selector){
         $("input[type='password']").val("");
         this1.close();
     })
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            this1.close();
+        }
+    });
 }
 
 
