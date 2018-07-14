@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!--stylesheet-->
+  <!--stylesheet--> 
 
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
   <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
@@ -16,22 +16,17 @@
   <!-- <link rel="stylesheet" href="tree/themes/default/style.min.css"> -->
 
   <!--script-->
-  <script src="js/front/test-jquery.js"></script>
   <script src="js/jquery/jquery.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.contextMenu.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.6.4/jquery.ui.position.js"></script>
-  <!-- <script src="tree/jstree.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/loader.js"></script>
   <script src="js/front/popup.js"></script>
   <script src="js/front/AddMenu.js"></script>
   <script src="js/front/AddTab.js"></script>
-  <!-- <script src="tree/tree_api.js"></script> -->
   <script src="js/front/maketree.js"></script>
   <script src="js/front/click.js"></script>
-  <!--test-->
 
-  <!-- <script src="js/front/test.js"></script> -->
 
   <!-- js, css for createTreeView -->
   <script src="js/front/orange-tree.js"></script>
@@ -47,6 +42,7 @@
 
   <script>
     var tree;
+
     var dirData = [
       {
         "dir_ident": 3,
@@ -139,10 +135,10 @@
       }
     ];
     $(document).ready(function () {
-
       tree = new makeTree("#tree");
       tree.addDir(dirData);
       tree.addFile(fileData);
+      tree.delete();
 
       makeTab();
 
@@ -232,7 +228,7 @@
     </div></center>-->
     <!-- <div style="width:70%; height:inherits; background-color:skyblue;"id="monacoeditor"></div> -->
 
-    <div id="tab_layer" style="background:#2E2E2E; width: 100%; height: 9%; margin-top: -16px;"></div>
+    <div id="tab_layer" style="background:#2E2E2E; width: 100%; height: 9%;"></div>
     <div id="content_layer" style="height: 91%;">
       <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div>
 
@@ -251,7 +247,8 @@
 
       <div id="popup_project" style="display: none;">
         <input type="text" name="project" placeholder="MAKE PROJECT" />
-        <input type="button" name="project-button" value="MAKE" class="button" onclick="makeProject()" />
+        <input type="text" name="project-desc" placeholder="Description" />
+        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()"/>
       </div>
 
       <div id="popup_directory" style="display: none;">

@@ -23,11 +23,19 @@ $(function () {
                         "project_ident": 4
                     }]);
                 }
+            } else if(key == "rename"){
+                var name = prompt("바꿀 이름");
+                if(!(name == null && name == "")){
+                    $(this).children('.tree-title').html(name);
+                }
+            } else if (key == "delete"){
+                $(this).remove();
             }
         },
         items: {
             "add": { name: "Add", icon: "add" },
             "addDir": { name: "AddDir", icon: "add" },
+            "rename": { name: "rename", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" }
         }
     });
@@ -35,12 +43,31 @@ $(function () {
     $.contextMenu({
         selector: '.tree-file',
         callback: function (key, options) {
-            var m = "clicked: " + key;
-            window.console && console.log(m) || alert(m);
+            if(key == 'rename'){
+                var name = prompt('바꿀 이름');
+                if(!(name==null && name=="")){
+                    $(this).children('.tree-title').html(name);
+                }
+            } else if(key == 'delete'){
+                $(this).remove();
+            }
         },
         items: {
+            "rename": {name: "rename", icon:"edit"},
             "delete": { name: "Delete", icon: "delete" }
         }
     });
+    
+
+    //빈곳에서 우클릭
+    // $.contextMenu({
+    //     selector: '.nav',
+    //     callback: function(key, options){
+
+    //     },
+    //     items: {
+    //         ""
+    //     }
+    // });
 
 });
