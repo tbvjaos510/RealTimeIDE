@@ -150,7 +150,7 @@ project.update = function(uid,pid,name,desc,private,callback){
                     return callback({status : 1, success : false, message : "DB 오류"});
                 }
                 return callback({status : 3, success : true, message : "수정성공"});
-            })    
+            })
         }else{
             connection.query("update t_project set project_name = ?, project_des = ? where project_ident = ? and project_owner = ?",[name,desc,pid,uid],function(err,results){
                 if(err){
@@ -168,13 +168,13 @@ project.update = function(uid,pid,name,desc,private,callback){
  * @param {(data:p_insert_callback)=>void} callback 콜백 함수
  */
 project.search = function(name, callback){
-    connection.query("select project_ident, project_name, project_owner, project_des from t_project where private = 1", function (err, result){
+    connection.query("select project_ident, project_name, project_owner, project_des from t_project where private = 1 and project_name like '%"+name+"%'", function (err, result){
         if (err)
         {
             console.log(err);
             return callback({status : 1, success : false, message : 'DB 오류'});
         }
-        return callback({status : 2, success : true, count})
+        return callback({status : 2, success : true, count:result.length, data : result});
     });
 }
 
