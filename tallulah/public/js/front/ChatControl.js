@@ -3,12 +3,16 @@ $(document).ready(function(){
         $(".chat-list").toggle();
     });
 
-    $(".chat-close").on("click", function(){
+    $(".list-close").on("click", function(){
         $(this).parent().parent().hide();
     });
 
-    $(".chat-lists").on("click", function(){
-        console.log($(this).html());
+    $(".chat-close").on("click", function(){
+        $(this).parent().hide();
+    });
+
+    $(document).on("click", ".chat-list>ul>li", function(){
+        $(".chat-view").show();
     })
 
     $("input[class='message']").keydown(function(key){
