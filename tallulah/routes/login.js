@@ -9,12 +9,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/auth', function (req, res) {
-  if (!req.body.id || !req.body.password) //인자값이 정확히 들어왔는지 검사.
-    return res.send({ success: false, message: "인자값이 부족합니다." });
-
+  
   if (req.isAuthenticated()) { //passport session으로 인증 되어 있는지 검사.
     return res.send({ success: true, message: "로그인 되어 있습니다." });
   }
+  
+  if (!req.body.id || !req.body.password) //인자값이 정확히 들어왔는지 검사.
+    return res.send({ success: false, message: "인자값이 부족합니다." });
+
+  
   else
     mysql.login(req.body.id, req.body.password, function (data) { //auth.js 에 login을 실행
       if (data.success === true) { //성공하면 passport 등록을 한다.
