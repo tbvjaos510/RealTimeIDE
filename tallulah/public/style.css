@@ -288,7 +288,9 @@ input[placeholder="SEARCH PROJECT"]{
     color: #fff;
 }
 
-input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */
+.checks {position: relative;}
+
+.checks input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
   position: absolute;
   width: 1px;
   height: 1px;
@@ -298,7 +300,7 @@ input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */
   clip:rect(0,0,0,0);
   border: 0
 }
-input[type="checkbox"] + label {
+.checks input[type="checkbox"] + label {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -306,33 +308,76 @@ input[type="checkbox"] + label {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-input[type="checkbox"] + label:before {/* 가짜 체크박스 */
+.checks input[type="checkbox"] + label:before {  /* 가짜 체크박스 */
   content: ' ';
   display: inline-block;
-  width: 21px; /* 체크박스의 너비를 지정 */
-  height: 21px; /* 체크박스의 높이를 지정 */
+  width: 21px;  /* 체크박스의 너비를 지정 */
+  height: 21px;  /* 체크박스의 높이를 지정 */
   line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */
   margin: -2px 8px 0 0;
-  text-align: center;
+  text-align: center; 
   vertical-align: middle;
   background: #fafafa;
   border: 1px solid #cacece;
   border-radius : 3px;
   box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
 }
-input[type="checkbox"] + label:active:before,
-input[type="checkbox"]:checked + label:active:before {
+.checks input[type="checkbox"] + label:active:before,
+.checks input[type="checkbox"]:checked + label:active:before {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
-input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */
-  content: '\2714'; /* 체크표시 유니코드 사용 */
+
+.checks input[type="checkbox"]:checked + label:before {  /* 체크박스를 체크했을때 */ 
+  content: '\2714';  /* 체크표시 유니코드 사용 */
   color: #99a1a7;
   text-shadow: 1px 1px #fff;
   background: #e9ecee;
   border-color: #adb8c0;
-  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), 
-              inset 0px -15px 10px -12px rgba(0,0,0,0.05),
-              inset 15px 10px -12px rgba(255,255,255,0.1);
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+}
+
+.checks.etrans input[type="checkbox"] + label {
+  padding-left: 30px;
+}
+.checks.etrans input[type="checkbox"] + label:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  opacity: .6;
+  box-shadow: none;
+  border-color: #6cc0e5;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+.checks.etrans input[type="checkbox"]:checked + label:before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity:1; 
+  background: transparent;
+  border-color:transparent #6cc0e5 #6cc0e5 transparent;
+  border-top-color:transparent;
+  border-left-color:transparent;
+  -ms-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+}
+
+.no-csstransforms .checks.etrans input[type="checkbox"]:checked + label:before {
+  /*content:"\2713";*/
+  content: "\2714";
+  top: 0;
+  left: 0;
+  width: 21px;
+  line-height: 21px;
+  color: #6cc0e5;
+  text-align: center;
+  border: 1px solid #6cc0e5;
 }
 
 #tree>li{
@@ -369,8 +414,8 @@ input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을�
 .chat{
   float: right;
   width: 10%;
-  height: 55%;
-  padding-top: 60px;
+  height: 100%;
+  padding-top: 4.5%;
   text-align: center;
   color: #fff;
   font-size: 20px;
