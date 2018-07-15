@@ -9,7 +9,7 @@ router.post('/', function(req, res){
 router.post('/create',function(req,res){
     if(req.isAuthenticated()){
         if(!req.body.dirName || !req.body.ident){
-            return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
+            return res.send({status : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
         directory.create(req.body.dirName, req.body.ident,req.body.dirident,function(data){ 
             console.log(data);
@@ -25,7 +25,7 @@ router.post('/create',function(req,res){
 router.post('/delete',function(req,res){
     if(req.isAuthenticated()){
         if(!req.body.ident){
-            return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
+            return res.send({status : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
         directory.delete(req.body.ident, function(data){
             return res.send(data);
@@ -38,7 +38,7 @@ router.post('/delete',function(req,res){
 router.post('/update',function(req,res){
     if(req.isAuthenticated()){
         if(!req.body.ident || !req.body.dirName){
-            return res.send({statue : -1, success: false, message : "인자값이 전달되지 않았습니다."});
+            return res.send({status : -1, success: false, message : "인자값이 전달되지 않았습니다."});
         }
         console.log(1);
         directory.update(req.body.dirName,req.body.ident,function(data){
@@ -52,7 +52,7 @@ router.post('/update',function(req,res){
 router.post('/get',function(req,res){
     if(req.isAuthenticated()){
         if(!req.body.ident){
-            return res.send({statue : 1, success : false, message : "인자값이 전달 되지 않았습니다."});
+            return res.send({status : 1, success : false, message : "인자값이 전달 되지 않았습니다."});
         }
         directory.get(req.body.ident, function(data){
             return res.send(data);
