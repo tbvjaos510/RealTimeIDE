@@ -29,6 +29,8 @@ function removeAllWidget(){
 }
 function changeFile() {
     var fid = $(this).attr("file_ident");
+    console.log("fid: ");
+    console.log(fid);
     $.ajax({
         method: "POST",
         url: "file/getFile",

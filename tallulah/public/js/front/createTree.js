@@ -124,7 +124,8 @@ makeTree.prototype.addFile = function (fileData) {
         } else {
             this.tree.addBranch({
                 title: file.file_name,
-                path: $("li[dir_ident=" + file.dir_ident + "]").attr("data-id")
+                path: $("li[dir_ident=" + file.dir_ident + "]").attr("data-id"),
+                click: changeFile
             });
         }
         this.treeCount++;
