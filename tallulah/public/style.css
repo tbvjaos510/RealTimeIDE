@@ -274,7 +274,19 @@ input[placeholder="Description"]{
     outline: none;
     margin-top: 10%;
     color: #fff;
-  }
+}
+
+input[placeholder="SEARCH PROJECT"]{
+  position: relative;
+    left:50%;
+    transform: translateX(-50%);
+    border: none;
+    padding: 10px;  
+    background-color: #6E6E6E;  
+    outline: none;
+    margin-top: 15%;
+    color: #fff;
+}
 
 
 #tree>li{
@@ -373,5 +385,12 @@ input[placeholder="Description"]{
   padding: 5px;
   width: 90%;
   border-radius: 5px;
+<<<<<<< HEAD
   
+=======
+}
+
+.tree-title{
+  user-select: none;
+>>>>>>> 09462a520bb89cee653dc4fecf16462e13012e5b
 }

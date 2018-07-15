@@ -20,7 +20,7 @@ router.post('/create',function(req,res){
     }
 })
 
-router.post('/updateContent',function(req,res){ //파일 설명 변경
+router.post('/updateContent',function(req,res){ //파일 내용 변경
     if(req.isAuthenticated()){
         if(!req.body.ident || !req.body.content){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});

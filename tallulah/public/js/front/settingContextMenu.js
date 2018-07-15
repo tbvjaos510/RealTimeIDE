@@ -37,9 +37,27 @@ $(function () {
                     });
                 }
             } else if(key == "rename"){
-                var name = prompt("바꿀 이름");
+                var name = prompt("바꿀 프로젝트 이름");
+                var desc = prompt("바꿀 프로젝트 설명(미입력시 원래 설명이 유지됩니다.)");
+
+                var this1=this;
                 if(!(name == null && name == "")){
-                    $(this).children('.tree-title').html(name);
+                    console.log($.ajax({
+                        url: "project/update",
+                        data: (function(){
+                            console.log({ident: $(this1).attr("project_ident"),name: name});
+                            if(desc==""||desc==null)
+                                return {ident: $(this1).attr("project_ident"),name: name};
+                            return {ident: $(this1).attr("project_ident"),name: name, desc: desc};
+                        })(),
+                        method: "POST",
+                        success: function(result){
+                            if(result.success){
+                                $(this1).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    }));
                 }
             } else if (key == "delete"){
                 $.ajax({
@@ -59,7 +77,7 @@ $(function () {
             "rename": { name: "rename", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" },
             "sep1": "-",
-            "desc": { name: "info", icon: "fa-search"}
+            "desc": { name: "info"}
         }
     });
     $.contextMenu({
@@ -103,8 +121,20 @@ $(function () {
                 }
             } else if(key == "rename"){
                 var name = prompt("바꿀 이름");
+                var this1 = this;
                 if(!(name == null && name == "")){
-                    $(this).children('.tree-title').html(name);
+                    $.ajax({
+                        url:"directory/update",
+                        method: "POST",
+                        data: {ident: $(this1).attr("dir_ident"),dirName: name},
+                        success: function(result){
+                            if(result.success){
+                                $(this1).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    }
+                    );
                 }
             } else if (key == "delete"){
                 $.ajax({
@@ -131,8 +161,20 @@ $(function () {
         callback: function (key, options) {
             if(key == 'rename'){
                 var name = prompt('바꿀 이름');
+                var this1 = this;
                 if(!(name==null && name=="")){
-                    $(this).children('.tree-title').html(name);
+                    $.ajax({
+                        url:"file/updateFileName",
+                        method: "POST",
+                        data: {ident: $(this1).attr("file_ident"),fileName: name},
+                        success: function(result){
+                            if(result.success){
+                                $(this1).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    }
+                    );
                 }
             } else if(key == 'delete'){
                 $.ajax({

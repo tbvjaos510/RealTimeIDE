@@ -32,17 +32,16 @@ function changeFile() {
             console.log(data);
             if (data.success == true) {
                 socket.disconnect();
-                socket = io.connect('/room' + fid, 'name='+username !== 'none' ? username : 'anonymous');
-                //데이터 초기화
                 issocket = true;
+                editor.setValue(data.data.file_content);
+                socket = io.connect('/room' + fid,{query : {name:(username !== 'none' ? username : 'anonymous')}});
+                //데이터 초기화
                 users = {};
                 decorations = [];
                 contentWidgets = [];
-                editor.setValue(data.data.file_content);
                 
                 socketListener(socket);
                 fileid = fid;
-                issocket = false;
             }
         }
     })
@@ -142,6 +141,25 @@ function changeText(e) {
     editor.getModel().applyEdits(e.changes);
 
 }
+
+
+function fileSave(){
+    if (fileid != 0)
+    $.ajax({
+        method: "POST",
+        url: "file/updateContent",
+        data: {
+            ident : fileid,
+            content : editor.getValue()
+        },
+        success: function (data) {
+            alert(data.message);
+        }
+    })  
+    else
+    alert("메인 파일은 저장할 수 없습니다.");
+}
+
 function socketListener(socket){
     socket.on('connected', function (data) {
         users[data.name] = data.color;
@@ -270,6 +288,9 @@ require(['vs/editor/editor.main'], function () {
     //     location.reload();
     // });
 
-
+    //저장 키 바인딩
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function () {
+        fileSave();
+    });
 
 });
