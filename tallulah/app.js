@@ -46,6 +46,10 @@ stdin.on('data', function(key){
       console.log(i.name + '-' +Object.keys(i.connected).length);
     }
   }
+  else if(key === 's'){
+    process.exit(1);
+  }
+  
 });
 
 

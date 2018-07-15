@@ -17,11 +17,13 @@ function addRouter (io){
     io.on("connection", function (socket) {
         console.log('[Socket.IO] [' + io.namespace +'] : Connect ' + socket.id + '. now user is ' + nameid);
         users[socket.id] = {
-            name: "user" + nameid,
+            name: socket.handshake.query.name,
             color: colors[nameid++ % colors.length],
-            connect : false,
-            rooms : "",
+            ename: 'user' + nameid
         };
+        socket.ename = 'user' + nameid;
+        socket.color = users[socket.id].color;
+        socket.name = users[socket.id].name;
         socket.on('test', function(data){
             console.log(data);
             socket.broadcast.emit('test', data);
@@ -36,7 +38,9 @@ function addRouter (io){
 
         socket.on('selection', function (data) {
             data.user = socket.user;
-            console.log('select ' + data.user);
+            data.color=socket.color;
+            data.ename = socket.ename;
+            console.log('select ' + socket.ename);
             socket.broadcast.emit('selection', data);
         }); 
         socket.on('filedata', function(data){
@@ -49,6 +53,7 @@ function addRouter (io){
         });
         socket.on('key', function (data) {
             data.user = data.user;
+            data.ename = socket.ename;
             socket.broadcast.emit('key', data);
         });
         socket.on("error", function(error){
