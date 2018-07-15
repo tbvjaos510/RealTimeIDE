@@ -40,19 +40,22 @@ makeTree.prototype.addProject = function (projectData, descData) {
 };
 
 makeTree.prototype.makeDefault = function () {
+    // $(this.selector).find(".tree").empty();
     var this1 = this;
     var projects = $.ajax({
         url: "project/get",
         method: "POST",
         async: false
     }).responseJSON.data;
+
     for (var i = 0; i < projects.length; i++) {
         var project = projects[i];
         var directorys;
         var files;
         this.tree.addBranch({
             folder: true,
-            title: project.project_name
+            title: project.project_name,
+            icon: "<i class='fa fa-save'></i>"
         });
         this.treeCount++;
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
@@ -80,6 +83,7 @@ makeTree.prototype.addDir = function (dirData) {
         this.treeCount++;
         this1 = $("li[data-id=" + this.treeCount + "]");
         this1.attr("dir_ident", dir.dir_ident);
+        this1.attr("parent_project",dir.project_ident);
     }
 };
 

@@ -1,6 +1,6 @@
 $(function () {
     $.contextMenu({
-        selector: '.nav',
+        selector: '[project_ident]',
         callback: function (key, options) {
             if (key == "add") {
                 var name = prompt("생성할 파일의 이름");
@@ -8,11 +8,12 @@ $(function () {
                     $.ajax({
                         url: "file/create",
                         data: {
-                            pident: project_ident,
+                            pident: $(this).attr("project_ident"),
                             name: name
                         },
                         method: "POST",
                         success: function(result){
+                            console.log("프로젝트 밑에 디렉터리 파일");
                             console.log(result);
                             tree.addFile(result.file);
                         }
@@ -25,10 +26,12 @@ $(function () {
                         url: "directory/create",
                         data: {
                             dirName: name,
-                            ident: project_ident
+                            ident: $(this).attr("project_ident")
                         },
                         method: "POST",
                         success: function(result){
+                            console.log("프로젝트 밑에 디렉터리 생성");
+                            console.log(result);
                             tree.addDir(result.data);
                         }
                     });
@@ -41,7 +44,7 @@ $(function () {
         }
     });
     $.contextMenu({
-        selector: '.tree-folder',
+        selector: '[dir_ident]',
         callback: function (key, options) {
             if (key == "add") {
                 var name = prompt("생성할 파일의 이름");
@@ -49,7 +52,7 @@ $(function () {
                     $.ajax({
                         url: "file/create",
                         data: {
-                            pident: project_ident,
+                            pident: $(this).attr("parent_project"),
                             ident: $(this).attr("dir_ident"),
                             name: name
                         },
@@ -67,7 +70,7 @@ $(function () {
                         url: "directory/create",
                         data: {
                             dirName: name,
-                            ident: project_ident,
+                            ident: $(this).attr("parent_project"),
                             dirident: $(this).attr("dir_ident")
                         },
                         method: "POST",
@@ -102,7 +105,7 @@ $(function () {
     });
 
     $.contextMenu({
-        selector: '.tree-file',
+        selector: '[file_ident]',
         callback: function (key, options) {
             if(key == 'rename'){
                 var name = prompt('바꿀 이름');
