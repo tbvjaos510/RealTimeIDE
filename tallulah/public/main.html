@@ -27,7 +27,7 @@
   <script src="js/front/AddTab.js"></script>
   <script src="js/front/maketree.js"></script>
   <script src="js/front/click.js"></script>
-  <script src="js/front/addChat.js"></script>
+  <script src="js/front/ChatControl.js"></script>
 
 
   <!-- js, css for createTreeView -->
@@ -53,7 +53,7 @@
     var username = "<%=uname%>";
     $(document).ready(function () {
       tree = new makeTree("#tree");
-
+      
       // $.ajax({
       //   url: "directory/get",
       //   data: {
@@ -246,13 +246,12 @@
 
   </section>
   <div class="chat-list">
-    <div style="background-color: #0040FF; height: 12%;">
-      <i class="fas fa-times chat-close" style="float: right; padding: 15px; cursor: pointer; color: #fff;"></i>
-    </div>
-    <ul>
-     
-    </ul>
-
+      <div style="background-color: #0040FF; height: 6%; width:307.2px; position: fixed">
+        <i class="fas fa-times chat-close" style="float: right; padding: 15px; cursor: pointer; color: #fff;"></i>
+      </div>
+      <ul>
+          <li>1234</li>
+      </ul>
   </div>
   <div class="chat-view">
     <i class="fas fa-times chat-close" style="float: right; padding: 15px; cursor: pointer;"></i>
