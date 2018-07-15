@@ -4,7 +4,7 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
-makeTree.prototype.addPj = function(projectData, descData){
+makeTree.prototype.addPj = function (projectData, descData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
     this.tree.addBranch({
@@ -16,7 +16,7 @@ makeTree.prototype.addPj = function(projectData, descData){
 makeTree.prototype.addProject = function (projectData, descData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
-    var this1=this;
+    var this1 = this;
     if (!(projectData == null || projectData == '' || descData == null || descData == '')) {
         $.ajax({
             url: "project/create",
@@ -26,19 +26,21 @@ makeTree.prototype.addProject = function (projectData, descData) {
             },
             method: "POST",
             success: function (res) {
-                this1.tree.addBranch({
-                    folder: true,
-                    title: projectData,
-                    icon: "<i class='fa fa-save'></i>"
-                });
-                this1.treeCount++;
-                $("li[data-id=" + this1.treeCount + "]").attr("project_ident", res.ident);
+                if (res.success) {
+                    this1.tree.addBranch({
+                        folder: true,
+                        title: projectData,
+                        icon: "<i class='fa fa-save'></i>"
+                    });
+                    this1.treeCount++;
+                    $("li[data-id=" + this1.treeCount + "]").attr("project_ident", res.ident);
+                }
+                alert(res.message);
             }
         });
-        console.log(projectData);
-        
+
     }
-    
+
 };
 
 makeTree.prototype.makeDefault = function () {
@@ -85,7 +87,7 @@ makeTree.prototype.addDir = function (dirData) {
         this.treeCount++;
         this1 = $("li[data-id=" + this.treeCount + "]");
         this1.attr("dir_ident", dir.dir_ident);
-        this1.attr("parent_project",dir.project_ident);
+        this1.attr("parent_project", dir.project_ident);
     }
 };
 
@@ -121,8 +123,8 @@ makeTree.prototype.delete = function () {
     }
 };
 
-makeTree.prototype.addEntity=function(project_ident){
-    var this1=this;
+makeTree.prototype.addEntity = function (project_ident) {
+    var this1 = this;
     $.ajax({
         url: "directory/get",
         data: {
