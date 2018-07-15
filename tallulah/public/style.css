@@ -387,3 +387,7 @@ input[placeholder="SEARCH PROJECT"]{
   border-radius: 5px;
   
 }
+
+.tree-title{
+  user-select: none;
+}
