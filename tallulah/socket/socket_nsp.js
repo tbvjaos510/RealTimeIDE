@@ -15,16 +15,20 @@ function addRouter (io){
     var users = {};
     
     io.on("connection", function (socket) {
-        console.log('[Socket.IO] [' + io.namespace +'] : Connect ' + socket.id);
+        console.log('[Socket.IO] [' + io.namespace +'] : Connect ' + socket.id + '. now user is ' + nameid);
         users[socket.id] = {
             name: "user" + nameid,
             color: colors[nameid++ % colors.length],
             connect : false,
             rooms : "",
         };
-         
+        socket.on('test', function(data){
+            console.log(data);
+            socket.broadcast.emit('test', data);
+        });
         socket.user = users[socket.id].name;
         if (io.sockets.length == 1){
+            socket.emit('youking');
             users[socket.id].isking = true;
         }
         socket.emit('userdata', Object.values(users));
@@ -32,6 +36,7 @@ function addRouter (io){
 
         socket.on('selection', function (data) {
             data.user = socket.user;
+            console.log('select ' + data.user);
             socket.broadcast.emit('selection', data);
         }); 
         socket.on('filedata', function(data){
@@ -61,4 +66,5 @@ module.exports = function (io, router){
     var link = io.of(router);
     link.namespace = router;
     addRouter(link);
+    return link;
 };
