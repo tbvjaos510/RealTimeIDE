@@ -46,8 +46,8 @@ file.updateContent = function(ident, data, cb){
  * @param {(data:file_callback)=>void} cb 콜백 함수
  */
 file.create = function(pident,ident ,name, cb){
-    if(ident==null){
-        ident=0;
+    if(!ident){
+        ident=null;
     }
     connection.query("insert into t_file (project_ident, dir_ident, file_name) values (?,?, ?)", [pident,ident, name], function (err, result){
         if (err) {
