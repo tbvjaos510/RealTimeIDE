@@ -106,7 +106,7 @@
         success: function (res) {
           alert(res.message);
           username = res.name;
-
+          if (res.success)
           tree.makeDefault();
         }
       })
@@ -150,8 +150,6 @@
         },
         method: "POST",
         success: function (res) {
-          console.log(res);
-          console.log(this.data);
           alert(res.message);
         }
       })
