@@ -288,7 +288,9 @@ input[placeholder="SEARCH PROJECT"]{
     color: #fff;
 }
 
-.checks {position: relative;}
+.checks {
+  position: relative;
+}
 
 .checks input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
   position: absolute;
