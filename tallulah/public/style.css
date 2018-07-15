@@ -373,3 +373,7 @@ input[placeholder="Description"]{
   width: 90%;
   border-radius: 5px;
 }
+
+.tree-title{
+  user-select: none;
+}
