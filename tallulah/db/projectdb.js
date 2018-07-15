@@ -143,14 +143,20 @@ project.update = function(uid,pid,name,desc,callback){
             return callback({status : 3, success : false, message : "권한이 없음" });
         }
         if(!desc){
-            desc = results[0].project_des;
+            connection.query("update t_project set project_name = ? where project_ident = ? and project_owner = ?",[name,pid,uid],function(err,results){
+                if(err){
+                    return callback({status : 1, success : false, message : "DB 오류"});
+                }
+                return callback({status : 3, success : true, message : "수정성공"});
+            })    
+        }else{
+            connection.query("update t_project set project_name = ?, project_des = ? where project_ident = ? and project_owner = ?",[name,desc,pid,uid],function(err,results){
+                if(err){
+                    return callback({status : 1, success : false, message : "DB 오류"});
+                }
+                return callback({status : 3, success : true, message : "수정성공"});
+            })
         }
-        connection.query("update t_project set project_name = ?, project_des = ? where project_ident = ? and project_owner = ?",[name,desc,pid,uid],function(err,results){
-            if(err){
-                return callback({status : 1, success : false, message : "DB 오류"});
-            }
-            return callback({status : 3, success : true, message : "수정성공"});
-        })
     })
 }
 
