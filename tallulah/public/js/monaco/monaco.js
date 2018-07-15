@@ -19,7 +19,14 @@ function insertCSS(id, color) {
     }`;
     document.getElementsByTagName('head')[0].appendChild(style);
 }
+function removeAllWidget(){
+    var widgets = Object.values(contentWidgets);
+    for(var w in widgets){
+        editor.removeContentWidget(w);
+    }
+    contentWidgets = {};
 
+}
 function changeFile() {
     var fid = $(this).attr("file_ident");
     $.ajax({
@@ -133,7 +140,6 @@ function changeSeleciton(e) {
                 }
             });
     }
-   console.log(selectionArray);
     decorations[e.user] = editor.deltaDecorations(decorations[e.user], selectionArray);
 }
 

@@ -33,10 +33,11 @@ project.insert = function (user, project, grade,callback) {
  * @param {String} name 프로젝트 이름
  * @param {number} owner 프로젝트 생성인 고유번호
  * @param {String} description 프로젝트 설명 
+ * @param {number} private 프로젝트 공개 여부 (1이면 공개)
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
-project.create = function (name, owner, description, callback) {
-    connection.query('insert into t_project (project_name, project_owner, project_des) values (?,?,?)', [name, owner, description], function(err, result){
+project.create = function (name, owner, description, private,callback) {
+    connection.query('insert into t_project (project_name, project_owner, project_des, private) values (?,?,?, ?)', [name, owner, description, private], function(err, result){
         if (err){
             if (err.errno == 1062)
                 return callback({status : 2, success : false, message : '이미 존재하는 프로젝트 이름입니다.'});
@@ -131,10 +132,11 @@ project.select = function(uid, callback){
  * @param {number} pid 프로젝트 고유번호
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백함수
  * @param {String} name 수정할 프로젝트 이름
+ * @param {number} private 프로젝트 공개 여부 (1이면 공개)
  * @param {String} desc 수정할 프로젝트 설명
  */
 
-project.update = function(uid,pid,name,desc,callback){
+project.update = function(uid,pid,name,desc,private,callback){
     connection.query("select user_ident,project_ident from t_user_project where t_user_project.grade = 2 and t_user_project.user_ident = ? and t_user_project.project_ident = ?",[uid,pid],function(err,results){
         if(err){
             console.log(err);
@@ -160,8 +162,21 @@ project.update = function(uid,pid,name,desc,callback){
     })
 }
 
-
-
+/**
+ * 
+ * @param {String} name 검색할 프로젝트 이름
+ * @param {(data:p_insert_callback)=>void} callback 콜백 함수
+ */
+project.search = function(name, callback){
+    connection.query("select project_ident, project_name, project_owner, project_des from t_project where private = 1", function (err, result){
+        if (err)
+        {
+            console.log(err);
+            return callback({status : 1, success : false, message : 'DB 오류'});
+        }
+        return callback({status : 2, success : true, count})
+    });
+}
 
 
 
