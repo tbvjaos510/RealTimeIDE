@@ -106,8 +106,16 @@
         success: function (res) {
           alert(res.message);
           username = res.name;
-          if (res.success)
-          tree.makeDefault();
+          if (res.success){
+            socket.disconnect();        
+             socket = io.connect('/main', {query : {name:(username !== 'none' ? username : 'anonymous')}});
+             users = {};
+                decorations = [];
+                contentWidgets = [];
+                
+                socketListener(socket);
+             tree.makeDefault();
+          }
         }
       })
     }
