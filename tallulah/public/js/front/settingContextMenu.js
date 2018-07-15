@@ -65,10 +65,12 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("project_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
-                $(this).remove();
             }
         },
         items: {
@@ -142,10 +144,12 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("dir_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
-                $(this).remove();
             }
         },
         items: {
@@ -182,10 +186,12 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("file_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
-                $(this).remove();
             }
         },
         items: {
