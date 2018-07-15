@@ -35,19 +35,36 @@ directory.create = function (dirName, pid, did, callback) { //파일 생성
                 message: "DB 오류"
             });
         }
-        connection.query("select * from t_directory where dir_name = ? and dir_parent = ? ",[dirNmae,did],function(err,results){
-            if (err) {
-                return callback({
-                    status: 1,
-                    success: false,
-                    message: "DB 오류"
-                });
-            }
-            return callback({status: 3,
-                success: true,
-                message: "생성 성공",
-                data : results})
-        })
+        if(did != null){
+            connection.query("select * from t_directory where dir_name = ? and dir_parent = ? ",[dirName,did],function(err,results){
+                if (err) {
+                    return callback({
+                        status: 1,
+                        success: false,
+                        message: "DB 오류"
+                    });
+                }
+                return callback({status: 3,
+                    success: true,
+                    message: "생성 성공",
+                    data : results})
+            })
+        }else {
+            connection.query("select * from t_directory where dir_name = ? and dir_parent is ? ",[dirName,did],function(err,results){
+                if (err) {
+                    return callback({
+                        status: 1,
+                        success: false,
+                        message: "DB 오류"
+                    });
+                }
+                return callback({status: 3,
+                    success: true,
+                    message: "생성 성공",
+                    data : results})
+            })
+        }
+        
     })
 }
 

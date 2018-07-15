@@ -46,8 +46,8 @@ file.updateContent = function(ident, data, cb){
  * @param {(data:file_callback)=>void} cb 콜백 함수
  */
 file.create = function(pident,ident ,name, cb){
-    if(ident==null){
-        ident=0;
+    if(!ident){
+        ident=null;
     }
     connection.query("insert into t_file (project_ident, dir_ident, file_name) values (?,?, ?)", [pident,ident, name], function (err, result){
         if (err) {
@@ -57,13 +57,24 @@ file.create = function(pident,ident ,name, cb){
             console.log(err);
             return cb({success : false, status : 1, message : 'DB 오류'});
         }
-        connection.query("select * from t_file where file_name = ? and dir_ident = ?",[name,ident],function(err,result){
-            if (err) {
-                console.log(err);
-                return cb({success : false, status : 1, message : 'DB 오류'});
-            }
-            return cb({success : true, status : 3, message : '성공', file : result});  
-        })
+        if(ident!=null){
+            connection.query("select * from t_file where file_name = ? and dir_ident = ?",[name,ident],function(err,result){
+                if (err) {
+                    console.log(err);
+                    return cb({success : false, status : 1, message : 'DB 오류'});
+                }
+                return cb({success : true, status : 3, message : '성공', file : result});  
+            })
+        }else{
+            connection.query("select * from t_file where file_name = ? and dir_ident is ?",[name,ident],function(err,result){
+                if (err) {
+                    console.log(err);
+                    return cb({success : false, status : 1, message : 'DB 오류'});
+                }
+                return cb({success : true, status : 3, message : '성공', file : result});  
+            })
+        }
+        
 
     });
 }
