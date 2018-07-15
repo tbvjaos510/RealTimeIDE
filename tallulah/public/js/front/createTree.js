@@ -5,8 +5,6 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
-
-
 makeTree.prototype.makeDefault = function () {
     // $(this.selector).find(".tree").empty();
         var this1 = this;
@@ -45,7 +43,10 @@ makeTree.prototype.makeDefault = function () {
 makeTree.prototype.addProject = function (projectData, descData, privateData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
-    var privateData = $("input[name='private']").val();
+    var privateData = $("input[name='private']").checked;
+    if (privateData) privateData = 1;
+    else privateData = 0;
+    console.log(privateData);
     var this1 = this;
     if (!(projectData == null || projectData == '' || descData == null || descData == '' || privateData == null || privateData == '')) {
         $.ajax({
@@ -88,6 +89,17 @@ makeTree.prototype.addProject = function (projectData, descData, privateData) {
     }
     
 };
+
+makeTree.prototype.searchProject = function(projectData){
+    var projectData = $("input[name='search']").val();
+    var projects = $.ajax({
+        url: "project/search",
+        method: "POST",
+        async: false
+    }).responseJSON.data;
+
+    console.log(projects);
+}
 
 
 
