@@ -81,6 +81,7 @@ project.create = function (name, owner, description, callback) {
  */
 project.delete = function (id, owner,callback) {
     connection.query('select * from t_project where project_ident = ?', [id], function(err,results){
+        console.log(results[0].project_ident);
         if (err) {
             console.log(err.message);
             return callback({status : 1, success : false, message:'DB 오류'});
@@ -140,6 +141,9 @@ project.update = function(uid,pid,name,desc,callback){
             return callback({status : 1, success : false, message : "DB 오류"});
         }else if(results[0] == null){
             return callback({status : 3, success : false, message : "권한이 없음" });
+        }
+        if(!desc){
+            desc = results[0].project_des;
         }
         connection.query("update t_project set project_name = ?, project_des = ? where project_ident = ? and project_owner = ?",[name,desc,pid,uid],function(err,results){
             if(err){
