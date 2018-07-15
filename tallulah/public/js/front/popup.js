@@ -61,6 +61,11 @@ function openSignPopup(){
     popup.open();
 }
 
+function projectListPopup(){
+    popup = new Popup("#projectlist_popup");
+    popup.open();
+}
+
 function openProjectPopup(){
     popup = new Popup("#popup_project");
     popup.open();
