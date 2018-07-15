@@ -5,8 +5,6 @@ function makeTree(selector) {
     this.tree = new orangeTree(selector);
 }
 
-
-
 makeTree.prototype.makeDefault = function () {
     // $(this.selector).find(".tree").empty();
         var this1 = this;
@@ -86,6 +84,17 @@ makeTree.prototype.addProject = function (projectData, descData) {
     }
     
 };
+
+makeTree.prototype.searchProject = function(projectData){
+    var projectData = $("input[name='search']").val();
+    var projects = $.ajax({
+        url: "project/search",
+        method: "POST",
+        async: false
+    }).responseJSON.data;
+
+    console.log(projects);
+}
 
 
 
