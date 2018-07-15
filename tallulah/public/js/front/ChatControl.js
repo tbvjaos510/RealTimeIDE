@@ -1,13 +1,15 @@
 $(document).ready(function(){
     $(".chat").on("click", function(){
-        $(".chat-list").show();
+        $(".chat-list").toggle();
     });
 
     $(".chat-close").on("click", function(){
         $(this).parent().parent().hide();
     });
 
-    
+    $(".chat-lists").on("click", function(){
+        console.log($(this).html());
+    })
 
     $("input[class='message']").keydown(function(key){
         if(key.keyCode == 13){
