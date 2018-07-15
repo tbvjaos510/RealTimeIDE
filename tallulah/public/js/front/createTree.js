@@ -16,6 +16,15 @@ makeTree.prototype.makeDefault = function () {
             async: false
         }).responseJSON.data;
 
+        for(var i = 0; i < projects.length; i++){
+            var project = projects[i];
+            var li = $("<li />");
+            li.html(project.project_name);
+            console.log(li);
+            $(".chat-list>ul").append(li);
+            console.log("test");
+        }
+
     for (var i = 0; i < projects.length; i++) {
         var project = projects[i];
         var directorys;
@@ -29,14 +38,7 @@ makeTree.prototype.makeDefault = function () {
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
         this.addEntity(project.project_ident);
     }
-    for(var i = 0; i < projects.length; i++){
-        var project = projects[i];
-        var li = $("<li />");
-        li.html(project.project_name);
-        li.addClass("chat-lists");
-        $(".chat-list>ul").append(li);
-        console.log("test");
-    }
+   
 }
 
 

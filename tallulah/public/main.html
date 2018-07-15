@@ -234,7 +234,11 @@
       <div id="popup_project" style="display: none;">
         <input type="text" name="project" placeholder="MAKE PROJECT" />
         <input type="text" name="project-desc" placeholder="Description" />
-        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()" />
+        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()" /><br>
+        <div style="margin-top: 5%; text-align: center;">
+          <input type="checkbox" id="release" name="release" value="yes" />
+          <label for="release">OPEN TO THE PUBLIC&nbsp</label>
+        </div>
       </div>
 
       <div id="popup_directory" style="display: none;">
@@ -258,11 +262,11 @@
 
   </section>
   <div class="chat-list">
-      <div style="background-color: #0040FF; height: 6%; width:307.2px; position: fixed">
+      <div style="background-color: #0040FF; height: 5%; width:20%; position: fixed">
         <i class="fas fa-times chat-close" style="float: right; padding: 15px; cursor: pointer; color: #fff;"></i>
       </div>
       <ul>
-          <li>1234</li>
+          
       </ul>
   </div>
   <div class="chat-view">
