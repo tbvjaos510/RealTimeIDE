@@ -123,7 +123,6 @@ Tab.prototype._makeArea = function() {
     this.contentArea = $("<div />");
     this.contentArea.addClass("tab_content_area");
     this.contentArea.css("height", (this.layer.height() - 30) + "px");
-
     this.layer.append(this.titleArea);
     this.layer.parent().children().find("#content_layer").append(this.contentArea);
 }

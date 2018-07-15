@@ -62,11 +62,12 @@ body {
   display: inline-block;
 }
 
-.header ul {
+.header ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  height: 100%;
   background-color: #3AAFA9;
 }
 
