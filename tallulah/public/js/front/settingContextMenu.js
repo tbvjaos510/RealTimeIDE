@@ -107,6 +107,7 @@ $(function () {
             "rename": { name: "rename", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" },
             "sep1": "-",
+            "invite": {name: "Invite Other", icon: "add"},
             "desc": { name: "info"}
         }
     });

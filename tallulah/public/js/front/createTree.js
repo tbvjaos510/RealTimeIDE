@@ -18,6 +18,7 @@ makeTree.prototype.makeDefault = function () {
             var project = projects[i];
             var li = $("<li />");
             li.html(project.project_name);
+            li.attr("project_ident", project.project_ident);
             console.log(li);
             $(".chat-list>ul").append(li);
             console.log("test");
@@ -43,7 +44,7 @@ makeTree.prototype.makeDefault = function () {
 makeTree.prototype.addProject = function (projectData, descData, privateData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
-    var privateData = $("input[name='private']").checked;
+    var privateData = $("input[id='private']")[0].checked;
     if (privateData) privateData = 1;
     else privateData = 0;
     console.log(privateData);
@@ -78,6 +79,7 @@ makeTree.prototype.addProject = function (projectData, descData, privateData) {
                         var project = projects[i];
                         var li = $("<li />");
                         li.html(project.project_name);
+                        li.attr("project_ident", project.project_ident);
                         $(".chat-list>ul").append(li);
                         console.log("test");
                     }
@@ -94,11 +96,13 @@ makeTree.prototype.searchProject = function(projectData){
     var projectData = $("input[name='search']").val();
     var projects = $.ajax({
         url: "project/search",
+        data : {keyword : projectData},
         method: "POST",
         async: false
     }).responseJSON.data;
 
     console.log(projects);
+
 }
 
 

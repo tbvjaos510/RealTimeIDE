@@ -1,3 +1,4 @@
+var room;
 $(document).ready(function(){
     $(".chat").on("click", function(){
         $(".chat-list").toggle();
@@ -13,9 +14,11 @@ $(document).ready(function(){
 
     $(document).on("click", ".chat-list>ul>li", function(){
         $(".chat-view").show();
+        room = $(this).attr("project_ident");
+        console.log(room);
     })
 
-    $("input[class='message']").keydown(function(key){
+    $("input[class='message']").keydown(function(key, message){
         if(key.keyCode == 13){
             var message = $("input[class='message']").val();
             var li = $("<li />");
@@ -23,15 +26,15 @@ $(document).ready(function(){
             li.css("width", "auto");
             li.css("color", "#fff");
             li.css("border-radius", "5px");
-            li.css("padding-left", "3px");
-            li.css("padding-right", "3px");
             li.css("float", "right");
             li.css("clear", "both");
             li.css("margin-right", "20px");
-            li.css("margin-bottom", "3px");
+            li.css("margin-bottom", "6px");
+            li.css("padding", "5px 8px");
             li.html(message);
             $(".chat-view>ul").append(li);
             $("input[class='message']").val("");
+            console.log(room, message);
         }
     });
 
