@@ -7,11 +7,7 @@ $(document).ready(function(){
         $(this).parent().parent().hide();
     });
 
-    $(".chat-lists").on("click", function(){
-        console.log(1);
-        var _this = $(this).html();
-        console.log(_this);
-    });
+    
 
     $("input[class='message']").keydown(function(key){
         if(key.keyCode == 13){
