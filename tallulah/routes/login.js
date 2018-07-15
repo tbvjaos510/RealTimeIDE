@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 router.post('/auth', function (req, res) {
   
   if (req.isAuthenticated()) { //passport session으로 인증 되어 있는지 검사.
-    return res.send({ success: true, message: "로그인 되어 있습니다." });
+    return res.send({ success: false, message: "로그인 되어 있습니다." });
   }
   
   if (!req.body.id || !req.body.password) //인자값이 정확히 들어왔는지 검사.
