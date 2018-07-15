@@ -133,7 +133,8 @@
         }]
       },
       {
-        name: 'Test'
+        name: 'Search',
+        click: openSearchPopup
       }
     ];
     $(function () {
@@ -233,6 +234,11 @@
       <div id="popup_directory" style="display: none;">
         <input type="text" name="directory" placeholder="MAKE DIRECTORY" />
         <input type="button" name="directory-button" value="MAKE" class="button" onclick="makeDirectory()" />
+      </div>
+
+      <div id="popup_search" style="display: none;">
+        <input type="text" name="search" placeholder="SEARCH PROJECT" />
+        <input type="button" name="search-button" value="SEARCH" class="button" onclick="searchProject()" />
       </div>
 
 

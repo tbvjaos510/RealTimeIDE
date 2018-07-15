@@ -71,6 +71,11 @@ function openDirectoryPopup(){
     popup.open();
 }
 
+function openSearchPopup() {
+    popup = new Popup("#popup_search");
+    popup.open();
+}
+
 Popup.prototype.close = function(){
     this.cover.hide();
     $(this.selector).hide();
