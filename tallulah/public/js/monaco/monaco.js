@@ -190,6 +190,14 @@ function socketListener(socket){
 
 
     });
+    
+    socket.on('key', function (data) {
+        console.log('key ' + data.user);
+        issocket = true;
+        console.log(data);
+        changeText(data);
+    });
+
 }
 require.config({ paths: { 'vs': 'js/monaco-editor/min/vs' }});
 
@@ -260,13 +268,6 @@ require(['vs/editor/editor.main'], function () {
     //     location.reload();
     // });
 
-
-    socket.on('key', function (data) {
-        console.log('key ' + data.user);
-        issocket = true;
-        console.log(data);
-        changeText(data);
-    });
 
 
 });
