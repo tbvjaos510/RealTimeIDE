@@ -37,9 +37,26 @@ $(function () {
                     });
                 }
             } else if(key == "rename"){
-                var name = prompt("바꿀 이름");
+                var name = prompt("바꿀 프로젝트 이름");
+                var desc = prompt("바꿀 프로젝트 설명(미입력시 원래 설명이 유지됩니다.)");
+
+                var this1=this;
                 if(!(name == null && name == "")){
-                    $(this).children('.tree-title').html(name);
+                    $.ajax({
+                        url: "project/update",
+                        data: function(){
+                            if(desc==""||desc==null)
+                                return {ident: $(this1).attr("project_ident"),"name": name}
+                            return {ident: $(this1).attr("project_ident"),"name": name, "desc": desc}
+                        },
+                        method: "POST",
+                        success: function(result){
+                            if(result.success){
+                                $(this).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    });
                 }
             } else if (key == "delete"){
                 $.ajax({
@@ -59,7 +76,7 @@ $(function () {
             "rename": { name: "rename", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" },
             "sep1": "-",
-            "desc": { name: "info", icon: "fa-search"}
+            "desc": { name: "info"}
         }
     });
     $.contextMenu({
