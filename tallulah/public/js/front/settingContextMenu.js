@@ -36,11 +36,30 @@ $(function () {
                         }
                     });
                 }
+            } else if(key == "rename"){
+                var name = prompt("바꿀 이름");
+                if(!(name == null && name == "")){
+                    $(this).children('.tree-title').html(name);
+                }
+            } else if (key == "delete"){
+                $.ajax({
+                    url: "project/delete",
+                    method: "POST",
+                    data: {ident: $(this).attr("project_ident")},
+                    success: function(result){
+                        alert(result.message);
+                    }
+                });
+                $(this).remove();
             }
         },
         items: {
-            "add": { name: "Add", icon: "add" },
-            "addDir": { name: "AddDir", icon: "add" }
+            "add": { name: "AddFile", icon: "add" },
+            "addDir": { name: "AddDir", icon: "add" },
+            "rename": { name: "rename", icon: "edit" },
+            "delete": { name: "Delete", icon: "delete" },
+            "sep1": "-",
+            "desc": { name: "info", icon: "fa-search"}
         }
     });
     $.contextMenu({
