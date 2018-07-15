@@ -1,17 +1,19 @@
 $(document).ready(function(){
     $(".chat").on("click", function(){
-        $(".chat-list").show();
+        $(".chat-list").toggle();
     });
 
-    $(".chat-close").on("click", function(){
+    $(".list-close").on("click", function(){
         $(this).parent().parent().hide();
     });
 
-    $(".chat-lists").on("click", function(){
-        console.log(1);
-        var _this = $(this).html();
-        console.log(_this);
+    $(".chat-close").on("click", function(){
+        $(this).parent().hide();
     });
+
+    $(document).on("click", ".chat-list>ul>li", function(){
+        $(".chat-view").show();
+    })
 
     $("input[class='message']").keydown(function(key){
         if(key.keyCode == 13){

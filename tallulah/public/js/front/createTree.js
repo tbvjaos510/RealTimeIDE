@@ -16,6 +16,15 @@ makeTree.prototype.makeDefault = function () {
             async: false
         }).responseJSON.data;
 
+        for(var i = 0; i < projects.length; i++){
+            var project = projects[i];
+            var li = $("<li />");
+            li.html(project.project_name);
+            console.log(li);
+            $(".chat-list>ul").append(li);
+            console.log("test");
+        }
+
     for (var i = 0; i < projects.length; i++) {
         var project = projects[i];
         var directorys;
@@ -29,27 +38,22 @@ makeTree.prototype.makeDefault = function () {
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
         this.addEntity(project.project_ident);
     }
-    for(var i = 0; i < projects.length; i++){
-        var project = projects[i];
-        var li = $("<li />");
-        li.html(project.project_name);
-        li.addClass("chat-lists");
-        $(".chat-list>ul").append(li);
-        console.log("test");
-    }
+   
 }
 
 
-makeTree.prototype.addProject = function (projectData, descData) {
+makeTree.prototype.addProject = function (projectData, descData, privateData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
+    var privateData = $("input[name='private']").val();
     var this1 = this;
-    if (!(projectData == null || projectData == '' || descData == null || descData == '')) {
+    if (!(projectData == null || projectData == '' || descData == null || descData == '' || privateData == null || privateData == '')) {
         $.ajax({
             url: "project/create",
             data: {
                 name: projectData,
-                desc: descData
+                desc: descData,
+                private: privateData
             },
             method: "POST",
             success: function (res) {
@@ -124,7 +128,8 @@ makeTree.prototype.addFile = function (fileData) {
         } else {
             this.tree.addBranch({
                 title: file.file_name,
-                path: $("li[dir_ident=" + file.dir_ident + "]").attr("data-id")
+                path: $("li[dir_ident=" + file.dir_ident + "]").attr("data-id"),
+                click: changeFile
             });
         }
         this.treeCount++;

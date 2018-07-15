@@ -63,6 +63,7 @@ file.create = function(pident,ident ,name, cb){
                     console.log(err);
                     return cb({success : false, status : 1, message : 'DB 오류'});
                 }
+                addFileNsp(result.file_ident);
                 return cb({success : true, status : 3, message : '성공', file : result});  
             })
         }else{
