@@ -13,9 +13,9 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
-                            console.log("프로젝트 밑에 디렉터리 파일");
-                            console.log(result);
-                            tree.addFile(result.file);
+                            if(result.success)
+                                tree.addFile(result.file);
+                            alert(result.message);
                         }
                     });
                 }
@@ -30,9 +30,9 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
-                            console.log("프로젝트 밑에 디렉터리 생성");
-                            console.log(result);
-                            tree.addDir(result.data);
+                            if(result.success)
+                                tree.addDir(result.data);
+                            alert(result.message);
                         }
                     });
                 }
@@ -77,8 +77,9 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
-                            console.log(result);
-                            tree.addFile(result.file);
+                            if(result.success)
+                                tree.addFile(result.file);
+                            alert(result.message);
                         }
                     });
                 }
@@ -94,7 +95,9 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
-                            tree.addDir(result.data);
+                            if(result.success)
+                                tree.addDir(result.data);
+                            alert(result.message);
                         }
                     });
                 }
