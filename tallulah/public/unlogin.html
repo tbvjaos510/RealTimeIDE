@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!--stylesheet-->
+  <!--stylesheet--> 
 
   <script src="/socket.io/socket.io.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
@@ -44,12 +44,12 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <script>
-    let project_ident = 7;
+    let project_ident=7;
     var tree;
     var project = new Array();
     var dir = new Array();
     var file = new Array();
-    var username = "<%=uname%>";
+    var username = "unknown";
     $(document).ready(function () {
       tree = new makeTree("#tree");
 
@@ -75,16 +75,16 @@
       // });
 
       // });
-      if (username !== 'none')
-        tree.makeDefault();
-      makeTab();
+  //    tree.makeDefault();
+  //    makeTab();
 
       $(".btn_tab").on("click", function (event) {
         var title = $(event.target).val();
 
         if ($(event.target).prop("name") == "btn_tab_1") {
           tab.add(title, "#tab_content_1");
-        } else if ($(event.target).prop("name") == "btn_tab_2") {
+        }
+        else if ($(event.target).prop("name") == "btn_tab_2") {
           tab.add(title, "#tab_content_2");
         }
 
@@ -97,44 +97,21 @@
     function doLogin() {
       $.ajax({
         url: "login/auth",
-        data: {
-          id: $("input[name='id']").val(),
-          password: $("input[name='password']").val()
-        },
+        data: { id: $("input[name='id']").val(), password: $("input[name='password']").val() },
         method: "POST",
         success: function (res) {
           alert(res.message);
+          console.log(res);
           username = res.name;
-
-          tree.makeDefault();
         }
       })
     }
-    var menu = [{
-        name: 'Project',
-        click: function () {
-          console.log('아 슬프다');
-        },
-        subMenu: [{
-            name: '프로젝트 생성',
-            click: openProjectPopup
-          },
-          {
-            name: '디렉토리 생성',
-            click: openDirectoryPopup
-          }
-        ]
-      },
-      {
-        name: 'Help',
-        subMenu: [{
-          name: 'link 1'
-        }]
-      },
-      {
-        name: 'Test'
-      }
-    ];
+    var menu=[{name: 'Project',click: function(){console.log('아 슬프다');}, subMenu:[
+                  {name: '프로젝트 생성', click: openProjectPopup},
+                  {name: '디렉토리 생성', click: openDirectoryPopup}]},
+              {name: 'Help',subMenu:[
+                  {name: 'link 1'}]},
+              {name:'Test'}];
     $(function () {
       $('.menu_bar').addMenu(menu);
     });
@@ -142,11 +119,7 @@
     function doSign() {
       $.ajax({
         url: "login/sign",
-        data: {
-          id: $("input[name='signid']").val(),
-          password: $("input[name='signpw']").val(),
-          name: $("input[name='signname']").val()
-        },
+        data: { id: $("input[name='signid']").val(), password: $("input[name='signpw']").val(), name: $("input[name='signname']").val() },
         method: "POST",
         success: function (res) {
           console.log(res);
@@ -157,10 +130,10 @@
     }
 
     var tab;
-
     function makeTab() {
       tab = new Tab("#tab_layer");
     }
+
   </script>
 </head>
 
@@ -179,7 +152,7 @@
   </header>
 
   <nav class="nav">
-    <div id="tree"></div>
+      <div id="tree"></div>
   </nav>
 
   <section class="section">
@@ -209,7 +182,7 @@
       <div id="popup_project" style="display: none;">
         <input type="text" name="project" placeholder="MAKE PROJECT" />
         <input type="text" name="project-desc" placeholder="Description" />
-        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()" />
+        <input type="button" name="project-button" value="MAKE" class="button" onclick="tree.addProject()"/>
       </div>
 
       <div id="popup_directory" style="display: none;">
@@ -228,23 +201,23 @@
 
   </section>
   <footer class="footer">
-    <div class="chat-view">
-      <ul>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>123</li>
-        <li>1290381290489012840912839081290381290389012839012839018290381902389012839012839012129038129048901284091283908129038129038901283901283901829038190238901283901283901212903812904890128409128390812903812903890128390128390182903819023890128390128390121290381290489012840912839081290381290389012839012839018290381902389012839012839012</li>
-      </ul>
-    </div>
+      <div class="chat-view">
+          <ul>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+            <li>1290381290489012840912839081290381290389012839012839018290381902389012839012839012129038129048901284091283908129038129038901283901283901829038190238901283901283901212903812904890128409128390812903812903890128390128390182903819023890128390128390121290381290489012840912839081290381290389012839012839018290381902389012839012839012</li>
+          </ul>
+      </div>
     <input type="text" name="chat" class="chat">
-    <input type="button" class="submit-chat" value="Submit" placeholder="Notes here" />
-
+    <input type="button" class="submit-chat" value="Submit" placeholder="Notes here"/>
+        
   </footer>
 
   <script src="js/monaco/monaco.js"></script>
