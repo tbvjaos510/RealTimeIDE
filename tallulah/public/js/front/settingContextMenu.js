@@ -42,21 +42,22 @@ $(function () {
 
                 var this1=this;
                 if(!(name == null && name == "")){
-                    $.ajax({
+                    console.log($.ajax({
                         url: "project/update",
-                        data: function(){
+                        data: (function(){
+                            console.log({ident: $(this1).attr("project_ident"),name: name});
                             if(desc==""||desc==null)
-                                return {ident: $(this1).attr("project_ident"),"name": name}
-                            return {ident: $(this1).attr("project_ident"),"name": name, "desc": desc}
-                        },
+                                return {ident: $(this1).attr("project_ident"),name: name};
+                            return {ident: $(this1).attr("project_ident"),name: name, desc: desc};
+                        })(),
                         method: "POST",
                         success: function(result){
                             if(result.success){
-                                $(this).children('.tree-title').html(name);
+                                $(this1).children('.tree-title').html(name);
                             }
                             alert(result.message);
                         }
-                    });
+                    }));
                 }
             } else if (key == "delete"){
                 $.ajax({
@@ -120,8 +121,20 @@ $(function () {
                 }
             } else if(key == "rename"){
                 var name = prompt("바꿀 이름");
+                var this1 = this;
                 if(!(name == null && name == "")){
-                    $(this).children('.tree-title').html(name);
+                    $.ajax({
+                        url:"directory/update",
+                        method: "POST",
+                        data: {ident: $(this1).attr("dir_ident"),dirName: name},
+                        success: function(result){
+                            if(result.success){
+                                $(this1).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    }
+                    );
                 }
             } else if (key == "delete"){
                 $.ajax({
@@ -148,8 +161,20 @@ $(function () {
         callback: function (key, options) {
             if(key == 'rename'){
                 var name = prompt('바꿀 이름');
+                var this1 = this;
                 if(!(name==null && name=="")){
-                    $(this).children('.tree-title').html(name);
+                    $.ajax({
+                        url:"file/updateFileName",
+                        method: "POST",
+                        data: {ident: $(this1).attr("file_ident"),fileName: name},
+                        success: function(result){
+                            if(result.success){
+                                $(this1).children('.tree-title').html(name);
+                            }
+                            alert(result.message);
+                        }
+                    }
+                    );
                 }
             } else if(key == 'delete'){
                 $.ajax({
