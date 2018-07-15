@@ -44,7 +44,10 @@ makeTree.prototype.makeDefault = function () {
 makeTree.prototype.addProject = function (projectData, descData, privateData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
-    var privateData = $("input[name='private']").val();
+    var privateData = $("input[id='private']")[0].checked;
+    if (privateData) privateData = 1;
+    else privateData = 0;
+    console.log(privateData);
     var this1 = this;
     if (!(projectData == null || projectData == '' || descData == null || descData == '' || privateData == null || privateData == '')) {
         $.ajax({
