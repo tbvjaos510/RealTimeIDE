@@ -32,7 +32,7 @@ function changeFile() {
             console.log(data);
             if (data.success == true) {
                 socket.disconnect();
-                socket = io('/room' + fid);
+                socket = io.connect('/room' + fid, 'name='+username !== 'none' ? username : 'anonymous');
                 //데이터 초기화
                 issocket = true;
                 users = {};
@@ -65,6 +65,7 @@ function insertWidget(e) {
                 this.domNode.style.background = e.color;
                 this.domNode.style.color = 'black';
                 this.domNode.style.opacity = 0.8;
+                this.domNode.style.width = 'max-content';
             }
             return this.domNode;
         },
@@ -93,7 +94,7 @@ function changeSeleciton(e) {
         selectionArray.push({
             range: e.selection,
             options: {
-                className: `${e.user}one`,
+                className: `${e.ename}one`,
                 hoverMessage: {
                     value: e.user
                 }
@@ -104,7 +105,7 @@ function changeSeleciton(e) {
         selectionArray.push({
             range: e.selection,
             options: {
-                className: e.user,
+                className: e.ename,
                 hoverMessage: {
                     value: e.user
                 }
@@ -116,7 +117,7 @@ function changeSeleciton(e) {
             selectionArray.push({
                 range: data,
                 options: {
-                    className: `${e.user}one`,
+                    className: `${e.ename}one`,
                     hoverMessage: {
                         value: e.user
                     }
@@ -126,14 +127,14 @@ function changeSeleciton(e) {
             selectionArray.push({
                 range: data,
                 options: {
-                    className: e.user,
+                    className: e.ename,
                     hoverMessage: {
                         value: e.user
                     }
                 }
             });
     }
-    //    console.log(selectionArray);
+   console.log(selectionArray);
     decorations[e.user] = editor.deltaDecorations(decorations[e.user], selectionArray);
 }
 
@@ -144,8 +145,9 @@ function changeText(e) {
 function socketListener(socket){
     socket.on('connected', function (data) {
         users[data.name] = data.color;
+        console.log('connect', data);
 
-        insertCSS(data.name, data.color);
+        insertCSS(data.ename, data.color);
         insertWidget(data);
         decorations[data.name] = [];
         if (isking === true) {
@@ -159,7 +161,7 @@ function socketListener(socket){
             isking = true;
         for (var i of data) {
             users[i.name] = i.color;
-            insertCSS(i.name, i.color);
+            insertCSS(i.ename, i.color);
             insertWidget(i);
             decorations[i.name] = [];
         }
@@ -225,7 +227,7 @@ require(['vs/editor/editor.main'], function () {
     </body>
     </html>`;
 
-    socket = io('/main')
+    socket = io.connect('/main', {query : {name:(username !== 'none' ? username : 'anonymous')}});
     editor = monaco.editor.create(document.getElementById("monacoeditor"), {
         value: jsCode,
         language: "html",
