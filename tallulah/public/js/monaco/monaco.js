@@ -32,17 +32,16 @@ function changeFile() {
             console.log(data);
             if (data.success == true) {
                 socket.disconnect();
+                issocket = true;
+                editor.setValue(data.data.file_content);
                 socket = io.connect('/room' + fid,{query : {name:(username !== 'none' ? username : 'anonymous')}});
                 //데이터 초기화
-                issocket = true;
                 users = {};
                 decorations = [];
                 contentWidgets = [];
-                editor.setValue(data.data.file_content);
                 
                 socketListener(socket);
                 fileid = fid;
-                issocket = false;
             }
         }
     })
