@@ -40,16 +40,18 @@ makeTree.prototype.makeDefault = function () {
 }
 
 
-makeTree.prototype.addProject = function (projectData, descData) {
+makeTree.prototype.addProject = function (projectData, descData, privateData) {
     var projectData = $("input[name='project']").val();
     var descData = $("input[name='project-desc']").val();
+    var privateData = $("input[name='private']").val();
     var this1 = this;
-    if (!(projectData == null || projectData == '' || descData == null || descData == '')) {
+    if (!(projectData == null || projectData == '' || descData == null || descData == '' || privateData == null || privateData == '')) {
         $.ajax({
             url: "project/create",
             data: {
                 name: projectData,
-                desc: descData
+                desc: descData,
+                private: privateData
             },
             method: "POST",
             success: function (res) {

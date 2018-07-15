@@ -20,17 +20,17 @@ function insertCSS(id, color) {
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 function removeAllWidget(){
-    var widgets = Object.values(contentWidgets);
+    var widgets = Object.keys(contentWidgets);
     for(var w in widgets){
-        editor.removeContentWidget(w);
+        editor.removeContentWidget(contentWidgets[w]);
+        editor.deltaDecorations(decorations[w]);
     }
     contentWidgets = {};
+    decorations = {};
 
 }
 function changeFile() {
     var fid = $(this).attr("file_ident");
-    console.log("fid: ");
-    console.log(fid);
     $.ajax({
         method: "POST",
         url: "file/getFile",
@@ -38,7 +38,6 @@ function changeFile() {
             fident: fid
         },
         success: function (data) {
-            console.log(data);
             if (data.success == true) {
                 socket.disconnect();
                 issocket = true;
@@ -171,13 +170,11 @@ function fileSave(){
 function socketListener(socket){
     socket.on('connected', function (data) {
         users[data.name] = data.color;
-        console.log('connect', data);
 
         insertCSS(data.ename, data.color);
         insertWidget(data);
         decorations[data.name] = [];
         if (isking === true) {
-            console.log('senddata');
             iswrite = true;
             socket.emit("filedata", editor.getValue());
         }
@@ -198,7 +195,6 @@ function socketListener(socket){
         iswrite = true;
     });
     socket.on('youking', function (data) {
-        console.log('file' + fileid + '\'s king');
         isking = true;
         iswrite = true;
     });
@@ -220,9 +216,7 @@ function socketListener(socket){
     });
     
     socket.on('key', function (data) {
-        console.log('key ' + data.user);
         issocket = true;
-        console.log(data);
         changeText(data);
     });
 
@@ -286,7 +280,6 @@ require(['vs/editor/editor.main'], function () {
         //    console.log(e.position.toString());
     });*/
     editor.onDidChangeCursorSelection(function (e) {
-        console.log(iswrite);
         // console.log(e);
         if (iswrite)
             socket.emit('selection', e);

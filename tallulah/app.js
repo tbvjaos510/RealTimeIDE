@@ -22,7 +22,10 @@ stdin.setRawMode(true);
 stdin.resume();
 stdin.setEncoding("utf8");
 
-
+global.addFileNsp = function (ident){
+  nsps.push(srouter(io, "room" + ident));
+        
+}
 //global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
 global.connection = mysql.createConnection(mysqls.options);
 connection.connect(function(err){  //db 연결
@@ -33,8 +36,7 @@ connection.connect(function(err){  //db 연결
       console.log(err);
     } else {
       for(var i of result){
-        nsps.push(srouter(io, "room" + i.file_ident));
-        
+        addFileNsp(i.file_ident);      
       }
     }
   });
