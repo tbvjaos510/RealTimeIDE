@@ -65,10 +65,27 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("project_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
                 $(this).remove();
+                var projects = $.ajax({
+                    url: "project/get",
+                    method: "POST",
+                    async: false
+                }).responseJSON.data;
+                //채팅창 뿌리기
+                $(".chat-list>ul>li").remove();
+                for(var i = 0; i < projects.length; i++){
+                    var project = projects[i];
+                    var li = $("<li />");
+                    li.html(project.project_name);
+                    $(".chat-list>ul").append(li);
+                    console.log("test");
+                }
             }
         },
         items: {
@@ -142,10 +159,12 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("dir_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
-                $(this).remove();
             }
         },
         items: {
@@ -182,10 +201,12 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("file_ident")},
                     success: function(result){
+                        if(result.success){
+                            $(this).remove();
+                        }
                         alert(result.message);
                     }
                 });
-                $(this).remove();
             }
         },
         items: {
@@ -193,18 +214,7 @@ $(function () {
             "delete": { name: "Delete", icon: "delete" }
         }
     });
-    
 
-    //빈곳에서 우클릭
-    // $.contextMenu({
-    //     selector: '.nav',
-    //     callback: function(key, options){
-
-    //     },
-    //     items: {
-    //         ""
-    //     }
-    // });
 
     $.contextMenu({
         selector: '.nav',

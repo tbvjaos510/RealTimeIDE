@@ -5,17 +5,9 @@ $(document).ready(function(){
 
     $(".chat-close").on("click", function(){
         $(this).parent().parent().hide();
-    })
-
-    var projects = $.ajax({
-        url: "project/get",
-        method: "POST",
-        async: false
-    }).responseJSON.data;
+    });
 
     
-
-
 
     $("input[class='message']").keydown(function(key){
         if(key.keyCode == 13){
@@ -35,6 +27,8 @@ $(document).ready(function(){
             $(".chat-view>ul").append(li);
             $("input[class='message']").val("");
         }
-    })
+    });
+
+    
 });
-var li = $("<li />");
+

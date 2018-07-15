@@ -1,53 +1,11 @@
+
 function makeTree(selector) {
     this.selector = selector;
     this.treeCount = 0;
     this.tree = new orangeTree(selector);
 }
 
-makeTree.prototype.addPj = function (projectData, descData) {
-    var projectData = $("input[name='project']").val();
-    var descData = $("input[name='project-desc']").val();
-    this.tree.addBranch({
-        title: projectData,
-        folder: true
-    });
-}
 
-makeTree.prototype.addProject = function (projectData, descData) {
-    var projectData = $("input[name='project']").val();
-    var descData = $("input[name='project-desc']").val();
-    var this1 = this;
-    if (!(projectData == null || projectData == '' || descData == null || descData == '')) {
-        $.ajax({
-            url: "project/create",
-            data: {
-                name: projectData,
-                desc: descData
-            },
-            method: "POST",
-            success: function (res) {
-                if (res.success) {
-                    this1.tree.addBranch({
-                        folder: true,
-                        title: projectData,
-                        icon: "<i class='fa fa-save'></i>"
-                    });
-                    this1.treeCount++;
-                    $("li[data-id=" + this1.treeCount + "]").attr("project_ident", res.ident);
-                }
-                alert(res.message);
-            }
-        });
-
-    }
-    
-    for(var i = 0; i < projects.length; i++){
-        var project = projects[i];
-        var li = $("<li />");
-        li.html(project.project_name);
-        $(".chat-list>ul").append(li);
-    }
-};
 
 makeTree.prototype.makeDefault = function () {
     // $(this.selector).find(".tree").empty();
@@ -71,9 +29,63 @@ makeTree.prototype.makeDefault = function () {
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
         this.addEntity(project.project_ident);
     }
-
-    
+    for(var i = 0; i < projects.length; i++){
+        var project = projects[i];
+        var li = $("<li />");
+        li.html(project.project_name);
+        li.addClass("chat-lists");
+        $(".chat-list>ul").append(li);
+        console.log("test");
+    }
 }
+
+
+makeTree.prototype.addProject = function (projectData, descData) {
+    var projectData = $("input[name='project']").val();
+    var descData = $("input[name='project-desc']").val();
+    var this1 = this;
+    if (!(projectData == null || projectData == '' || descData == null || descData == '')) {
+        $.ajax({
+            url: "project/create",
+            data: {
+                name: projectData,
+                desc: descData
+            },
+            method: "POST",
+            success: function (res) {
+                if (res.success) {
+                    this1.tree.addBranch({
+                        folder: true,
+                        title: projectData,
+                        icon: "<i class='fa fa-save'></i>"
+                    });
+                    this1.treeCount++;
+                    $("li[data-id=" + this1.treeCount + "]").attr("project_ident", res.ident);
+                    //프로젝트 목록 불러오기
+                    var projects = $.ajax({
+                        url: "project/get",
+                        method: "POST",
+                        async: false
+                    }).responseJSON.data;
+                    //채팅창 뿌리기
+                    $(".chat-list>ul>li").remove();
+                    for(var i = 0; i < projects.length; i++){
+                        var project = projects[i];
+                        var li = $("<li />");
+                        li.html(project.project_name);
+                        $(".chat-list>ul").append(li);
+                        console.log("test");
+                    }
+                }
+                alert(res.message);
+            }
+        });
+
+    }
+    
+};
+
+
 
 makeTree.prototype.addDir = function (dirData) {
     for (var i = 0; i < dirData.length; i++) {
@@ -155,3 +167,4 @@ makeTree.prototype.addEntity = function (project_ident) {
         });
     });
 }
+

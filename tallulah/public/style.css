@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 /* 화면 꽉 채우기*/
@@ -322,7 +323,7 @@ input[placeholder="SEARCH PROJECT"]{
 .chat{
   float: right;
   width: 10%;
-  height: 56%;
+  height: 55%;
   padding-top: 60px;
   text-align: center;
   color: #fff;
@@ -355,9 +356,9 @@ input[placeholder="SEARCH PROJECT"]{
 .chat-list>ul>li{
   cursor: pointer;
   width: 100%;
-  padding-left: 30%;
-  padding-top: 5%;
-  padding-bottom: 5%;
+  text-indent: 10px;
+  padding-top: 4%;
+  padding-bottom: 4%;
   /* border-bottom: 1px solid #444; */
 }
 
@@ -384,6 +385,7 @@ input[placeholder="SEARCH PROJECT"]{
   padding: 5px;
   width: 90%;
   border-radius: 5px;
+  
 }
 
 .tree-title{
