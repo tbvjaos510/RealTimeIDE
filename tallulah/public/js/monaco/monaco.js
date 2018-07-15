@@ -2,6 +2,7 @@ var issocket = false;
 var users = {};
 var contentWidgets = {};
 var decorations = {};
+var fileid = 0;
 var iswrite = false;
 var isking = false;
 var editor;
@@ -14,13 +15,13 @@ function insertCSS(id, color) {
     style.innerHTML += `
     .${id}one {
         background: ${color};
-        width:2px !important;
+        width:2px !important; 
     }`;
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
 function changeFile() {
-    var fid=$(this).attr("file_ident");
+    var fid = $(this).attr("file_ident");
     $.ajax({
         method: "POST",
         url: "file/getFile",
@@ -33,11 +34,15 @@ function changeFile() {
                 socket.disconnect();
                 socket = io('/room' + fid);
                 //데이터 초기화
-                issocket = iswrite = isking = false;
+                issocket = true;
                 users = {};
                 decorations = [];
                 contentWidgets = [];
                 editor.setValue(data.data.file_content);
+                
+                socketListener(socket);
+                fileid = fid;
+                issocket = false;
             }
         }
     })
@@ -71,22 +76,122 @@ function insertWidget(e) {
         }
     };
 }
-require.config({
-    paths: {
-        'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs'
-    }
-});
 
-window.MonacoEnvironment = {
-    getWorkerUrl: function (workerId, label) {
-        return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
-        self.MonacoEnvironment = {
-          baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min'
-        };
-        importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.13.1/min/vs/base/worker/workerMain.js');`
-      )}`;
+
+function changeWidgetPosition(e) {
+    contentWidgets[e.user].position.lineNumber = e.selection.endLineNumber;
+    contentWidgets[e.user].position.column = e.selection.endColumn;
+
+    editor.removeContentWidget(contentWidgets[e.user]);
+    editor.addContentWidget(contentWidgets[e.user]);
+}
+
+function changeSeleciton(e) {
+    var selectionArray = [];
+    if (e.selection.startColumn == e.selection.endColumn && e.selection.startLineNumber == e.selection.endLineNumber) {
+        e.selection.endColumn++;
+        selectionArray.push({
+            range: e.selection,
+            options: {
+                className: `${e.user}one`,
+                hoverMessage: {
+                    value: e.user
+                }
+            }
+        });
+
+    } else {
+        selectionArray.push({
+            range: e.selection,
+            options: {
+                className: e.user,
+                hoverMessage: {
+                    value: e.user
+                }
+            }
+        });
     }
-};
+    for (let data of e.secondarySelections) {
+        if (data.startColumn == data.endColumn && data.startLineNumber == data.endLineNumber) {
+            selectionArray.push({
+                range: data,
+                options: {
+                    className: `${e.user}one`,
+                    hoverMessage: {
+                        value: e.user
+                    }
+                }
+            });
+        } else
+            selectionArray.push({
+                range: data,
+                options: {
+                    className: e.user,
+                    hoverMessage: {
+                        value: e.user
+                    }
+                }
+            });
+    }
+    //    console.log(selectionArray);
+    decorations[e.user] = editor.deltaDecorations(decorations[e.user], selectionArray);
+}
+
+function changeText(e) {
+    editor.getModel().applyEdits(e.changes);
+
+}
+function socketListener(socket){
+    socket.on('connected', function (data) {
+        users[data.name] = data.color;
+
+        insertCSS(data.name, data.color);
+        insertWidget(data);
+        decorations[data.name] = [];
+        if (isking === true) {
+            console.log('senddata');
+            iswrite = true;
+            socket.emit("filedata", editor.getValue());
+        }
+    });
+    socket.on('userdata', function (data) {
+        if (data.length == 1)
+            isking = true;
+        for (var i of data) {
+            users[i.name] = i.color;
+            insertCSS(i.name, i.color);
+            insertWidget(i);
+            decorations[i.name] = [];
+        }
+    });
+    socket.on('resetdata', function (data) {
+
+        editor.setValue(data);
+        iswrite = true;
+    });
+    socket.on('youking', function (data) {
+        console.log('file' + fileid + '\'s king');
+        isking = true;
+        iswrite = true;
+    });
+    socket.on('selection', function (data) {
+        // data = data.match(/\[(\d{1,10}),(\d{1,10}) -> (\d{1,10}),(\d{1,10})\]/);
+        // editor.setSelection(new monaco.Range(parseInt(data[1]), parseInt(data[2]), parseInt(data[3]), parseInt(data[4])));
+        //   console.log(data);
+        console.log('select '+data.user);
+        changeSeleciton(data);
+        changeWidgetPosition(data);
+    });
+    socket.on('exit', function (data) {
+        editor.removeContentWidget(contentWidgets[data]);
+        editor.deltaDecorations(decorations[data], []);
+        delete decorations[data];
+        delete contentWidgets[data];
+
+
+    });
+}
+require.config({ paths: { 'vs': 'js/monaco-editor/min/vs' }});
 
 require(['vs/editor/editor.main'], function () {
     var jsCode = `<!DOCTYPE HTML>
@@ -120,101 +225,8 @@ require(['vs/editor/editor.main'], function () {
         fontFamily: "Nanum Gothic Coding",
         theme: "vs-dark",
     });
-    socket.on('connected', function (data) {
-        users[data.name] = data.color;
+    socketListener(socket);
 
-        insertCSS(data.name, data.color);
-        insertWidget(data);
-        decorations[data.name] = [];
-        if (isking === true) {
-            console.log('senddata');
-            iswrite = true;
-            socket.emit("filedata", editor.getValue());
-        }
-    });
-    socket.on('userdata', function (data) {
-        if (data.length == 1)
-            isking = true;
-        for (var i of data) {
-            users[i.name] = i.color;
-            insertCSS(i.name, i.color);
-            insertWidget(i);
-            decorations[i.name] = [];
-        }
-    });
-    socket.on('resetdata', function (data) {
-
-        editor.setValue(data);
-        iswrite = true;
-    });
-    socket.on('youking', function (data) {
-        isking = true;
-        iswrite = true;
-    });
-
-    function changeSeleciton(e) {
-        var selectionArray = [];
-        if (e.selection.startColumn == e.selection.endColumn && e.selection.startLineNumber == e.selection.endLineNumber) {
-            e.selection.endColumn++;
-            selectionArray.push({
-                range: e.selection,
-                options: {
-                    className: `${e.user}one`,
-                    hoverMessage: {
-                        value: e.user
-                    }
-                }
-            });
-
-        } else {
-            selectionArray.push({
-                range: e.selection,
-                options: {
-                    className: e.user,
-                    hoverMessage: {
-                        value: e.user
-                    }
-                }
-            });
-        }
-        for (let data of e.secondarySelections) {
-            if (data.startColumn == data.endColumn && data.startLineNumber == data.endLineNumber) {
-                selectionArray.push({
-                    range: data,
-                    options: {
-                        className: `${e.user}one`,
-                        hoverMessage: {
-                            value: e.user
-                        }
-                    }
-                });
-            } else
-                selectionArray.push({
-                    range: data,
-                    options: {
-                        className: e.user,
-                        hoverMessage: {
-                            value: e.user
-                        }
-                    }
-                });
-        }
-        //    console.log(selectionArray);
-        decorations[e.user] = editor.deltaDecorations(decorations[e.user], selectionArray);
-    }
-
-    function changeWidgetPosition(e) {
-        contentWidgets[e.user].position.lineNumber = e.selection.endLineNumber;
-        contentWidgets[e.user].position.column = e.selection.endColumn;
-
-        editor.removeContentWidget(contentWidgets[e.user]);
-        editor.addContentWidget(contentWidgets[e.user]);
-    }
-
-    function changeText(e) {
-        editor.getModel().applyEdits(e.changes);
-
-    }
 
     editor.onDidChangeModelContent(function (e) {
 
@@ -243,27 +255,14 @@ require(['vs/editor/editor.main'], function () {
         if (iswrite)
             socket.emit('selection', e);
     });
-    socket.on('selection', function (data) {
-        // data = data.match(/\[(\d{1,10}),(\d{1,10}) -> (\d{1,10}),(\d{1,10})\]/);
-        // editor.setSelection(new monaco.Range(parseInt(data[1]), parseInt(data[2]), parseInt(data[3]), parseInt(data[4])));
-        //   console.log(data);
-        changeSeleciton(data);
-        changeWidgetPosition(data);
-    });
-    socket.on('exit', function (data) {
-        editor.removeContentWidget(contentWidgets[data]);
-        editor.deltaDecorations(decorations[data], []);
-        delete decorations[data];
-        delete contentWidgets[data];
-
-
-    });
+  
     // socket.on('disconnect', function (data) {
     //     location.reload();
     // });
 
 
     socket.on('key', function (data) {
+        console.log('key ' + data.user);
         issocket = true;
         console.log(data);
         changeText(data);

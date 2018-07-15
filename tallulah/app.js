@@ -12,10 +12,18 @@ var store = new MySQLStore(mysqls.options);
 var passportconfig = require('./secure/passport');
 var passport =require('passport');
 var srouter = require('./socket/socket_nsp');
-
+var stdin = process.stdin;
+var nsps = [];
 var app = express();
-//global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
 
+
+//입력받기
+stdin.setRawMode(true);
+stdin.resume();
+stdin.setEncoding("utf8");
+
+
+//global은 전역변수이다. 즉 다른 모듈에서도 connection을 통해 언제나 참조 가능함.
 global.connection = mysql.createConnection(mysqls.options);
 connection.connect(function(err){  //db 연결
   if (err) throw err;
@@ -25,12 +33,22 @@ connection.connect(function(err){  //db 연결
       console.log(err);
     } else {
       for(var i of result){
-        srouter(io, "room" + i.file_ident);
-        console.log("add Router room" + i.file_ident);
+        nsps.push(srouter(io, "room" + i.file_ident));
+        
       }
     }
   });
 });
+
+stdin.on('data', function(key){
+  if (key === 'g'){
+    for(var i of nsps){
+      console.log(i.name + '-' +Object.keys(i.connected).length);
+    }
+  }
+});
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
