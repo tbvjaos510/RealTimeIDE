@@ -346,6 +346,7 @@ input[placeholder="Description"]{
   padding-left: 30%;
   padding-top: 5%;
   padding-bottom: 5%;
+  /* border-bottom: 1px solid #444; */
 }
 
 .chat-list>ul>li:hover{
