@@ -6,7 +6,7 @@ function makeTree(selector) {
 }
 
 makeTree.prototype.makeDefault = function () {
-    // $(this.selector).find(".tree").empty();
+        $(this.selector).find(".tree").empty();
         var this1 = this;
         var projects = $.ajax({
             url: "project/get",
