@@ -7,6 +7,15 @@ $(document).ready(function(){
         $(this).parent().parent().hide();
     })
 
+    var projects = $.ajax({
+        url: "project/get",
+        method: "POST",
+        async: false
+    }).responseJSON.data;
+
+    
+
+
 
     $("input[class='message']").keydown(function(key){
         if(key.keyCode == 13){
