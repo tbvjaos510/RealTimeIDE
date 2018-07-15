@@ -40,17 +40,23 @@ makeTree.prototype.addProject = function (projectData, descData) {
         });
 
     }
-
+    
+    for(var i = 0; i < projects.length; i++){
+        var project = projects[i];
+        var li = $("<li />");
+        li.html(project.project_name);
+        $(".chat-list>ul").append(li);
+    }
 };
 
 makeTree.prototype.makeDefault = function () {
     // $(this.selector).find(".tree").empty();
-    var this1 = this;
-    var projects = $.ajax({
-        url: "project/get",
-        method: "POST",
-        async: false
-    }).responseJSON.data;
+        var this1 = this;
+        var projects = $.ajax({
+            url: "project/get",
+            method: "POST",
+            async: false
+        }).responseJSON.data;
 
     for (var i = 0; i < projects.length; i++) {
         var project = projects[i];
@@ -65,6 +71,8 @@ makeTree.prototype.makeDefault = function () {
         $("li[data-id=" + this.treeCount + "]").attr("project_ident", project.project_ident);
         this.addEntity(project.project_ident);
     }
+
+    
 }
 
 makeTree.prototype.addDir = function (dirData) {
