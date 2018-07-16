@@ -94,15 +94,24 @@ makeTree.prototype.addProject = function (projectData, descData, privateData) {
 
 makeTree.prototype.searchProject = function(projectData){
     var projectData = $("input[name='search']").val();
-    var projects = $.ajax({
+    $.ajax({
         url: "project/search",
         data : {keyword : projectData},
         method: "POST",
-        async: false
-    }).responseJSON.data;
-
-    console.log(projects);
-
+        async: true,
+        success : function(data){
+            if (data.success === false){
+                alert(data.message);
+            } else if(data.success === true){
+                var rooms = data.data;
+                if(data.count!=0){
+                    projectListPopup(rooms);
+                } else{
+                    alert("잘못된 입력입니다.");
+                }
+            }
+        }
+    });
 }
 
 

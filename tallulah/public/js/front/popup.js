@@ -61,8 +61,16 @@ function openSignPopup(){
     popup.open();
 }
 
-function projectListPopup(){
+function projectListPopup(rooms){
     popup = new Popup("#projectlist_popup");
+    for(var rm of rooms){
+        var li = $("<li />");
+        li.html(rm.project_name);
+        $("#projectlist_popup").append(li);
+    }
+    // for(var i = 0; i<data.count; i++){
+    //     $("#projectlist_popup").append(data[i].project_name);
+    // }
     popup.open();
 }
 

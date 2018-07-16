@@ -490,3 +490,8 @@ input[placeholder="SEARCH PROJECT"]{
 .tree-title{
   user-select: none;
 }
+
+#projectlist_popup>li{
+  background-color: #fff;
+  width: 100%;
+}
