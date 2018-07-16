@@ -539,7 +539,7 @@ input[placeholder="SEARCH PROJECT"]{
   height: 90%;
 }
 
-<<<<<<< HEAD
+
 /* #activePopup {
   width: 20%;
   height: 100%;
@@ -557,9 +557,10 @@ input[placeholder="SEARCH PROJECT"]{
   background: gray;
   /* box-shadow: 2px 2px 2px #666, -2px -2px 2px #666, -2px 2px 2px #666, 2px -2px 2px #666; */
   border: #2e2e2e;
-=======
-.chat-area{
+}
+
+.chat-area {
   width: 95%;
   display: inline-block;
->>>>>>> 62cf00b6e8159f51f45e6bff4336f2b87ed3939c
+
 }
