@@ -494,3 +494,11 @@ input[placeholder="SEARCH PROJECT"]{
 .tree-selected{
   background: lightgray;
 }
+.active {
+  background: #ff99ff;
+  border-radius: 5px;
+  margin: 6px;
+  float: left;
+  width: 15%;
+  height: 90%;
+}
