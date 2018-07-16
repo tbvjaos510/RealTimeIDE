@@ -532,13 +532,12 @@ input[placeholder="SEARCH PROJECT"]{
   background: lightgray;
 }
 
-#activePopup {
-  float: right;
+/* #activePopup {
   width: 20%;
   height: 100%;
   background: black;
   z-index: 100;
-}
+} */
 
 .button_active {
   float: right;
