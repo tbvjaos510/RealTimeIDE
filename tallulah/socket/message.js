@@ -1,8 +1,9 @@
+
+var users = {};
+global.rooms = {};
 /**
  * @param {SocketIO.Namespace} io
  */
-var users = {};
-
 function msgRouter(io) {
 
   io.on('connection', function (socket) {
@@ -17,16 +18,35 @@ function msgRouter(io) {
       delete users[socket.id];
     });
     socket.on('join', function (data) {
-   
+      if (!rooms[data]){
+        rooms[data] = [];
+      }
       users[socket.id].room.push(data);
       socket.join(data);
     });
     socket.on('chat', function (data) {
       console.log(data);
       data.name = socket.name;
+      rooms[data.room].push(data);
       socket.broadcast.in(data.room).emit('chat',data);
     });
+    socket.on('getchat', function(data){
+      socket.emit('chattings', rooms[data]);
+    })
+    socket.on('error', function(data){
+      socket.disconnect();
+    })
+    socket.on('forceDisconnect', function () {
+      socket.disconnect();
+  })
+    socket.on('change', function(data){
+      socket.broadcast.in(data.room).emit('refresh');
+    })
   });
+  io.on('error', function(){
+
+  })
+  
 }
 
 /**

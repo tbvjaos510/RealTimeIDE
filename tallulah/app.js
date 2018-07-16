@@ -50,6 +50,8 @@ stdin.on('data', function(key){
   }
   else if(key === 's'){
     process.exit(1);
+  } else if (key === 'r'){
+    console.log(rooms)
   }
   
 });
