@@ -41,7 +41,7 @@ $(function () {
                 var desc = prompt("바꿀 프로젝트 설명(미입력시 원래 설명이 유지됩니다.)");
 
                 var this1=this;
-                if(!(name == null && name == "")){
+                if(!(name == null || name == "")){
                     console.log($.ajax({
                         url: "project/update",
                         data: (function(){
@@ -79,9 +79,7 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("project_ident")},
                     success: function(result){
-                        if(result.success){
-                            alert(result.message);
-                        }
+                        alert(result.message);
                     }
                 });
                 $(this).remove();
@@ -99,6 +97,19 @@ $(function () {
                     $(".chat-list>ul").append(li);
                     console.log("test");
                 }
+            }else if(key=="invite"){
+                var id = prompt("초대할 사람의 아이디를 입력하세요");
+                var this1 = this;
+                if(!(id==""||id==null)){
+                    $.ajax({
+                        url: "project/invite",
+                        method: "POST",
+                        data: {ident: $(this).attr("project_ident"), userid:id},
+                        success: function(result){
+                            alert(result.message);
+                        }
+                    });
+                }
             }
         },
         items: {
@@ -111,6 +122,7 @@ $(function () {
             "desc": { name: "info"}
         }
     });
+
     $.contextMenu({
         selector: '[dir_ident]',
         callback: function (key, options) {
