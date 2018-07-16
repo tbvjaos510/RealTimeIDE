@@ -531,11 +531,20 @@ input[placeholder="SEARCH PROJECT"]{
 .tree-selected{
   background: lightgray;
 }
-.active {
-  background: #ff99ff;
-  border-radius: 5px;
-  margin: 6px;
-  float: left;
-  width: 15%;
-  height: 90%;
+
+#activePopup {
+  float: right;
+  width: 20%;
+  height: 100%;
+  background: black;
+  z-index: 100;
+}
+
+.button_active {
+  float: right;
+  width: 10%;
+  height: 100%;
+  font-size: 15px;
+  background: gray;
+  border: 1.2px black;
 }
