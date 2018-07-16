@@ -36,6 +36,12 @@ function msgRouter(io) {
     socket.on('error', function(data){
       socket.disconnect();
     })
+    socket.on('forceDisconnect', function () {
+      socket.disconnect();
+  })
+    socket.on('change', function(data){
+      socket.broadcast.in(data.room).emit('refresh');
+    })
   });
   io.on('error', function(){
 

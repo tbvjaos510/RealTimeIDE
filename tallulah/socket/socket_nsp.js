@@ -56,9 +56,12 @@ function addRouter (io){
             data.ename = socket.ename;
             socket.broadcast.emit('key', data);
         });
-        socket.on("error", function(error){
-            console.log(error);
-        });
+        socket.on('error', function(data){
+            socket.disconnect();
+          })
+          socket.on('forceDisconnect', function () {
+            socket.disconnect();
+        })
     });
 };
 
