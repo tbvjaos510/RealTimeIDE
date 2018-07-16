@@ -15,7 +15,7 @@ router.post('/create', function (req, res) {
         success: false,
         message: '인자값이 전달되지 않았습니다.'
       });
-    project.create(req.body.name, req.session.passport.user.ident, req.body.desc, req.bodyy.private, function (data) {
+    project.create(req.body.name, req.session.passport.user.ident, req.body.desc, req.body.private, function (data) {
       return res.send(data);
     });
 
