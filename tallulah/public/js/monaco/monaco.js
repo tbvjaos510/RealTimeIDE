@@ -31,6 +31,8 @@ function removeAllWidget(){
 }
 function changeFile() {
     var fid = $(this).attr("file_ident");
+    $(".tree-title").removeClass("tree-selected");
+    $(this).find(".tree-title").addClass("tree-selected");
     $.ajax({
         method: "POST",
         url: "file/getFile",

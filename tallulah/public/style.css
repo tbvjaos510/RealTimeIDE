@@ -492,6 +492,9 @@ input[placeholder="SEARCH PROJECT"]{
   user-select: none;
 }
 
+.tree-selected{
+  background: lightgray;
+}
 .active {
   background: #ff99ff;
   border-radius: 5px;
