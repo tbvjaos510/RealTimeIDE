@@ -204,7 +204,8 @@ project.search = function(name, callback){
             return callback({status : 1, success : false, message : 'DB 오류'});
         }
         if(result[0] == null){
-            return callback({message : "존재하지 않은 프로젝트입니다."});
+            console.log(22);
+            return callback({message : "존재하지 않은 프로젝트입니다.", success : false});
         }
         return callback({status : 2, success : true, count:result.length, data : result});
     });
