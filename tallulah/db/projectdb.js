@@ -41,7 +41,7 @@ project.invite = function (userid, project, grade,callback) {
             if(err){
                 return callback({ status: 1, success: false, message: 'DB 오류' });
             }
-            if(results == null){
+            if(results[0] == null){
                 return callback({ status: 2, success: false, message: "그런 사용자가 존재하지 않습니다."});
             }
             user = results[0].user_ident;
@@ -203,7 +203,7 @@ project.search = function(name, callback){
             console.log(err);
             return callback({status : 1, success : false, message : 'DB 오류'});
         }
-        if(result == null){
+        if(result[0] == null){
             return callback({message : "존재하지 않은 프로젝트입니다."});
         }
         return callback({status : 2, success : true, count:result.length, data : result});
