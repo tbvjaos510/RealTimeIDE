@@ -34,10 +34,11 @@ $(document).ready(function(){
             li.html(message);
             $(".chat-view>ul").append(li);
             $("input[class='message']").val("");
+            chatControl(room, message);
             console.log(room, message);
         }
     });
-
+    
     
 });
 

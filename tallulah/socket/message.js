@@ -8,21 +8,22 @@ function msgRouter(io) {
   io.on('connection', function (socket) {
     console.log('user connected: ', socket.id);
     users[socket.id] = {
-      room: 'main',
-      name: socket.handshake.params.name
+      room: [],
+      name: socket.handshake.query.name
     }
+    socket.name = users[socket.id].name;
     socket.on('disconnect', function () {
       console.log('user disconnected: ', socket.id);
       delete users[socket.id];
     });
     socket.on('join', function (data) {
-        if (!users[socket.id].room) {
-        users[socket.id].room = [];
-      }
+   
       users[socket.id].room.push(data);
       socket.join(data);
     });
     socket.on('chat', function (data) {
+      console.log(data);
+      data.name = socket.name;
       socket.broadcast.in(data.room).emit('chat',data);
     });
   });
