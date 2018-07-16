@@ -15,6 +15,7 @@ $(document).ready(function(){
     $(document).on("click", ".chat-list>ul>li", function(){
         $(".chat-view").show();
         room = $(this).attr("project_ident");
+        getChat(room)
         console.log(room);
     })
 
@@ -38,6 +39,7 @@ $(document).ready(function(){
             console.log(room, message);
         }
     });
+    
     
     
 });
