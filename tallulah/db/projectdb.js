@@ -11,13 +11,32 @@ var project = {};
 
 /**
  * 프로젝트에 가입합니다.
- * @param {String} userid 사용자 id
  * @param {number} user 사용자 고유 번호 
  * @param {number} project 프로젝트 고유 번호
  * @param {number} grade 프로젝트 등급
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
-project.insert = function (userid, project, grade,callback) {
+project.insert = function (user, project, grade,callback) {
+            connection.query('insert into t_user_project values (?, ?, ?)', [user, project, grade], function (err, results) {
+                if (err) {
+                    if(err.errno == 1062){
+                        return callback({ status: 2, success: false, message: '이미 가입되어 있습니다.' });
+                    }
+                    return callback({ status: 1, success: false, message: 'DB 오류' });
+                }
+                return callback({status : 3, success : true, message : '성공적으로 가입되었습니다.'});
+            });
+        }
+/**
+ * 프로젝트에 초대합니다.
+ * @param {String} userid 사용자 아이디
+ * @param {number} user 사용자 고유 번호 
+ * @param {number} project 프로젝트 고유 번호
+ * @param {number} grade 프로젝트 등급
+ * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
+ */
+
+project.invite = function (userid, project, grade,callback) {
         connection.query('select user_ident from t_users where email_id = ?',[userid],function(err,results){
             if(err){
                 return callback({ status: 1, success: false, message: 'DB 오류' });
@@ -34,7 +53,7 @@ project.insert = function (userid, project, grade,callback) {
             });
         });    
     }
-
+        
 /**
  * 
  * @param {String} name 프로젝트 이름

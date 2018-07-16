@@ -53,7 +53,7 @@ router.post('/invite', function (req, res) {
         success: false,
         message: '인자값이 전달되지 않았습니다.'
       });
-    project.insert(req.body.userid, req.body.pid, 1, function (data) {
+    project.invite(req.body.userid, req.body.pid, 1, function (data) {
       return res.send(data);
     });
   } else
