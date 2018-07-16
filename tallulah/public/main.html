@@ -189,6 +189,13 @@
 </head>
 
 <body>
+  <div id="activePopup" style="display: none;">
+    <ul>
+      <li>현재 활동 중인 사람</li>
+      <li>현재 활동 중인 사람</li>
+      <li>현재 활동 중인 사람</li>
+    </ul>
+  </div>
   <div class="container"></div>
   <header class="header">
     <ul class="menu_bar">
@@ -216,7 +223,9 @@
     </div></center>-->
     <!-- <div style="width:70%; height:inherits; background-color:skyblue;"id="monacoeditor"></div> -->
 
-    <div id="tab_layer" style="background:#2E2E2E; width: 100%; height: 8%; position: relative; margin-top: -15.6px;"></div>
+    <div id="tab_layer" style="background:#2E2E2E; width: 100%; height: 8%; position: relative; margin-top: -15.6px;">
+      <input type="button" class="button_active" value="active" onclick="openActivePopup()" />
+    </div>
     <div id="content_layer" style="height: 92%;">
       <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div>
 
@@ -281,13 +290,6 @@
     </div>
   </div>
   <footer class="footer">
-    <div class="active">
-      <ul>
-        <li>현재 활동 중인 사람</li>
-        <li>현재 활동 중인 사람</li>
-        <li>현재 활동 중인 사람</li>
-      </ul>
-    </div>
     <div class="chat">
       <i class="fa fa-comments"></i>
     </div>

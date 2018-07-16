@@ -16,7 +16,7 @@ function Popup(selector){
         this1.close();
     })
     $(document).keydown(function(e) {
-        if (e.keyCode == 27) { // escape key maps to keycode `27`
+        if (e.keyCode == 27) { // esc = 27
             $("input[type='text']").val("");
             $("input[type='email']").val("");
             $("input[type='password']").val("");
