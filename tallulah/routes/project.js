@@ -15,7 +15,7 @@ router.post('/create', function (req, res) {
         success: false,
         message: '인자값이 전달되지 않았습니다.'
       });
-    project.create(req.body.name, req.session.passport.user.ident, req.body.desc, req.bodyy.private, function (data) {
+    project.create(req.body.name, req.session.passport.user.ident, req.body.desc, req.body.private, function (data) {
       return res.send(data);
     });
 
@@ -47,13 +47,13 @@ router.post('/insert', function (req, res) {
 });
 router.post('/invite', function (req, res) {
   if (req.isAuthenticated()) {
-    if (!req.body.pid || !req.body.uid)
+    if (!req.body.pid || !req.body.userid)
       return res.send({
         status: -1,
         success: false,
         message: '인자값이 전달되지 않았습니다.'
       });
-    project.insert(req.body.uid, req.body.pid, 1, function (data) {
+    project.invite(req.body.userid, req.body.pid, 1, function (data) {
       return res.send(data);
     });
   } else
