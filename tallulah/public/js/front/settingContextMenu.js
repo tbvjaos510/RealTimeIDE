@@ -104,7 +104,7 @@ $(function () {
                     $.ajax({
                         url: "project/invite",
                         method: "POST",
-                        data: {ident: $(this).attr("project_ident"), userid:id},
+                        data: {pid: $(this1).attr("project_ident"), userid:id},
                         success: function(result){
                             alert(result.message);
                         }
