@@ -7,6 +7,7 @@ function makeTree(selector) {
 
 makeTree.prototype.makeDefault = function () {
         $(this.selector).find(".tree").empty();
+        connect_chat();
         var this1 = this;
         var projects = $.ajax({
             url: "project/get",
@@ -14,8 +15,8 @@ makeTree.prototype.makeDefault = function () {
             async: false
         }).responseJSON.data;
 
-        for(var i = 0; i < projects.length; i++){
-            var project = projects[i];
+        for(var project of projects){
+            joinRoom(project.project_ident);
             var li = $("<li />");
             li.html(project.project_name);
             li.attr("project_ident", project.project_ident);
