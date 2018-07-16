@@ -99,6 +99,8 @@ $(function () {
                     $(".chat-list>ul").append(li);
                     console.log("test");
                 }
+            }else if(key=="invite"){
+
             }
         },
         items: {

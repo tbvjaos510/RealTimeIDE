@@ -490,3 +490,7 @@ input[placeholder="SEARCH PROJECT"]{
 .tree-title{
   user-select: none;
 }
+
+.tree-selected{
+  background: lightgray;
+}
