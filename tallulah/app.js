@@ -36,7 +36,7 @@ connection.connect(function(err){  //db 연결
       console.log(err);
     } else {
       for(var i of result){
-        addFileNsp(i.file_ident);      
+        addFileNsp(i.file_ident);        
       }
     }
   });
