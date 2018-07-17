@@ -63,7 +63,8 @@ project.invite = function (userid, project, grade,callback) {
  * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
  */
 project.leave = function(userid, pid, callback){
-    connection('delete from t_user_project where user_ident = ? and project_ident = ?',[userid,pid],function(err,results){
+    console.log(3);
+    connection.query('delete from t_user_project where user_ident = ? and project_ident = ?',[userid,pid],function(err,results){
         if(err){
             console.log(err);
             return callback({status : 1, success : false, message : 'DB 오류'});
