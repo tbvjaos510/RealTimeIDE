@@ -531,10 +531,12 @@ input[placeholder="SEARCH PROJECT"]{
   background: lightgray;
 }
 .active {
-  background: #ff99ff;
+  display: none;
+  color: white;
+  float: right;
+  background: black;
   border-radius: 5px;
   margin: 6px;
-  float: left;
   width: 15%;
   height: 90%;
 }
