@@ -67,8 +67,30 @@ function projectListPopup(rooms){
     for(var rm of rooms){
         var li = $("<li />");
         li.html(rm.project_name);
+        li.attr("ident", rm.project_ident);
         $("#projectlist_popup").append(li);
     }
+
+    $(document).on("click", "#projectlist_popup>li", function(){
+        var ident = $(this).attr("ident");
+        console.log(ident);
+        $.ajax({
+            url : "project/insert",
+            data: { pid : ident },
+            method : "POST",
+            success : function(result){
+                console.log(result);
+                if(result.success){
+                    alert(result.message);
+                    popup.close();
+                    tree.makeDefault();
+                } else{
+                    popup.close();
+                    alert(result.message);
+                }
+            }
+        })
+    });
    
     popup.open();
 }
