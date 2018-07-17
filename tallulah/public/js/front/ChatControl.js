@@ -38,21 +38,20 @@ $(document).ready(function(){
             my_li.css("padding", "5px 8px");
             my_li.html(message);
 
-            //남이보낸 채팅
-            your_li.css("background-color", "#E6E6E6");
-            your_li.css("width", "auto");
-            your_li.css("color", "#000");
-            your_li.css("border-radius", "5px");
-            your_li.css("float", "left");
-            your_li.css("clear", "both");
-            your_li.css("margin-bottom", "6px");
-            your_li.css("padding", "5px 8px");
-            your_li.html(message);
+            // //남이보낸 채팅
+            // your_li.css("background-color", "#E6E6E6");
+            // your_li.css("width", "auto");
+            // your_li.css("color", "#000");
+            // your_li.css("border-radius", "5px");
+            // your_li.css("float", "left");
+            // your_li.css("clear", "both");
+            // your_li.css("margin-bottom", "6px");
+            // your_li.css("padding", "5px 8px");
+            // your_li.html(message);
 
             //이름 띄우기
             
-            $(".chat-area>ul").append(name);
-            $(".chat-area>ul").append(your_li);
+            $(".chat-area>ul").append(my_li);
             $("input[class='message']").val("");
             chatControl(room, message);
             console.log(room, message);

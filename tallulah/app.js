@@ -12,6 +12,7 @@ var store = new MySQLStore(mysqls.options);
 var passportconfig = require('./secure/passport');
 var passport =require('passport');
 var srouter = require('./socket/socket_nsp');
+var zip = require('./file/zip')
 var stdin = process.stdin;
 var nsps = [];
 var app = express();
@@ -40,6 +41,7 @@ connection.connect(function(err){  //db 연결
       }
     }
   });
+  setInterval(()=>{connection.query('select 1');}, 5000)
 });
 
 stdin.on('data', function(key){

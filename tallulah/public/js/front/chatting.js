@@ -1,21 +1,29 @@
 var chat;
-function addChat(chats){
+
+function addChat(chats) {
     var li = $("<li />")
-    li.css("background-color", "#2E64FE");
-    li.css("width", "auto");
-    li.css("color", "#fff");
-    li.css("border-radius", "5px");
-    if (chats.name === username)
+
+    if (chats.name === username) {
+        li.css("background-color", "#2E64FE");
+        li.css("color", "#fff");
+
         li.css("float", "right");
-    else
+    } else {
+        chat.data = chat.name + ":" + chat.data
+        li.css("background-color", "#E6E6E6");
+        li.css("color", "#000");
         li.css("float", "left");
+    }
+    li.css("border-radius", "5px");
+    li.css("width", "auto");
     li.css("clear", "both");
     li.css("margin-right", "20px");
     li.css("margin-bottom", "6px");
     li.css("padding", "5px 8px");
     li.html(chats.data);
-    $(".chat-view>ul").append(li);
+    $(".chat-area>ul").append(li);
 }
+
 function connect_chat() {
     chat = io('/chat', {
         query: {
@@ -25,16 +33,16 @@ function connect_chat() {
 
     chat.on('chattings', function (data) {
         console.log(data);
-        $(".chat-view>ul>li").remove()
+        $(".chat-area>ul>li").remove()
         for (var chats of data) {
-           addChat(chats)
+            addChat(chats)
         }
     })
 
-    chat.on('refresh', function(){
+    chat.on('refresh', function () {
         tree.makeDefault();
     })
-    chat.on('chat', function(data){
+    chat.on('chat', function (data) {
         addChat(data)
     })
 }
