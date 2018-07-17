@@ -118,6 +118,8 @@ $(function () {
                         }
                     });
                 }
+            }else if(key=="export"){
+
             }
         },
         items: {
@@ -127,7 +129,8 @@ $(function () {
             "delete": { name: "Delete", icon: "delete" },
             "sep1": "-",
             "invite": {name: "Invite Other", icon: "add"},
-            "desc": { name: "info"}
+            "leave":{name: "Leave Project", icon:"quit"},
+            "export": {name: "Export Project"}
         }
     });
 
