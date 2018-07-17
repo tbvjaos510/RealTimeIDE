@@ -549,7 +549,7 @@ input[placeholder="SEARCH PROJECT"]{
   z-index: 100;
 } */
 
-.button_active {
+.uk-button .uk-button-default {
   float: right;
   width: 10%;
   height: 80%;
