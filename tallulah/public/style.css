@@ -39,7 +39,7 @@ body {
 
 .nav {
   width: 20%;
-  height: 75%;
+  height: 80%;
   float: left;
   background: #ffffff;
   overflow: auto;
@@ -47,7 +47,7 @@ body {
 
 .section {
   width: 80%;
-  height: 75%;
+  height: 80%;
   float: left;
   background: #f2f2f2;
 }
@@ -418,7 +418,7 @@ input[placeholder="SEARCH PROJECT"]{
   float: right;
   width: 10%;
   height: 100%;
-  padding-top: 4.5%;
+  padding-top: 2.8%;
   text-align: center;
   color: #fff;
   font-size: 20px;

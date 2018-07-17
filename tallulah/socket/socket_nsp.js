@@ -40,7 +40,6 @@ function addRouter (io){
             data.user = socket.user;
             data.color=socket.color;
             data.ename = socket.ename;
-            console.log('select ' + socket.ename);
             socket.broadcast.emit('selection', data);
         }); 
         socket.on('filedata', function(data){

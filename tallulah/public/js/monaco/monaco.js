@@ -7,7 +7,31 @@ var iswrite = false;
 var isking = false;
 var editor;
 var socket;
+function guessLang(filename) {
 
+    var ext = filename.split('.')
+    ext = ext[ext.length - 1].toLowerCase()
+    switch (ext) {
+        case 'js':
+            return 'javascript'
+        case 'ts':
+            return 'typescript'
+        case 'cs':
+            return 'csharp'
+        case 'sql':
+            return 'mysql'
+        case 'md':
+            return 'markdown'
+        case 'txt':
+            return 'plaintext'
+        case 'm':
+            return 'objective-c'
+        case 'h':
+            return 'cpp'
+        default:
+            return ext
+    }
+}
 function insertCSS(id, color) {
     var style = document.createElement('style');
     style.type = 'text/css';
@@ -44,6 +68,8 @@ function changeFile() {
                 socket.disconnect();
                 issocket = true;
                 editor.setValue(data.data.file_content);
+                $("#lang").val(guessLang(data.data.file_name)).prop("selected", true);
+                monaco.editor.setModelLanguage(editor.getModel(), guessLang(data.data.file_name));
                 socket = io.connect('/room' + fid,{query : {name:(username !== 'none' ? username : 'anonymous')}});
                 //데이터 초기화
                 users = {};
@@ -56,7 +82,6 @@ function changeFile() {
         }
     })
 }
-
 function insertWidget(e) {
     contentWidgets[e.name] = {
         domNode: null,
@@ -258,8 +283,16 @@ require(['vs/editor/editor.main'], function () {
         theme: "vs-dark",
     });
     socketListener(socket);
-
-
+    
+$('#lang').change(function(){
+    monaco.editor.setModelLanguage(editor.getModel(), this.value)
+})
+    var modesIds = monaco.languages.getLanguages().map(function(lang) { return lang.id; });
+	modesIds.sort();
+    for(var mode of modesIds){
+        $('#lang').append($(`<option>${mode}</option>`))
+    }
+    $("#lang").val("html").prop("selected", true);
     editor.onDidChangeModelContent(function (e) {
 
         if (issocket == false) {
@@ -276,6 +309,7 @@ require(['vs/editor/editor.main'], function () {
             editor.layout();
         }
     );
+
     /*editor.onDidChangeCursorPosition(function (e) {
         console.log(e);
         socket.emit('keydata', e);

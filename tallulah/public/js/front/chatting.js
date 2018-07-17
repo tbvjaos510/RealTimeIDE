@@ -9,7 +9,7 @@ function addChat(chats) {
 
         li.css("float", "right");
     } else {
-        chat.data = chat.name + ":" + chat.data
+        chats.data = chats.name + ":" + chats.data
         li.css("background-color", "#E6E6E6");
         li.css("color", "#000");
         li.css("float", "left");
@@ -45,6 +45,18 @@ function connect_chat() {
     chat.on('chat', function (data) {
         addChat(data)
     })
+    chat.on('player', function (data) {
+        console.log(data)
+        $("#userlist>li").remove();
+        for (var i of data) {           
+            var li = $(`<li><span>${i.name}</span><span class='uk-float-right uk-text-success'>●</span></li>`);
+            $("#userlist").append(li);
+        }
+    })
+}
+
+function getPlayer() {
+    chat.emit('player', "")
 }
 
 function joinRoom(rid) {

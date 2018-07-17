@@ -23,8 +23,6 @@ $(document).ready(function(){
         if(key.keyCode == 13){
             var message = $("input[class='message']").val();
             var my_li = $("<li />");
-            var your_li = $("<li />");
-            var name = $("<li />");
 
             //내가보낸 채팅
             my_li.css("background-color", "#2E64FE");

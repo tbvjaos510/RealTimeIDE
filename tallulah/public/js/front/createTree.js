@@ -7,12 +7,11 @@ function makeTree(selector) {
 
 makeTree.prototype.makeDefault = function () {
         $(this.selector).find(".tree").empty();
-        connect_chat();
         var this1 = this;
         var projects = $.ajax({
             url: "project/get",
             method: "POST",
-            async: false
+            async:false
         }).responseJSON.data;
 
         for(var project of projects){

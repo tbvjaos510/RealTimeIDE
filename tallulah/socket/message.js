@@ -1,4 +1,3 @@
-
 var users = {};
 global.rooms = {};
 /**
@@ -13,12 +12,13 @@ function msgRouter(io) {
       name: socket.handshake.query.name
     }
     socket.name = users[socket.id].name;
+    io.emit('player', Object.values(users))
     socket.on('disconnect', function () {
       console.log('user disconnected: ', socket.id);
       delete users[socket.id];
     });
     socket.on('join', function (data) {
-      if (!rooms[data]){
+      if (!rooms[data]) {
         rooms[data] = [];
       }
       users[socket.id].room.push(data);
@@ -28,32 +28,33 @@ function msgRouter(io) {
       console.log(data);
       data.name = socket.name;
       rooms[data.room].push(data);
-      socket.broadcast.in(data.room).emit('chat',data);
+      socket.broadcast.in(data.room).emit('chat', data);
     });
-    socket.on('getchat', function(data){
+    socket.on('getchat', function (data) {
       socket.emit('chattings', rooms[data]);
     })
-    socket.on('error', function(data){
+    socket.on('error', function (data) {
       socket.disconnect();
+    })
+    socket.on('disconnect', function(){
+      
+    socket.broadcast.emit('player', Object.values(users))
     })
     socket.on('forceDisconnect', function () {
       socket.disconnect();
-  })
-    socket.on('change', function(data){
+    })
+    socket.on('change', function (data) {
       console.log("refresh")
       socket.broadcast.emit('refresh');
     })
-    socket.on('player', function(data){
-      socket.emit('player', users)
-    })
-    socket.on('con', function(){
-      socket.broadcast.emit('con')
+    socket.on('player', function (data) {
+      socket.emit('player', Object.values(users))
     })
   });
-  io.on('error', function(){
+  io.on('error', function () {
 
   })
-  
+
 }
 
 /**
