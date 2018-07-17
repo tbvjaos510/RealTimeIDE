@@ -56,7 +56,7 @@
     var username = "<%=uname%>";
     $(document).ready(function () {
       tree = new makeTree("#tree");
-      
+
       // $.ajax({
       //   url: "directory/get",
       //   data: {
@@ -79,8 +79,10 @@
       // });
 
       // });
-      if (username !== 'none')
+      if (username != 'none') {
+        connect_chat();
         tree.makeDefault();
+      }
       makeTab();
 
       $(".btn_tab").on("click", function (event) {
@@ -109,15 +111,21 @@
         success: function (res) {
           alert(res.message);
           username = res.name;
-          if (res.success){
-            socket.disconnect();        
-             socket = io.connect('/main', {query : {name:(username !== 'none' ? username : 'anonymous')}});
-             users = {};
-                decorations = [];
-                contentWidgets = [];
-                
-                socketListener(socket);
-             tree.makeDefault();
+          if (res.success) {
+            socket.disconnect();
+            socket = io.connect('/main', {
+              query: {
+                name: (username !== 'none' ? username : 'anonymous')
+              }
+            });
+            users = {};
+            decorations = [];
+            contentWidgets = [];
+
+            socketListener(socket);
+
+            connect_chat();
+            tree.makeDefault();
           }
         }
       })
@@ -130,18 +138,8 @@
         subMenu: [{
             name: '프로젝트 생성',
             click: openProjectPopup
-          },
-          {
-            name: '디렉토리 생성',
-            click: openDirectoryPopup
           }
         ]
-      },
-      {
-        name: 'Help',
-        subMenu: [{
-          name: 'link 1'
-        }]
       },
       {
         name: 'Search',
@@ -169,17 +167,16 @@
 
     function signout() {
       $.ajax({
-          url: "login/logout",
-          method: "POST",
-          success: function (res) {
-            if (res.success) {
-              window.location.reload();
-            } else
-              alert(res.message);
-          }
+        url: "login/logout",
+        method: "POST",
+        success: function (res) {
+          if (res.success) {
+            window.location.reload();
+          } else
+            alert(res.message);
         }
-      )
-  }
+      })
+    }
 
     var tab;
 
@@ -193,6 +190,7 @@
   <div class="container"></div>
   <header class="header">
     <ul class="menu_bar">
+
       <li class="rightHead dropdown" id="signout" onclick="signout()">
         <a>Sign Out</a>
       </li>
@@ -202,6 +200,11 @@
       <li class="rightHead dropdown" id="signup" onclick="openSignPopup()">
         <a>Sign Up</a>
       </li>
+      <li class="rightHead">
+          <select class="uk-select uk-margin-small-top" id="lang">
+            
+          </select>
+        </li>
     </ul>
 
   </header>
@@ -217,49 +220,12 @@
     </div></center>-->
     <!-- <div style="width:70%; height:inherits; background-color:skyblue;"id="monacoeditor"></div> -->
 
-    <div id="tab_layer" style="background:#2E2E2E; width: 100%; position: relative; height: 8%; margin-top: -19.6px;">
-      <!-- <input type="button" class="button_active" onclick="openActivePopup()" /> -->
-      <!-- <div class="uk-offcanvas-content">
-        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #offcanvas-flip"
-        style="float: right; width: 10%; height: 95%; margin: 8px 8px 0 0;
-        border-radius: 4px; font-size: 15px; background: gray; border: #2e2e2e;">
-          <span>Open</span>
-        </button>
-        
-        <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
-          <div class="uk-offcanvas-bar">
-            <button class="uk-offcanvas-close" type="button" uk-close></button>
-            <h3>현재 활동 중인 사람</h3>
-            <ul>
-              <li><span>현재 활동 중인 사람</span></li>
-              <li><span>현재 활동 중인 사람</span></li>
-              <li><span>현재 활동 중인 사람</span></li>
-            </ul>
-          </div>
-        </div>
-      </div> -->
-      <div class="uk-offcanvas-content">
-        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #offcanvas-flip"
-        style="float: right; width: 10%; height: 8%; margin: 8px 8px 0 0;
-        border-radius: 4px; font-size: 15px; background: gray; border: #2e2e2e;">
-          <span>현재 활동 중</span>
-        </button>
-        <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
-          <div class="uk-offcanvas-bar">
-            <button class="uk-offcanvas-close" type="button" uk-close></button>
-            <h3>현재 활동 중인 사람</h3>
-            <ul id="userlist " class="uk-list">
-              <li><span>현재 활동 중인 사람</span><span class="uk-float-right uk-text-large">●</span></li>
-              <li><span>현재 활동 중인 사람</span></li>
-              <li><span>현재 활동 중인 사람</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- <div id="tab_layer" style="background:#2E2E2E; width: 100%; position: relative; height: 8%; margin-top: -19.6px;">
 
-    
-    <div id="content_layer" style="height: 92%;">
+    </div> -->
+
+
+    <div id="content_layer" style="height: 100%;">
       <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div>
 
       <div id="popup_login" style="display: none;">
@@ -292,7 +258,7 @@
 
       <div id="popup_search" style="display: none;">
         <input type="text" name="search" placeholder="SEARCH PROJECT" />
-        <input type="button" name="search-button" value="SEARCH" class="button" onclick="tree.searchProject()"/>
+        <input type="button" name="search-button" value="SEARCH" class="button" onclick="tree.searchProject()" />
       </div>
 
       <div id="projectlist_popup" style="display: none;"></div>
@@ -307,6 +273,7 @@
     </div>
 
   </section>
+
   <div class="chat-list">
       <div style="background-color: #0040FF; height: 36px; width:307px; position: fixed">
         <i class="fas fa-times list-close" style="float: right; padding: 15px; cursor: pointer; color: #fff;"></i>
@@ -317,22 +284,47 @@
   </div>
   <div class="chat-view">
     <div class="chat-area">
-        <i class="fas fa-times chat-close" style="margin-left: 265px; padding: 15px; cursor: pointer; position: fixed;"></i>
-        <ul></ul>
+      <i class="fas fa-times chat-close" style="margin-left: 265px; padding: 15px; cursor: pointer; position: fixed;"></i>
+      <ul></ul>
     </div>
     <div style="background-color: #EEEEEE; position: fixed; bottom: 0; width: 307px; height: 5%;">
       <input type="text" class="message" placeholder="Message here">
     </div>
   </div>
   <footer class="footer">
+    <div class="uk-offcanvas-content">
+      <button class="uk-button uk-button-default" type="button" uk-toggle="target: #offcanvas-flip" style="float: left; width: 10%; height: 8%; margin: 8px 8px 0 0;
+          border-radius: 4px; font-size: 15px; background: gray; border: #2e2e2e;">
+        <span>현재 활동 중</span>
+      </button>
+      <div id="offcanvas-flip" uk-offcanvas="overlay: true">
+        <div class="uk-offcanvas-bar">
+          <button class="uk-offcanvas-close" type="button" uk-close></button>
+          <h3>현재 활동 중인 사람</h3>
+          <hr class="uk-divider">
+          <ul id="userlist" class="uk-list">
+            <li>
+              <span>현재 활동 중인 사람</span>
+              <span class="uk-float-right uk-text-success">●</span>
+            </li>
+            <li>
+              <span>현재 활동 중인 사람</span>
+            </li>
+            <li>
+              <span>현재 활동 중인 사람</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="chat">
       <i class="fa fa-comments"></i>
     </div>
   </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit.min.js" 
-    integrity="sha256-yl7w0KuhRsVzOpDk7EoWE2EVwwOFXPlfQDQDtwsg5ds=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit-icons.min.js" 
-    integrity="sha256-pelC1MOe8KcWCQWSbkMF83x3Hb+K3xn3Fua5IUMexkU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit.min.js" integrity="sha256-yl7w0KuhRsVzOpDk7EoWE2EVwwOFXPlfQDQDtwsg5ds="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.42/js/uikit-icons.min.js" integrity="sha256-pelC1MOe8KcWCQWSbkMF83x3Hb+K3xn3Fua5IUMexkU="
+    crossorigin="anonymous"></script>
   <script src="js/monaco/monaco.js"></script>
 </body>
 
