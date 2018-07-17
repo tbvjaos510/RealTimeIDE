@@ -244,6 +244,7 @@ $(function () {
                     data: {ident: $(this).attr("file_ident")},
                     success: function(result){
                         if(result.success){
+                            chat.emit('change');
                             $(this).remove();
                         }
                         alert(result.message);
