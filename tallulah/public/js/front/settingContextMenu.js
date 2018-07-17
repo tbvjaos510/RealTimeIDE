@@ -15,6 +15,7 @@ $(function () {
                         success: function(result){
                             if(result.success)
                                 tree.addFile(result.file);
+                                chat.emit('change');
                             alert(result.message);
                         }
                     });
@@ -32,7 +33,9 @@ $(function () {
                         success: function(result){
                             if(result.success)
                                 tree.addDir(result.data);
+                                chat.emit('change');
                             alert(result.message);
+                            
                         }
                     });
                 }
@@ -55,6 +58,8 @@ $(function () {
                             if(result.success){
                                 $(this1).children('.tree-title').html(name);
                             }
+                            
+                        chat.emit('change');
                             alert(result.message);
                         }
                     }));
@@ -79,7 +84,9 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("project_ident")},
                     success: function(result){
+                        chat.emit('change');
                         alert(result.message);
+                        
                     }
                 });
                 $(this).remove();
@@ -106,6 +113,7 @@ $(function () {
                         method: "POST",
                         data: {pid: $(this1).attr("project_ident"), userid:id},
                         success: function(result){
+                            chat.emit('change');
                             alert(result.message);
                         }
                     });
@@ -138,6 +146,8 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
+                            
+                            chat.emit('change');
                             if(result.success)
                                 tree.addFile(result.file);
                             alert(result.message);
@@ -156,6 +166,8 @@ $(function () {
                         },
                         method: "POST",
                         success: function(result){
+                            
+                            chat.emit('change');
                             if(result.success)
                                 tree.addDir(result.data);
                             alert(result.message);
@@ -171,6 +183,8 @@ $(function () {
                         method: "POST",
                         data: {ident: $(this1).attr("dir_ident"),dirName: name},
                         success: function(result){
+                            
+                            chat.emit('change');
                             if(result.success){
                                 $(this1).children('.tree-title').html(name);
                             }
@@ -185,6 +199,8 @@ $(function () {
                     method: "POST",
                     data: {ident: $(this).attr("dir_ident")},
                     success: function(result){
+                        
+                        chat.emit('change');
                         if(result.success){
                             $(this).remove();
                         }
