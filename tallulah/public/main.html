@@ -265,7 +265,7 @@
       <div id="projectlist_popup" style="display: none;"></div>
 
 
-      <div class="popup">
+      <div class="popup" style="overflow: auto">
         <div class="head">
           <i class="fas fa-times-circle" id="btn_close" style="float: right; cursor: pointer;"></i>
         </div>
@@ -275,7 +275,7 @@
 
   </section>
   <div class="chat-list">
-      <div style="background-color: #0040FF; height: 5%; width:20%; position: fixed">
+      <div style="background-color: #0040FF; height: 5%; width:307px; position: fixed">
         <i class="fas fa-times list-close" style="float: right; padding: 15px; cursor: pointer; color: #fff;"></i>
       </div>
       <ul>
@@ -283,9 +283,11 @@
       </ul>
   </div>
   <div class="chat-view">
-    <i class="fas fa-times chat-close" style="float: right; padding: 15px; cursor: pointer;"></i>
-    <ul></ul>
-    <div style="background-color: #EEEEEE; position: absolute; bottom: 0; width: 100%; height: 10%;">
+    <div class="chat-area">
+        <i class="fas fa-times chat-close" style="margin-left: 265px; padding: 15px; cursor: pointer; position: fixed;"></i>
+        <ul></ul>
+    </div>
+    <div style="background-color: #EEEEEE; position: fixed; bottom: 0; width: 20%; height: 5%;">
       <input type="text" class="message" placeholder="Message here">
     </div>
   </div>

@@ -21,7 +21,7 @@ makeTree.prototype.makeDefault = function () {
             li.html(project.project_name);
             li.attr("project_ident", project.project_ident);
             console.log(li);
-            $(".chat-list>ul").append(li);
+            $(".chat-list ul").append(li);
             console.log("test");
         }
 
@@ -75,13 +75,13 @@ makeTree.prototype.addProject = function (projectData, descData, privateData) {
                         async: false
                     }).responseJSON.data;
                     //채팅창 뿌리기
-                    $(".chat-list>ul>li").remove();
+                    $(".chat-list ul li").remove();
                     for(var i = 0; i < projects.length; i++){
                         var project = projects[i];
                         var li = $("<li />");
                         li.html(project.project_name);
                         li.attr("project_ident", project.project_ident);
-                        $(".chat-list>ul").append(li);
+                        $(".chat-list ul").append(li);
                         console.log("test");
                     }
                 }
@@ -105,11 +105,7 @@ makeTree.prototype.searchProject = function(projectData){
                 alert(data.message);
             } else if(data.success === true){
                 var rooms = data.data;
-                if(data.count!=0){
-                    projectListPopup(rooms);
-                } else{
-                    alert("잘못된 입력입니다.");
-                }
+                projectListPopup(rooms);
             }
         }
     });

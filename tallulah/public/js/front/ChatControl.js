@@ -9,7 +9,7 @@ $(document).ready(function(){
     });
 
     $(".chat-close").on("click", function(){
-        $(this).parent().hide();
+        $(this).parent().parent().hide();
     });
 
     $(document).on("click", ".chat-list>ul>li", function(){
@@ -22,21 +22,42 @@ $(document).ready(function(){
     $("input[class='message']").keydown(function(key, message){
         if(key.keyCode == 13){
             var message = $("input[class='message']").val();
-            var li = $("<li />");
-            li.css("background-color", "#2E64FE");
-            li.css("width", "auto");
-            li.css("color", "#fff");
-            li.css("border-radius", "5px");
-            li.css("float", "right");
-            li.css("clear", "both");
-            li.css("margin-right", "20px");
-            li.css("margin-bottom", "6px");
-            li.css("padding", "5px 8px");
-            li.html(message);
-            $(".chat-view>ul").append(li);
+            var my_li = $("<li />");
+            var your_li = $("<li />");
+            var name = $("<li />");
+
+            //내가보낸 채팅
+            my_li.css("background-color", "#2E64FE");
+            my_li.css("width", "auto");
+            my_li.css("color", "#fff");
+            my_li.css("border-radius", "5px");
+            my_li.css("float", "right");
+            my_li.css("clear", "both");
+            my_li.css("margin-right", "20px");
+            my_li.css("margin-bottom", "6px");
+            my_li.css("padding", "5px 8px");
+            my_li.html(message);
+
+            //남이보낸 채팅
+            your_li.css("background-color", "#E6E6E6");
+            your_li.css("width", "auto");
+            your_li.css("color", "#000");
+            your_li.css("border-radius", "5px");
+            your_li.css("float", "left");
+            your_li.css("clear", "both");
+            your_li.css("margin-bottom", "6px");
+            your_li.css("padding", "5px 8px");
+            your_li.html(message);
+
+            //이름 띄우기
+            
+            $(".chat-area>ul").append(name);
+            $(".chat-area>ul").append(your_li);
             $("input[class='message']").val("");
             chatControl(room, message);
             console.log(room, message);
+
+            $(".chat-view").scrollTop($(".chat-view")[0].scrollHeight);
         }
     });
     
