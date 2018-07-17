@@ -40,7 +40,8 @@ function msgRouter(io) {
       socket.disconnect();
   })
     socket.on('change', function(data){
-      socket.broadcast.in(data.room).emit('refresh');
+      console.log("refresh")
+      socket.broadcast.emit('refresh');
     })
   });
   io.on('error', function(){

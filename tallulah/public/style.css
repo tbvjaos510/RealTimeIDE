@@ -539,7 +539,28 @@ input[placeholder="SEARCH PROJECT"]{
   height: 90%;
 }
 
-.chat-area{
+
+/* #activePopup {
+  width: 20%;
+  height: 100%;
+  background: black;
+  z-index: 100;
+} */
+
+.button_active {
+  float: right;
+  width: 10%;
+  height: 80%;
+  margin: 6px 6px 0 0;
+  border-radius: 4px;
+  font-size: 15px;
+  background: gray;
+  /* box-shadow: 2px 2px 2px #666, -2px -2px 2px #666, -2px 2px 2px #666, 2px -2px 2px #666; */
+  border: #2e2e2e;
+}
+
+.chat-area {
   width: 95%;
   display: inline-block;
+
 }

@@ -180,6 +180,7 @@ makeTree.prototype.addEntity = function (project_ident) {
         method: "POST",
         success: function (result) {
             this1.addDir(result);
+        
         }
     }).then(function () {
         $.ajax({
