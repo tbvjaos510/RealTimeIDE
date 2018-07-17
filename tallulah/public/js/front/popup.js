@@ -71,7 +71,10 @@ function projectListPopup(rooms){
         $("#projectlist_popup").append(li);
     }
 
-    
+    $(document).on("click", "#projectlist_popup>li", function(){
+        var ident = $(this).attr("ident");
+        console.log(ident);
+    });
    
     popup.open();
 }
