@@ -507,7 +507,7 @@ input[placeholder="SEARCH PROJECT"]{
   cursor: pointer;
 }
 
-#projectlist_popup>li:first-child:hover{
+/* #projectlist_popup>li:first-child:hover{
   margin-bottom: 0;
   color: #fff;
   background-color: blue;
@@ -524,7 +524,7 @@ input[placeholder="SEARCH PROJECT"]{
   padding:20px 0px;
   margin-top: -20px;
   margin-bottom: 0;
-}
+} */
 
 
 .tree-selected{

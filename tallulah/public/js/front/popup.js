@@ -67,8 +67,11 @@ function projectListPopup(rooms){
     for(var rm of rooms){
         var li = $("<li />");
         li.html(rm.project_name);
+        li.attr("ident", rm.project_ident);
         $("#projectlist_popup").append(li);
     }
+
+    
    
     popup.open();
 }
