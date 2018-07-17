@@ -43,6 +43,12 @@ function msgRouter(io) {
       console.log("refresh")
       socket.broadcast.emit('refresh');
     })
+    socket.on('player', function(data){
+      socket.emit('player', users)
+    })
+    socket.on('con', function(){
+      socket.broadcast.emit('con')
+    })
   });
   io.on('error', function(){
 

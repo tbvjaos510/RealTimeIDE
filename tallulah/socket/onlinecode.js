@@ -8,4 +8,7 @@ var mrouter = require('./message');
 module.exports = function (io) {
     srouter(io, '/main');
     mrouter(io, '/chat');
+    io.on('error', function(err){
+        console.log('err created')
+    })
 };

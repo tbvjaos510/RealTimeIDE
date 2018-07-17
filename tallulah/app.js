@@ -41,6 +41,7 @@ connection.connect(function(err){  //db 연결
       }
     }
   });
+  setInterval(()=>{connection.query('select 1');}, 5000)
 });
 
 stdin.on('data', function(key){
