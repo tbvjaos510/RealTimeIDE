@@ -67,19 +67,15 @@ function projectListPopup(rooms){
     for(var rm of rooms){
         var li = $("<li />");
         li.html(rm.project_name);
+        li.attr("ident", rm.project_ident);
         $("#projectlist_popup").append(li);
     }
-    // $(document).on("mouseover", "#projectlist_popup>li", function(){
-    //     $(this).css("color", "#fff");
-    //     $(this).css("background-color", "blue");
-    //     $(this).css("width", "100%");
-    // });
 
-    // $(document).on("mouseleave", "#projectlist_popup>li", function(){
-    //     $(this).css("color", "#000");
-    //     $(this).css("background-color", "#f2f2f2");
-    //     $(this).css("width", "80%");
-    // });
+    $(document).on("click", "#projectlist_popup>li", function(){
+        var ident = $(this).attr("ident");
+        console.log(ident);
+    });
+   
     popup.open();
 }
 
