@@ -21,7 +21,7 @@ project.insert = function (user, project, grade,callback) {
                 if (err) {
                     if(err.errno == 1062){
                         return callback({ status: 2, success: false, message: '이미 가입되어 있습니다.' });
-                    }
+                    }   
                     return callback({ status: 1, success: false, message: 'DB 오류' });
                 }
                 return callback({status : 3, success : true, message : '성공적으로 가입되었습니다.'});
@@ -56,6 +56,22 @@ project.invite = function (userid, project, grade,callback) {
             });
         });    
     }
+
+/**
+ * 프로젝트 나가기
+ * @param {number} pid 프로젝트id
+ * @param {(data:p_insert_callback)=>void} callback 결과 콜백 함수
+ */
+project.leave = function(userid, pid, callback){
+    console.log(3);
+    connection.query('delete from t_user_project where user_ident = ? and project_ident = ?',[userid,pid],function(err,results){
+        if(err){
+            console.log(err);
+            return callback({status : 1, success : false, message : 'DB 오류'});
+        }
+        return callback({status:3, success : true, message : "프로젝트를 성공적으로 나갔습니다."});
+    })
+}
         
 /**
  * 

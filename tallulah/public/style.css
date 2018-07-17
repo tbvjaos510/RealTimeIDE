@@ -531,10 +531,12 @@ input[placeholder="SEARCH PROJECT"]{
   background: lightgray;
 }
 .active {
-  background: #ff99ff;
+  display: none;
+  color: white;
+  float: right;
+  background: black;
   border-radius: 5px;
   margin: 6px;
-  float: left;
   width: 15%;
   height: 90%;
 }
@@ -547,7 +549,7 @@ input[placeholder="SEARCH PROJECT"]{
   z-index: 100;
 } */
 
-.button_active {
+.uk-button .uk-button-default {
   float: right;
   width: 10%;
   height: 80%;

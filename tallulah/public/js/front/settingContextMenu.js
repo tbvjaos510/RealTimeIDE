@@ -118,6 +118,19 @@ $(function () {
                         }
                     });
                 }
+            }else if(key=="leave"){
+                $.ajax({
+                    url: "project/leave",
+                    data: {pident: $(this).attr("project_ident")},
+                    method: "POST",
+                    success: function(result){
+                        if(result.success)
+                            tree.makeDefault();
+                        alert(result.message);
+                    }
+                });
+            }else if(key=="export"){
+
             }
         },
         items: {
@@ -127,7 +140,8 @@ $(function () {
             "delete": { name: "Delete", icon: "delete" },
             "sep1": "-",
             "invite": {name: "Invite Other", icon: "add"},
-            "desc": { name: "info"}
+            "leave":{name: "Leave Project", icon:"quit"},
+            "export": {name: "Export Project"}
         }
     });
 
