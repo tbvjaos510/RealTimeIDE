@@ -118,6 +118,17 @@ $(function () {
                         }
                     });
                 }
+            }else if(key=="leave"){
+                $.ajax({
+                    url: "project/leave",
+                    data: {pident: $(this).attr("project_ident")},
+                    method: "POST",
+                    success: function(result){
+                        if(result.success)
+                            tree.makeDefault();
+                        alert(result.message);
+                    }
+                });
             }else if(key=="export"){
 
             }
