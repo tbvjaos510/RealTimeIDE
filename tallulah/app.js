@@ -18,6 +18,7 @@ var nsps = [];
 var app = express();
 
 
+
 //입력받기
 stdin.setRawMode(true);
 stdin.resume();
@@ -79,10 +80,12 @@ app.use(session({ //세션정보를 저장
   rolling:true
 }));
 //app.use(logger('dev'));
+
+app.use(bodyparser.json({limit: '50mb'}));
+app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //passport.js를 사용함.

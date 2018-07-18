@@ -145,7 +145,7 @@ router.post('/update', function (req, res) {
         message: "인자값이 전달되지 않았습니다."
       });
     }
-    project.update(req.session.passport.user.ident, req.body.ident, req.body.name, req.body.desc, function (data) {
+    project.update(req.session.passport.user.ident, req.body.ident, req.body.name, req.body.desc, 1, function (data) {
       return res.send(data);
     })
   } else {

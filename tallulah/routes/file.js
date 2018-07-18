@@ -13,6 +13,8 @@ router.post('/create',function(req,res){
             return res.send({status : 1, success : false, message : "인자값이 전달되지 않았습니다."});
         }
         file.create(req.body.pident,req.body.ident,req.body.name,function(data){
+            
+        
             return res.send(data);
         })
     }else{

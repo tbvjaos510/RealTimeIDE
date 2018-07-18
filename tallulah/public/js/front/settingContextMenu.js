@@ -262,6 +262,7 @@ $(function () {
                     });
                 }
             } else if (key == "delete") {
+                var this1=this;
                 $.ajax({
                     url: "directory/delete",
                     method: "POST",
@@ -272,7 +273,7 @@ $(function () {
 
                         chat.emit('change');
                         if (result.success) {
-                            $(this).remove();
+                            $(this1).remove();
                         }
                         alert(result.message);
                     }
@@ -322,6 +323,7 @@ $(function () {
                     });
                 }
             } else if (key == 'delete') {
+                var this1=this;
                 $.ajax({
                     url: "file/delete",
                     method: "POST",
@@ -331,7 +333,7 @@ $(function () {
                     success: function (result) {
                         if (result.success) {
                             chat.emit('change');
-                            $(this).remove();
+                            $(this1).remove();
                         }
                         alert(result.message);
                     }

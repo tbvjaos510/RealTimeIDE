@@ -110,21 +110,24 @@
         method: "POST",
         success: function (res) {
           alert(res.message);
-          username = res.name;
           if (res.success) {
-            socket.disconnect();
+            username = res.name;
+            socket.query.name = username
+            socket.destroy();
+            console.log(username)
             socket = io.connect('/main', {
               query: {
                 name: (username !== 'none' ? username : 'anonymous')
               }
             });
+
+           connect_chat();
             users = {};
             decorations = [];
             contentWidgets = [];
 
             socketListener(socket);
 
-            connect_chat();
             tree.makeDefault();
           }
         }

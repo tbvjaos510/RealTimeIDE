@@ -6,7 +6,7 @@ global.rooms = {};
 function msgRouter(io) {
 
   io.on('connection', function (socket) {
-    console.log('user connected: ', socket.id);
+    console.log('user connected: ', socket.id, socket.handshake.query.name);
     users[socket.id] = {
       room: [],
       name: socket.handshake.query.name

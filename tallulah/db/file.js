@@ -57,13 +57,15 @@ file.create = function(pident,ident ,name, cb){
             console.log(err);
             return cb({success : false, status : 1, message : 'DB 오류'});
         }
+        
+        addFileNsp(ident);
         if(ident!=null){
             connection.query("select * from t_file where file_name = ? and dir_ident = ?",[name,ident],function(err,result){
                 if (err) {
                     console.log(err);
                     return cb({success : false, status : 1, message : 'DB 오류'});
                 }
-                addFileNsp(result.file_ident);
+                
                 return cb({success : true, status : 3, message : '성공', file : result});  
             })
         }else{
