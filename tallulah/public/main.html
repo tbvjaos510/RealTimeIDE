@@ -229,21 +229,21 @@
       <div class="monacoeditor" id="monacoeditor" style="height:100%; width:100%;"></div>
 
       <div id="popup_login" style="display: none;">
-        <input type="email" name="id" placeholder="ID (e-mail)" onkeyup="javascript:if(event.keyCode==13) doLogin();" />
-        <input type="password" name="password" placeholder="PASSWORD" onkeyup="javascript:if(event.keyCode==13) doLogin();" />
+        <input type="email" name="id" placeholder="ID (e-mail)" onkeyup="javascript:if(event.keyCode==13) { doLogin(); popup.close(); }" />
+        <input type="password" name="password" placeholder="PASSWORD" onkeyup="javascript:if(event.keyCode==13) { doLogin(); popup.close(); }" />
         <input type="button" class="button" value="LOGIN" onclick="doLogin()" />
       </div>
 
       <div id="popup_register" style="display: none;">
-        <input type="email" name="signid" placeholder="ID (e-mail)" onkeyup="javascript:if(event.keyCode==13) doSign();" />
-        <input type="password" name="signpw" placeholder="PASSWORD" onkeyup="javascript:if(event.keyCode==13) doSign();" />
-        <input type="text" name="signname" placeholder="NAME" onkeyup="javascript:if(event.keyCode==13) doSign();" />
+        <input type="email" name="signid" placeholder="ID (e-mail)" onkeyup="javascript:if(event.keyCode==13) { doSign(); popup.close(); }" />
+        <input type="password" name="signpw" placeholder="PASSWORD" onkeyup="javascript:if(event.keyCode==13) { doSign(); popup.close(); }" />
+        <input type="text" name="signname" placeholder="NAME" onkeyup="javascript:if(event.keyCode==13) { doSign(); popup.close(); }" />
         <input type="button" class="button" value="SIGN" onclick="doSign()" />
       </div>
 
       <div id="popup_project" style="display: none;">
-        <input type="text" name="project" placeholder="MAKE PROJECT" onkeyup="javascript:if(event.keyCode==13) tree.addProject();" />
-        <input type="text" name="project-desc" placeholder="Description" onkeyup="javascript:if(event.keyCode==13) tree.addProject();" />
+        <input type="text" name="project" placeholder="MAKE PROJECT" onkeyup="javascript:if(event.keyCode==13) { tree.addProject(); popup.close(); }" />
+        <input type="text" name="project-desc" placeholder="Description" onkeyup="javascript:if(event.keyCode==13) { tree.addProject(); popup.close(); }" />
         <div class="checks etrans" style="margin-top: 5%; text-align: center;">
           <input type="checkbox" id="private" name="private" />
           <label for="private">OPEN TO THE PUBLIC</label>
@@ -252,12 +252,13 @@
       </div>
 
       <div id="popup_directory" style="display: none;">
-        <input type="text" name="directory" placeholder="MAKE DIRECTORY" onkeyup="javascript:if(event.keyCode==13) makeDirectory();" />
+        <input type="text" name="directory" placeholder="MAKE DIRECTORY" onkeyup="javascript:if(event.keyCode==13) { makeDirectory(); popup.close(); }" />
         <input type="button" name="directory-button" value="MAKE" class="button" onclick="makeDirectory()" />
       </div>
 
       <div id="popup_search" style="display: none;">
-        <input type="text" name="search" placeholder="SEARCH PROJECT" onkeyup="javascript:if(event.keyCode==13) tree.searchProject();" />
+        <input type="text" name="search" placeholder="SEARCH PROJECT"
+          onkeyup="javascript:if(event.keyCode==13) { tree.searchProject(); popup.close(); }" />
         <input type="button" name="search-button" value="SEARCH" class="button" onclick="tree.searchProject()" />
       </div>
 
