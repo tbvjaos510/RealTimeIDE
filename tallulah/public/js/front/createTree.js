@@ -89,6 +89,9 @@ makeTree.prototype.addProject = function (projectData, descData, privateData) {
         });
 
     }
+    $("input[name='project']").val("");
+    $("input[name='project-desc']").val("");
+    $("input[id='private']")[0].checked = false;
     
 };
 
@@ -108,6 +111,7 @@ makeTree.prototype.searchProject = function(projectData){
             }
         }
     });
+    $("input[name='search']").val("");
 }
 
 
