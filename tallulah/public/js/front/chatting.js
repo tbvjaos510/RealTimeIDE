@@ -27,7 +27,7 @@ function addChat(chats) {
 function connect_chat() {
     chat = io('/chat', {
         query: {
-            name: '서상희'
+            name: username
         }
     })
 
