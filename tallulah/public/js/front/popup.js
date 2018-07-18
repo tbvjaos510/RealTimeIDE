@@ -6,6 +6,7 @@ function Popup(selector){
         $("input[type='text']").val("");
         $("input[type='email']").val("");
         $("input[type='password']").val("");
+        $("input[id='private']")[0].checked = false;
         this1.close();
     }); 
 
@@ -13,6 +14,7 @@ function Popup(selector){
         $("input[type='text']").val("");
         $("input[type='email']").val("");
         $("input[type='password']").val("");
+        $("input[id='private']")[0].checked = false;
         this1.close();
     })
     $(document).keydown(function(e) {
@@ -20,9 +22,18 @@ function Popup(selector){
             $("input[type='text']").val("");
             $("input[type='email']").val("");
             $("input[type='password']").val("");
+            $("input[id='private']")[0].checked = false;
             this1.close();
         }
     });
+    $(document).keydown(function(e) {
+        if(e.keyCode == 13) {
+            $("input[type='text']").val("");
+            $("input[type='email']").val("");
+            $("input[type='password']").val("");
+            $("input[id='private']")[0].checked = false;
+        }
+    })
 }
 
 
