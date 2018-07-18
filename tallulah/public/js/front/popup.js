@@ -26,14 +26,6 @@ function Popup(selector){
             this1.close();
         }
     });
-    $(document).keydown(function(e) {
-        if(e.keyCode == 13) {
-            $("input[type='text']").val("");
-            $("input[type='email']").val("");
-            $("input[type='password']").val("");
-            $("input[id='private']")[0].checked = false;
-        }
-    })
 }
 
 
@@ -144,4 +136,73 @@ Popup.prototype._disableBackground = function(){
 		$("body").append(this.cover);
     }
     this.cover.show();
+}
+
+function doLogin() {
+    var popup_id = $("input[name='id']").val();
+    var popup_password = $("input[name='password']").val();
+  $.ajax({
+    url: "login/auth",
+    data: {
+      id: popup_id,
+      password: popup_password
+    },
+    method: "POST",
+    success: function (res) {
+      alert(res.message);
+      username = res.name;
+      if (res.success) {
+        socket.disconnect();
+        socket = io.connect('/main', {
+          query: {
+            name: (username !== 'none' ? username : 'anonymous')
+          }
+        });
+        users = {};
+        decorations = [];
+        contentWidgets = [];
+
+        socketListener(socket);
+
+        connect_chat();
+        tree.makeDefault();
+      }
+    }
+  });
+  $("input[type='email']").val("");
+  $("input[type='password']").val("");
+}
+
+function doSign() {
+    var popup_id = $("input[name='signid']").val();
+    var popup_password = $("input[name='signpw']").val();
+    var popup_name = $("input[name='signname']").val();
+  $.ajax({
+    url: "login/sign",
+    data: {
+      id: popup_id,
+      password: popup_password,
+      name: popup_name
+    },
+    method: "POST",
+    success: function (res) {
+      alert(res.message);
+    }
+  });
+  $("input[type='text']").val("");
+  $("input[type='email']").val("");
+  $("input[type='password']").val("");
+}
+
+function signout() {
+  $.ajax({
+    url: "login/logout",
+    method: "POST",
+    success: function (res) {
+      if (res.success) {
+        window.location.reload();
+      } else
+        alert(res.message);
+    }
+  });
 }

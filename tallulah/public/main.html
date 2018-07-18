@@ -99,40 +99,6 @@
 
 
     });
-
-    function doLogin() {
-      $.ajax({
-        url: "login/auth",
-        data: {
-          id: $("input[name='id']").val(),
-          password: $("input[name='password']").val()
-        },
-        method: "POST",
-        success: function (res) {
-          alert(res.message);
-          if (res.success) {
-            username = res.name;
-            socket.query.name = username
-            socket.destroy();
-            console.log(username)
-            socket = io.connect('/main', {
-              query: {
-                name: (username !== 'none' ? username : 'anonymous')
-              }
-            });
-
-           connect_chat();
-            users = {};
-            decorations = [];
-            contentWidgets = [];
-
-            socketListener(socket);
-
-            tree.makeDefault();
-          }
-        }
-      })
-    }
     var menu = [{
         name: 'Project',
         click: function () {
@@ -152,34 +118,6 @@
     $(function () {
       $('.menu_bar').addMenu(menu);
     });
-
-    function doSign() {
-      $.ajax({
-        url: "login/sign",
-        data: {
-          id: $("input[name='signid']").val(),
-          password: $("input[name='signpw']").val(),
-          name: $("input[name='signname']").val()
-        },
-        method: "POST",
-        success: function (res) {
-          alert(res.message);
-        }
-      })
-    }
-
-    function signout() {
-      $.ajax({
-        url: "login/logout",
-        method: "POST",
-        success: function (res) {
-          if (res.success) {
-            window.location.reload();
-          } else
-            alert(res.message);
-        }
-      })
-    }
 
     var tab;
 
