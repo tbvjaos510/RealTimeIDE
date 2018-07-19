@@ -564,5 +564,6 @@ input[placeholder="SEARCH PROJECT"]{
 .chat-area {
   width: 95%;
   display: inline-block;
-
+  overflow-y:auto;
+  margin-bottom: 30px;
 }

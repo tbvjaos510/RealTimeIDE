@@ -14,7 +14,7 @@ var passport =require('passport');
 var srouter = require('./socket/socket_nsp');
 var zip = require('./file/zip')
 var stdin = process.stdin;
-var nsps = [];
+global.nsps = [];
 var app = express();
 
 

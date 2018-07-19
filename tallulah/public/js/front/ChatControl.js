@@ -54,7 +54,7 @@ $(document).ready(function(){
             chatControl(room, message);
             console.log(room, message);
 
-            $(".chat-view").scrollTop($(".chat-view")[0].scrollHeight);
+            document.getElementsByClassName('chat-view')[0].scrollTop = document.getElementsByClassName('chat-view')[0].scrollHeight
         }
     });
     

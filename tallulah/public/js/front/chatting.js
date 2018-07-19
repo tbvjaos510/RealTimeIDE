@@ -22,6 +22,7 @@ function addChat(chats) {
     li.css("padding", "5px 8px");
     li.html(chats.data);
     $(".chat-area>ul").append(li);
+    document.getElementsByClassName('chat-view')[0].scrollTop = document.getElementsByClassName('chat-view')[0].scrollHeight
 }
 
 function connect_chat() {
