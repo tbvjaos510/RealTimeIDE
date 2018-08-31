@@ -84,8 +84,15 @@
 
       // });
       if (username != 'none') {
+        $("#signin").css("display", "none");
+        $("#signout").css("display", "inline-block");
+        $("#signup").css("display", "none");
         connect_chat();
         tree.makeDefault();
+      } else{
+        $("#signup").css("display", "inline-block");
+        $("#signout").css("display", "none");
+        $("#signin").css("display", "inline-block");
       }
       makeTab();
 

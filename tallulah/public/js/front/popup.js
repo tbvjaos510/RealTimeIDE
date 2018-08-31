@@ -148,10 +148,14 @@ function doLogin() {
         method: "POST",
         success: function (res) {
             
+
             $("input[name='id']").val("")
             $("input[name='password']").val("")
           alert(res.message);
           if (res.success) {
+            $("#signin").css("display", "none");
+            $("#signup").css("display", "none");
+            $("#signout").css("display", "inline-block");
             username = res.name;
             socket.query.name = username
             socket.destroy();
@@ -160,6 +164,7 @@ function doLogin() {
               query: {
                 name: (username !== 'none' ? username : 'anonymous')
               }
+              
             });
 
            connect_chat();
