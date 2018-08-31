@@ -13,16 +13,9 @@ var passportconfig = require('./secure/passport');
 var passport =require('passport');
 var srouter = require('./socket/socket_nsp');
 var zip = require('./file/zip')
-var stdin = process.stdin;
 global.nsps = [];
 var app = express();
 
-
-
-//입력받기
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding("utf8");
 
 global.addFileNsp = function (ident){
   nsps.push(srouter(io, "room" + ident));
@@ -43,20 +36,6 @@ connection.connect(function(err){  //db 연결
     }
   });
   setInterval(()=>{connection.query('select 1');}, 5000)
-});
-
-stdin.on('data', function(key){
-  if (key === 'g'){
-    for(var i of nsps){
-      console.log(i.name + '-' +Object.keys(i.connected).length);
-    }
-  }
-  else if(key === 's'){
-    process.exit(1);
-  } else if (key === 'r'){
-    console.log(rooms)
-  }
-  
 });
 
 
