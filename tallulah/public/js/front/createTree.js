@@ -19,9 +19,7 @@ makeTree.prototype.makeDefault = function () {
             var li = $("<li />");
             li.html(project.project_name);
             li.attr("project_ident", project.project_ident);
-            console.log(li);
             $(".chat-list ul").append(li);
-            console.log("test");
         }
 
     for (var i = 0; i < projects.length; i++) {
