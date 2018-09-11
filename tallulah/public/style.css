@@ -409,6 +409,10 @@ input[placeholder="SEARCH PROJECT"]{
   background-color: red;
 }
 
+.tree li{
+  font-size: 17px;
+}
+
 .tree-title:hover{
   cursor:pointer;
   background: lightgray;
