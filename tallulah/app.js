@@ -45,10 +45,6 @@ var loginRouter = require('./routes/login');
 var projectRouter = require('./routes/project');
 var directoryRouter = require('./routes/directory');
 var fileRouter = require('./routes/file');
-// view engine setup
-app.set('views', __dirname + '/public');
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
 
 app.use(session({ //세션정보를 저장 
   secret : 'asdl*&%^JKasdfs#$%^*dDqewtyu[jbv',  //secret - 세션을 암호화하는 salt이다. 주기적으로 변경하자.
