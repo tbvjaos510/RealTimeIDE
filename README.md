@@ -1,4 +1,4 @@
-# DGSW-tallulah
+# RealTime IDE
 [대구소프트웨어고등학교](http://www.dgsw.hs.kr/index.do) 2018학년도 2학년 1학기 나르샤 프로젝트입니다.
 
 ## 사용 언어
@@ -12,6 +12,3 @@
 **상희**, **형진** - Server(node)
 
 **경빈**, **준재**, **성혁** - Front(html, javascript, css)
-<p align="center">
- <img src="http://img.insight.co.kr/static/2018/01/29/700/ff811f33s2psph9093g7.jpg"></img>
-</p>
