@@ -1,6 +1,8 @@
 # RealTime IDE
 [대구소프트웨어고등학교](http://www.dgsw.hs.kr/index.do) 2018학년도 2학년 1학기 나르샤 프로젝트입니다.
 
+여기 사용된 실시간 코딩 기술은 [monaco-editor-socket-io](https://github.com/tbvjaos510/monaco-editor-socket-io)에 따로 정리했습니다.
+
 ## 사용 언어
 * html, javascript, css (front)
 * node.js (server)
